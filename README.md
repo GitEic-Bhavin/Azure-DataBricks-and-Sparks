@@ -501,3 +501,66 @@ You will learn how to:
 
 * Restrict large VM usage
 * Force auto-termination
+
+---
+
+In databricks, compute refers to a cluster of vm.
+
+In a cluster, there is a `Driver Node` that orchestrates the tasks and *One or More Worker Nodes** that perform the actual data processing like `ETL` Together.
+
+![alt text](cluster.png)
+
+- These nodes allow databricks clusters tor run various workloads such as `ETL`, `Data science tasks` and `Machine Learning Apps`.
+
+
+![alt text](dbarch.png)
+
+- Databricks offers 2 types of computes, 
+ 
+1. Serverless compute plane
+2. Classic compute plane
+
+`Serverless Compute` is available on demand and managed by Databricks, whereas the `Classic Compute` is configured and provisions by the user.
+
+`Serverless Compute` is a fully managed service which databricks provisions and manages and compute resources are provisions in databricks cloud account.
+
+Databricks keeps a pool of VM available for the cluster, so the cluster starts immediatly.
+
+Datarbricks configures the cluster with the latest runtime available and scales the cluster up and down using the intelligence from AI models.
+
+Once the task completes, Databricks automatically release the resources back to the pool and customers will only charged for the durations of the cluster was up and running.
+
+`Classic Compute` is totally controlled by the user.
+We nned to configure and manage the cluster, and we have total control over 
+
+  - which version of the software to use, 
+  - what kind of compute nodes we want to create the cluster with, 
+  - How many nodes we want to allocate and 
+  - the size of them VM etc
+
+**Classic Compute Types**
+
+**1. All Purpose**
+
+- Created manually via GUI, CLI or API
+
+- This cluster are persistance and they can be terminated and restarted at any point in time.
+
+- Suitable for `Interactive` and `ad hoc analytical workloads`.
+
+- Can be **Shared with many users** and They are good for collaborative analysis.
+
+- More Expensive compaire to the Job Cluster.
+
+**2. Job Cluster**
+
+- Will created while automated job starts to execute and the job has been configured to use a job cluster
+
+- Job clusters are terminated at the end of the job.
+- They can't be restarted, so they are no longer usable once the job has completed.
+
+- Suitable for `Automated workloads` such as Running an ETL pipeline or ML Workload.
+
+- Are Isolated just for the job being executed.
+
+- Cheaper to execute.
