@@ -564,3 +564,236 @@ We nned to configure and manage the cluster, and we have total control over
 - Are Isolated just for the job being executed.
 
 - Cheaper to execute.
+
+
+## Cluster COnfigurations
+
+**1. Multi-Node Cluster**
+
+- One Driver node (the boss) and one or more Worker nodes (the laborers).
+
+- **Use case**: Production-level work or huge datasets.
+
+- **Power**: The Driver splits up the work and sends it to Workers to run in parallel.
+
+
+**2. Single Node Cluster**
+
+- There is only single **Driver Node** and **No any of Worker Node there**.
+- There is a lack of worker node.
+- Still it supports spark workloads and the same node acts as both Driver/Master and Worker nodes.
+
+- It Can't be act Horizontally scaled, making it unsuitable for large scale ETL workloads.
+
+- Single node clusters are desinged for `lightweight machine learning ` and `data analysis tasks` that don't required distributed computing.
+
+- Single node clusters are Incompatible with process isolations and are not intended for shared usage among multiple users or workloads.
+
+- To avoid these kind of conflicts, databricks always recommends using `multi-node clusters` when `shared compute is required`.
+
+**Access Mode (Security)**
+
+- This determines who is allowed to "sit in the driver's seat" and how much they can see.
+
+| Mode | Users | Key Feature |
+| ---- | ----- | ----------- |
+| Single User | 1 Person | "Supports Python, SQL, Scala, and R." |
+| Shared | Multiple | Process Isolation: Users can't peek at each other's data or code. Highly secure. |
+| No Isolation | Multiple | "No ""walls"" between users. If one user crashes the system, everyone feels it." |
+
+**Runtime (The Brain's Software)**
+
+- The "Runtime" is the set of libraries pre-installed on the cluster.
+
+- **Databricks Runtime**: Standard libraries for data engineering and SQL.
+
+- **Databricks Runtime ML**: The "Scientist" version. It comes pre-loaded with PyTorch, TensorFlow, and XGBoost.
+
+- **Photon Acceleration**: A toggle switch to make queries run up to 8x faster by using a specialized C++ engine.
+
+
+**Configure Cost Controls (Saving Money)**
+
+- Azure charges you for every minute the cluster is "on," so these settings are critical:
+
+- **Auto-Termination**: Set a timer (e.g., 20 minutes). If no one is using the cluster, it automatically turns off.
+
+- **Auto-Scaling**: You give Databricks a range (e.g., 2 to 10 workers). It will add workers when the job is hard and remove them when it's easy.
+
+- **Spot Instances**: Use Azure’s "spare" computers for worker nodes. They are much cheaper but can be taken back by Azure if someone else pays full price.
+
+
+
+
+**Pick the Hardware (VM Types)**
+**Auto Scaling**
+
+- Different tasks require different types of virtual machines (VMs).
+
+  - **Memory Optimized**: For caching huge datasets or complex joins.
+
+  - **Compute Optimized**: For high-speed streaming data.
+
+  - **Storage Optimized**: For tasks that need to read/write to the disk constantly.
+
+  - **GPU Accelerated**: Specifically for deep learning and heavy AI training.
+
+  - **General Purpose**: A balanced middle-ground for most daily tasks.
+
+
+**Apply Policies (The Guardrails)**
+
+- If you are an administrator, you don't want your team accidentally spending $1,000 in a day. Cluster Policies allow you to:
+
+  - Limit the size of the clusters users can create.
+
+  - Force Auto-Termination to stay at a low number.
+
+  - Lock the Runtime version so everyone uses the same tools.
+
+
+Create Databick Cluster
+---
+
+Go to Databircks > Computes > Create computes
+
+Turn Off - Simple Form, You will configured manually whole things
+
+Choose Policy Unrestricted
+
+Choose Single Node
+
+Choose Access Mode as `Dedicated` for single user for testing and select `Your name` as single user.
+
+Select Performance Databricks runtime versions - LTS
+
+Unselect `Use photon accelerations`.
+
+Select Node typs - General Purpose which is smallest size for testing
+
+Tick box `Terminates after 120 minutes of inactivity` to help to auto delete cluster if no activity detect
+
+![alt text](crclst1.png)
+
+
+
+Cluster Pool
+---
+
+# 🚀 Azure Databricks Cluster Pools – Complete Guide
+
+This README is your **master reference** for understanding Azure Databricks **Cluster Pools** and how to balance **performance ⚡ and cost 💸**.
+
+# ☕ The Coffee Shop Analogy
+
+To understand Cluster Pools, imagine a coffee shop:
+
+### 🟡 Without Pool (Standard Cluster)
+
+* Machine is OFF
+* Beans not ready
+* Setup takes time
+
+⏱️ Wait Time: **5–10 minutes**
+
+### 🟢 With Cluster Pool
+
+* Machine already ON
+* Beans already prepared
+
+⏱️ Wait Time: **~1 minute**
+
+👉 **Conclusion:** Pools reduce cluster startup time significantly
+
+# ⚙️ How Cluster Pools Work
+
+A Cluster Pool is a **collection of pre-started Virtual Machines (VMs)** ready to be used.
+
+### 🔄 Flow
+
+1. Pool keeps some VMs in idle (ready state)
+2. When cluster starts → it takes VM from pool
+3. If more power needed → more VMs pulled instantly
+4. Pool replaces used VMs to maintain minimum level
+
+# 📋 Key Configuration Settings
+
+| Setting            | Meaning                    | Importance                        |
+| ------------------ | -------------------------- | --------------------------------- |
+| Min Idle Instances | Minimum always-running VMs | Faster startup but costs money 💸 |
+| Max Capacity       | Maximum VMs allowed        | Controls scaling                  |
+| Preloaded Runtime  | Pre-installed software     | Faster startup                    |
+| Auto-Termination   | Idle VM shutdown timer     | Saves cost                        |
+
+# 💰 Cost Model (VERY IMPORTANT)
+
+Cluster Pools have **two types of cost**:
+
+| Cost Type     | Idle VMs (Pool) | Active Cluster VMs |
+| ------------- | --------------- | ------------------ |
+| Azure VM Cost | 💰 YES          | 💰 YES             |
+| DBU Cost      | ✅ FREE          | 💰 YES             |
+
+## ⚠️ Important Warning
+
+👉 If **Min Idle = 1**
+
+* That VM runs 24/7
+* You are charged continuously
+
+# ⚖️ Trade-Off: Speed vs Cost
+
+| Priority     | Recommendation    |
+| ------------ | ----------------- |
+| Fast startup | Increase Min Idle |
+| Low cost     | Set Min Idle = 0  |
+
+👉 You must balance both
+
+# 🎓 Recommended Setup (For Students / Budget Users)
+
+Use this configuration to get **best balance**:
+
+```
+Min Idle Instances        → 0
+Max Capacity              → 2 or 3
+Auto-Termination (Idle)   → 30–60 mins
+Preloaded Runtime         → Enabled
+```
+
+## ✅ Benefits of This Setup
+
+* 💸 Zero cost when not in use
+* ⚡ Faster restart within short time
+* 🔄 Automatic scaling within limits
+
+# 🧠 Real Usage Scenario
+
+1. Start cluster → VM taken from pool
+2. Finish work → cluster stopped
+3. VM stays warm for 30–60 mins
+4. Restart quickly if needed
+5. Auto shuts down if unused
+
+# ⚠️ Common Mistakes
+
+❌ Setting Min Idle > 0 unnecessarily
+❌ High Max Capacity → unexpected cost
+❌ Forgetting auto-termination
+
+# 🎯 When to Use Cluster Pools
+
+Use Pools when:
+
+* Frequent cluster start/stop
+* Need faster startup
+* Team/shared environments
+
+Avoid Pools when:
+
+* Rare usage
+* Strict budget constraints
+
+# 🧠 Key Takeaway
+
+👉 **Cluster Pool = Faster Start ⚡ but potential cost 💸**
