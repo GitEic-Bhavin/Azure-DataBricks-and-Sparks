@@ -366,3 +366,138 @@ When you run a notebook:
 | Data Storage       | Your Azure (ADLS)          |
 | Serverless Compute | Databricks                 |
 
+
+---
+
+# 🚀 Azure Databricks Clusters – Learning Guide
+
+This README is a **pre-learning guide** to help you clearly understand what you will learn in the upcoming section about **Databricks Clusters**.
+
+---
+
+# 🎯 What You Will Learn
+
+In this section, you will build a **strong foundation around Databricks Clusters**, which are the core compute resources used to run your data workloads.
+
+By the end, you will be able to:
+
+* Understand what a cluster is
+* Choose the right cluster type
+* Configure clusters correctly
+* Control and estimate costs
+* Use advanced features like cluster pools and policies
+
+# 🧠 1. What is a Databricks Cluster?
+
+A **Databricks Cluster** is a group of virtual machines (VMs) that work together to:
+
+* Run Spark jobs
+* Process data
+* Execute notebooks
+
+👉 Think of it as the **engine that runs your code**.
+
+# 🔥 2. Types of Clusters
+
+You will learn about the two main types:
+
+### 🟡 All-Purpose Cluster
+
+* Used for:
+
+  * Development
+  * Interactive work (notebooks)
+* Shared by multiple users
+
+### 🟢 Job Cluster
+
+* Used for:
+
+  * Automated jobs
+  * Pipelines
+* Created and deleted automatically
+
+👉 Key difference: **Interactive vs Automated usage**
+
+# ⚙️ 3. Cluster Configuration (Very Important)
+
+You will explore how to configure clusters based on workload.
+
+### 🔹 Key Configurations:
+
+* Node type (VM size)
+* Number of workers
+* Auto-scaling
+* Runtime version (Spark version)
+* Access mode
+* Auto-termination
+
+👉 You will also learn:
+
+* How to choose **right config for performance + cost**
+
+# 🛠️ 4. Hands-On: Creating a Cluster
+
+You will:
+
+* Create a cluster for your project
+* Configure it based on requirements
+* Run workloads on it
+
+👉 This is where theory becomes practical
+
+# 💸 5. Cluster Pricing (Critical Topic)
+
+Databricks pricing includes:
+
+* **DBU (Databricks Units)** → Platform cost
+* **VM Cost (Azure)** → Compute cost
+
+👉 Total Cost = DBU + VM
+
+You will learn:
+
+* How pricing works
+* Why cost can increase quickly
+
+# 💡 6. Cost Optimization (Must Know)
+
+You will learn how to:
+
+* Use auto-termination
+* Select smaller clusters
+* Avoid idle clusters
+* Estimate cost for your project
+
+👉 This is **very important for real-world + org accounts**
+
+# ⚡ 7. Cluster Pools (Advanced – Optional)
+
+### 🔹 What are Cluster Pools?
+
+* Pre-created VMs
+* Reduce cluster startup time
+
+### 🔹 Benefits:
+
+* Faster cluster creation
+* Better resource management
+
+👉 Used mostly by admins, but important to understand
+
+# 🛡️ 8. Cluster Policies (Advanced – Optional)
+
+### 🔹 What are Cluster Policies?
+
+* Rules that control how clusters are created
+
+### 🔹 Benefits:
+
+* Enforce best practices
+* Limit cost usage
+* Improve user experience
+
+👉 Example:
+
+* Restrict large VM usage
+* Force auto-termination
