@@ -1078,3 +1078,16 @@ print(f"Total Files: {file_count}")
 
 ![alt text](progdbutils.png)
 
+Import DBC files
+---
+
+Databricks allows us to import files and workspace from your pc to databricks.
+
+- Go to Notebook/workspace 
+- Look for Import and click it
+- It will ask for file and URL.
+- If you have files on your pc select files or URL
+- Once Import it will look like this
+
+![alt text](importdbc.png)
+
