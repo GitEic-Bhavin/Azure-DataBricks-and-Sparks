@@ -928,3 +928,153 @@ Policies act as a template or a filter for the Cluster Creation UI. They provide
 - It will populate all settings into your compute.
 
 ![alt text](clpolicy.png)
+
+
+Notebook Intro
+---
+
+Go to Workspace > Users > Create folder > Create Notebook.
+
+- To use notebook We will required to attach notebook to our Compute Cluster.
+
+- Create cluster.
+- Connect Notbook to this cluster by click on connect on top or right.
+
+- Default language is Pythons.
+- You can choose Other language in any of your cell of notebooks.
+
+![alt text](cl.png)
+
+Magic Commands
+---
+
+They allow you to switch languages, manage files, or install libraries without leaving your current cell.
+
+Magic commands always start with a percent sign:
+
+**Line Magics (%)**: Apply only to a single line of code.
+
+**Cell Magics (%%)**: Apply to the entire cell. (Note: In Databricks, most commands use a single % even for the whole cell).
+
+| Command | Purpose | Example |
+| ------- | ------- | ------- |
+| %md | "Renders Markdown (text, headings, lists) for documentation. | ",%md # My Analysis |
+| %sql | Runs SQL code inside a Python or Scala notebook. | %sql SELECT * FROM users |
+| %python | Switches the cell language to Python. | "%python print(""Hello"")" |
+| %pip | Installs libraries directly to your cluster. | %pip install pandas |
+| %run | Executes another notebook and imports its functions. | %run ./Shared/CommonUtils |
+| %fs | Accesses the Databricks File System (to see files). | %fs ls /databricks-datasets |
+
+```bash
+%sh # for Shell 
+ps 
+```
+
+![alt text](sh.png)
+
+```bash
+%fs /
+```
+
+![alt text](fs.png)
+
+- Install Python Lib
+
+```bash
+%pip install faker
+```
+
+![alt text](pip.png)
+
+- Import Another notebook into current notebook.
+
+- Create `2.1 Env Vars` Notebook and paste this content for testing
+
+
+```python
+import os
+import platform
+
+def print_evn_info():
+  print(f"Python Version: {platform.python_version()}")
+
+  runtime_version = os.environ.get("DATABRICKS_RUNTIME_VERSION", "Unknown")
+
+  print(f"Databricks Runtime Version: {runtime_version}")
+
+```
+
+- Copy Full Path of this notebook and come back to notebook where you want to copy
+
+```bash
+%run "Your Full Path URL of 2.1 Notebook"
+```
+
+Databricks Utilities
+---
+
+- Databricks utilities make it easier to combine diff types of tasks in a single notebook.
+
+- They allow us to combine `File Ops` with `ETL` tasks.
+
+- They are great for quick tasks, dbutils allows you to perform those same tasks like magic commands inside your actual code (Python or Scala) using variables and logic.
+
+- They can't be run from a SQL cell.
+
+  **1. File System Utilities**
+  - Allow us to access Databricks File system from a notebook, and you can use various File Ops
+
+  **2. Secrets Utilities**
+  - Secrets utilities allow you to pull sensitive information from a "Vault" (Azure Key Vault).
+
+  **3. Widget Utilities**
+
+  - Widgets are interactive components like dropdowns, text boxes, or checkboxes that appear at the top of your notebook.
+
+  - They allow you to parameterize your code.
+
+  - Scenario: You build one notebook to clean data, and use a widget so the user can select which "Month" or "Region" to clean without changing the code.
+
+**Hands-On Practices**
+
+- We will use `dbutils` instead of magic commands %fs /
+
+- dbutils.magic_commnads_flag.Your_commands('File_Path')
+
+
+```bash
+dbutils.fs.ls('/')
+```
+
+![alt text](dbutilfs.png)
+
+- To print in a tabular formate, use **display**
+
+```bash
+display(dbutils.fs.ls('/'))
+```
+
+![alt text](displaydbu.png)
+
+### What is difference between Magic Commands and dbutils ?
+
+- **Magic Commands** is usefull for quick ad hoc file system queries
+
+- **dbutils** is useful for Programmatic tasks.
+
+- Lets save dbutils command in a variables `items` and use in python code.
+
+```python
+items = dbutils.fs.ls('/databricks-datasets/')
+
+folder_count = len([item for item in items if item.name.endswith("/")])
+
+file_count = len([item for item in items if not item.name.endswith("/")])
+
+print(f"Total Folders: {folder_count}")
+
+print(f"Total Files: {file_count}")
+```
+
+![alt text](progdbutils.png)
+
