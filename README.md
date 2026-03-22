@@ -1091,3 +1091,216 @@ Databricks allows us to import files and workspace from your pc to databricks.
 
 ![alt text](importdbc.png)
 
+Access Azure Data Lake Storage
+---
+
+- Databricks uses Azure Data Lake Storage Gen2 for Storage Sol.
+
+- We can authenticate this storage by multiple way
+  
+  - 1. Storage Access Keys
+  - 2. Shared Access Stignrature SAS Token - For Granual level access
+  - 3. Service Principle
+    
+    - We can create Service Principle and give the required access for the data lake to the service principle.
+
+
+We have 2 scope level to authenticate Storage sols by using credentials.
+
+**1. Session Scoped Authentications**
+
+- We will use these creds in the notebook and authenticate to the data lake.
+
+- Authentication will valid untill notebook has benn detached from cluster.
+
+**2. Cluster Scoped Authentications**
+
+- Use these creds in the cluster and authenticate form the cluster
+
+- Authentication will happens when the cluster starts and it will valid until the cluster has been terminated.
+
+- All the notebooks connected to this cluster will have access to the data.
+
+**3. Azure Active Directory Authentications**
+
+- We just need to enabled the cluster to use Azure AD Pass through authentications.
+
+- Whenever a user runs a notebook,  the cluster will use the user's Azure AD creds and look for the role that user's has been assigned to the Azure Data Lake Storage using IAM 
+
+- If the user has access to the storage account , it will allow to access the storage account.
+
+
+- **Azure AD Authentications is only available on Premium workspace**.
+
+**4. Unity Catelog**
+
+- Administrator can define the access permissions for a user using the Databricks Unity Catelog.
+
+- Whenever user trying to access the storage account, the cluster will check for the user's access in the `Unity Catelog`.
+
+- If the user has the required permissions, it will allow the user to acess the storage account.
+
+- **Unity Catelog Authentications is only available on Premium workspace**.
+
+
+Access Azure Storage Data Lake to Databricks
+---
+
+
+## 1. Access Keys (The "Master Keys")
+When you create an Azure Storage Account, Azure gives you two **Access Keys**. 
+
+* **Total Power:** Having this key is like being the "Owner." Someone with this key can read, delete, or change anything in your storage.
+
+* **Security Warning:** As a beginner, it is okay to paste these in your code for practice, but in a real job, you **must** hide them in an **Azure Key Vault** so people can't see them in your notebooks.
+
+## 2. The Spark Configuration (The "Handshake")
+To make the connection, you have to tell Spark (the engine behind Databricks) which key to use for which storage account. You do this with a specific configuration line in your notebook.
+
+**The formula looks like this:**
+`spark.conf.set("fs.azure.account.key.<storage-account-name>.dfs.core.windows.net", "<your-512-bit-key>")`
+
+* **`fs.azure.account.key`**: This tells Spark, "I am giving you a key."
+* **`<storage-account-name>.dfs.core.windows.net`**: This is the "Endpoint." It tells Spark exactly which storage account the key belongs to.
+
+## 3. The ABFS Driver (The "Language")
+In the past, people used `http://` to find files. But for Big Data, Microsoft created a special "driver" called **ABFS** (Azure Blob File System). It is much faster and more secure for moving massive amounts of data.
+
+To find a file using this driver, you use a special **URI (Unique Resource Identifier)**.
+
+![alt text](abfs.png)
+
+### Breaking down the URI:
+The address follows this exact pattern:
+**`abfss://<container-name>@<storage-account-name>.dfs.core.windows.net/<folder-path>/<file-name>`**
+
+* **`abfss`**: The "s" at the end stands for **Secure**. It ensures your data is encrypted while it travels between Azure and Databricks. Always use the "s"!
+* **`@`**: This separates the container name from the storage account name.
+* **`.dfs.`**: Remember our previous talk about the "Hierarchical Namespace"? The "dfs" part is what tells Azure you are using the Data Lake features (folders), not just standard blob storage.
+
+## 💻 Practice Example
+If you have a container named `raw-data` and a storage account named `mystudydata`, your code to list the files would look like this:
+
+```python
+# 1. Set the configuration (The Handshake)
+spark.conf.set(
+    "fs.azure.account.key.mystudydata.dfs.core.windows.net", 
+    "PASTE_YOUR_LONG_512_BIT_KEY_HERE"
+)
+
+# 2. Define the path (The Address)
+my_path = "abfss://raw-data@mystudydata.dfs.core.windows.net/"
+
+# 3. Use Databricks Utilities to see the files
+display(dbutils.fs.ls(my_path))
+```
+
+### Summary for Beginners:
+1.  **Get the Key** from the Azure Portal (Access Keys tab).
+2.  **Set the Config** in your first notebook cell.
+3.  **Use the `abfss` path** to read your data.
+
+
+**Hands-On Practices**
+
+## Authenicate by using SA Access Key
+
+- Create Storage Account.
+- Create containers 
+  - raw,
+  - processed,
+  - presentations,
+  - demo
+
+- Upload `circuits.csv` in demo containers.
+
+- Go to Notebook and allow spark configurations using your SA Access Key
+
+```python
+# Set spark confing by using access key
+spark.conf.set("fs.azure.account.key.databricksabhavin1.dfs.core.windows.net", "Your_Acces_Key_Here")
+
+dbutils.fs.ls("abfss://demo@databricksabhavin1.dfs.core.windows.net")
+```
+
+- To read csv file directly on the Notebook
+
+```python
+display(spark.read.csv("abfss://demo@databricksabhavin1.dfs.core.windows.net"))
+```
+
+![alt text](readcsv.png)
+
+## Authenticate databricks by SAS TOKENS
+
+```python
+spark.conf.set("fs.azure.account.auth.type.<storage_account>.dfs.core.windows.net", "SAS")
+
+spark.conf.set("fs.azure.sas.token.provider.type.<storage_account>.dfs.core.windows.net", "org.apache.hadoop.fs.azurebfs.sas.FixedSASTokenProvider")
+
+spark.conf.set("fs.azure.sas.fixed.token.<storage_account>.dfs.core.windows.net", <>"TOKEN_HERE">)
+```
+
+| Configuration Line | What it tells Spark | Analogy |
+| ------------------ | ------------------- | ------- |
+| Line 1: Auth Type | """I am not using a password or an ID card. I am using a SAS Token.""" | "Telling the guard: ""I have a temporary guest pass.""" |
+| Line 2: Provider Type | """I am giving you a static (Fixed) token string that I typed in myself.""" | "Telling the guard: ""My pass is this piece of paper in my hand.""" |
+| Line 3: Fixed Token | """Here is the actual string of characters for the token.""" | Handing the paper to the guard to scan. |
+
+
+- Now list file
+
+```python
+display(dbutils.fs.ls("abfss://databricksabhavin1.dfs.core.windows.net"))
+```
+
+- Read file
+
+```python
+display(spark.read.csv("abfss://databricksabhavin1.dfs.core.windows.net/circuits.csv"))
+```
+
+![alt text](rcsas.png)
+
+## Authenicate databricks by Service Priciple
+
+![alt text](sparch.png)
+
+```python
+# 1. Define your variables (Use Secrets for the Client Secret!)
+client_id = "<your-service-principal-client-id>"
+tenant_id = "<your-azure-tenant-id>"
+client_secret = dbutils.secrets.get(scope="<your-scope>", key="<your-secret-name>")
+storage_account = "databricksabhavin1"
+
+# 2. Set the 5 Mandatory Spark Configurations
+spark.conf.set(f"fs.azure.account.auth.type.{storage_account}.dfs.core.windows.net", "OAuth")
+
+spark.conf.set(f"fs.azure.account.oauth.provider.type.{storage_account}.dfs.core.windows.net", "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider")
+
+spark.conf.set(f"fs.azure.account.oauth2.client.id.{storage_account}.dfs.core.windows.net", client_id)
+
+spark.conf.set(f"fs.azure.account.oauth2.client.secret.{storage_account}.dfs.core.windows.net", client_secret)
+
+spark.conf.set(f"fs.azure.account.oauth2.client.endpoint.{storage_account}.dfs.core.windows.net", f"https://login.microsoftonline.com/{tenant_id}/oauth2/token")
+```
+
+| Configuration Line | What it tells Spark |
+| ------------------ | ------------------- |
+| Auth Type | """We are using OAuth protocol | not a simple key.""" |
+| Provider Type | """Use the Client Credentials method to handle my ID card.""" |
+| Client ID | """This is the Application ID for my Service Principal.""" |
+| Client Secret | """This is the Password for my Service Principal.""" |
+| Endpoint | """This is the Login URL for my specific Azure Tenant.""" |
+
+- Now we have Service Pricipal , SA .
+- Now we would have to Assign Role `Storage blob data contributor` to the data lake to our service principal.
+
+- To assign role ,
+
+  - Go to SA > IAM > Add role > search for `Storage blob data contributor`.
+
+  - Assign Access to `Service Principal` > Select SP.
+
+  ![alt text](addrolesp.png)
+
