@@ -797,3 +797,134 @@ Avoid Pools when:
 # 🧠 Key Takeaway
 
 👉 **Cluster Pool = Faster Start ⚡ but potential cost 💸**
+
+
+
+DataBricks Cluster Policy
+---
+
+![alt text](dbcpolicy.png)
+
+# Databricks Cluster Policies Guide
+
+## 📖 Overview
+
+Cluster Policies are a set of rules used by administrators to limit the configuration options available to users when they create clusters. Think of them as "Guardrails" that ensure users create clusters that are cost-effective, secure, and standardized.
+
+## ❓ The Problem: Why do we need Policies?
+
+Creating a cluster in Databricks manually is complex. Without a policy, a user might:
+
+* Accidentally incur high costs: Selecting a massive machine (node) for a small task.
+* Waste Resources: Forgetting to turn on "Auto-Termination," leaving a cluster running (and billing) overnight.
+* Configuration Errors: Choosing a Databricks Runtime version that is incompatible with the team's code.
+* Security Risks: Misconfiguring access or network settings.
+
+## ✅ The Solution: What Policies Do
+
+Policies act as a template or a filter for the Cluster Creation UI. They provide four main functions:
+
+| Function     | Description                                                                                     |
+| ------------ | ----------------------------------------------------------------------------------------------- |
+| Hide Options | Removes complex or unnecessary settings from the UI to make it simpler for beginners.           |
+| Fix Values   | Hardcodes specific settings (e.g., "The Runtime must be 13.3") so the user cannot change them.  |
+| Set Defaults | Pre-fills fields with recommended values (e.g., "Auto-terminate after 20 minutes").             |
+| Limit Ranges | Restricts choices to a specific set (e.g., "User can only pick nodes with 8GB to 32GB of RAM"). |
+
+## 🛠️ How it Works (The Workflow)
+
+1. **Admin Creation**: An administrator defines the policy using a JSON-based set of rules.
+2. **Permission Assignment**: The admin grants "Use" permission to specific users or groups.
+3. **User Selection**: When a user clicks "Create Cluster", they see a Policy Dropdown.
+4. **Simplified UI**: Once a policy is selected, the UI dynamically updates to show only the allowed options.
+
+## 💰 Requirements & Cost
+
+* **Premium Tier Only**: Cluster policies are only available for Databricks workspaces created in the Premium Tier.
+* **Governance Tool**: They are primarily used for "Governance"—balancing the freedom of the user to do their work with the company's need to control the cloud bill.
+
+## 💡 Key Takeaways for Beginners
+
+* **Empowerment**: Policies allow standard users to create their own clusters without needing an admin to approve every single request.
+* **Standardization**: Every cluster created under a "Data Science Policy" will look and act the same, making it easier to share code and collaborate.
+* **Safety Net**: You don't have to worry about "breaking" the budget; the policy won't let you pick an option that is too expensive.
+
+
+
+## Hands-On Practices
+
+- Go to Databricks > compute > Policies
+
+![alt text](cspc.png)
+
+- Here default 4 policies are created by databricks.
+
+- You can also create a new cluster policy as per your requirement.
+
+**Requirement of Cluster Policy**
+
+1. Policy - Unrestricted
+2. Single Node Cluster
+3. Databrick Runtime Version - Latest - LTS 17.3 (Scala 2.13, Spark 4.0.0)
+4. Node Type 
+  
+  - General Purpose - Standard_DS3-v2
+  - General Purpose HDD - Standard_D3_V2
+
+5. Terminate after 20 minutes of inactivity.
+
+
+
+- Create Cluster Policy > Name of policy > Family select - Custome
+
+- Write Definitions
+
+```json
+
+// {
+//   "spark_version": { 
+//     "type": "fixed", 
+//     "value": "auto:latest-lts", "hidden": true 
+//     }
+// }
+
+{
+  "spark_conf.spark.databricks.cluster.profile": {
+    "type": "fixed",
+    "value": "singleNode",
+    "hidden": true
+  },
+
+  "driver_node_type_id": {
+    "type": "allowlist",
+    "values": [
+      "Standard_DS3_v2",
+      "Standard_D3_v2"
+    ],
+    "defaultValue": "Standard_DS3_v2"
+  },
+
+  "autotermination_minutes": {
+    "type": "fixed",
+    "value": 20
+  },
+
+  "spark_version": { 
+  "type": "fixed", 
+  "value": "auto:latest-lts", "hidden": true 
+  },
+
+  "cluster_type": {
+    "type": "fixed",
+    "value": "all-purpose"
+  }
+}
+```
+
+- Create it
+
+- Try to Create Compute Resource > Select this policy
+
+- It will populate all settings into your compute.
+
+![alt text](clpolicy.png)
