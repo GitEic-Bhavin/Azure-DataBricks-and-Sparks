@@ -1972,3 +1972,65 @@ Provides:
 
  df_agg.write.mode("overwrite").parquet("/mnt/gold/sales")
 ```
+
+# 🏎️ Formula 1 Databricks Project
+
+## 📌 Overview
+
+This project uses Formula 1 (F1) racing data to learn how to work with real-world datasets in Azure Databricks.
+
+The focus is on:
+
+* Understanding data structure
+* Handling multiple file formats
+* Preparing data for analytics
+
+## 🧠 Basic Concept
+
+* A **Season** happens every year
+* Each season has multiple **Races**
+* Each race:
+
+  * Happens on a **Circuit (track)**
+  * Has **Drivers (players)**
+  * Drivers belong to **Constructors (teams)**
+
+## 📊 Main Tables
+
+| Table        | Description                         |
+| ------------ | ----------------------------------- |
+| circuits     | Race locations                      |
+| races        | Race details                        |
+| drivers      | Driver information                  |
+| constructors | Team details                        |
+| results ⭐    | Final race results (most important) |
+| qualifying   | Starting positions                  |
+| pit_stops    | Tyre change events                  |
+| lap_times    | Time per lap                        |
+
+## 🔗 Data Relationship (Simplified)
+
+```
+Season → Races → Results → Driver + Constructor
+```
+
+Example:
+
+* 2023 Season → Monaco Race → Driver A → Ferrari → Position 1
+
+## 📁 File Types Used
+
+| File Type          | Description                               |
+| ------------------ | ----------------------------------------- |
+| CSV                | Simple tabular data                       |
+| JSON (single-line) | One record per line                       |
+| JSON (nested)      | Contains inner objects (needs flattening) |
+| Multi-line JSON    | Requires special handling in Spark        |
+
+## ⚙️ What You Will Learn
+
+* Reading CSV and JSON in Spark
+* Handling nested and multi-line JSON
+* Data transformation and cleaning
+* Joining related datasets
+* Preparing analytics-ready data
