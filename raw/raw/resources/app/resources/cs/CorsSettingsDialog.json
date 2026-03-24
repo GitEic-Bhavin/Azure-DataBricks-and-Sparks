@@ -1,0 +1,17 @@
+{
+  "MessageNewRuleInstructions": "Více hodnot oddělte čárkami. Všechna pole jsou povinná.",
+  "LabelRulesList": "Seznam pravidel",
+  "TitleCorsSettings": "Nastavení CORS",
+  "MessageCorsSettingsDescription": "Pravidla sdílení prostředků mezi zdroji umožňují klientům přistupovat k prostředkům z jakékoli autorizované webové domény. Je možné zadat až pět pravidel CORS.",
+  "ButtonAdd": "Přidat",
+  "ButtonEdit": "Upravit",
+  "ButtonDelete": "Odstranit",
+  "InfoRulesLimitReached": "Dosáhlo se maximálního počtu pravidel. Aby bylo možné přidat nové pravidlo, bude potřeba odstranit stávající pravidla.",
+  "LabelAllowedOrigins": "Povolené původy:",
+  "LabelAllowedMethods": "Povolené metody:",
+  "LabelAllowedHeaders": "Povolené hlavičky:",
+  "LabelExposedHeaders": "Zveřejněné hlavičky:",
+  "LabelMaxAge": "Maximální stáří (v sekundách):",
+  "TitleEditCorsRule": "Upravit pravidlo CORS",
+  "TitleAddCorsRule": "Přidat pravidlo CORS"
+}

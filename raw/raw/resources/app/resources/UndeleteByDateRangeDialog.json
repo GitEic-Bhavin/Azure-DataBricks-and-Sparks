@@ -1,0 +1,13 @@
+{
+    "ButtonUndelete": "Undelete",
+    "EndDateLabel": "End date:",
+    "InvalidEndTimeTooltip": "Please provide a valid end time.",
+    "InvalidEndTimeGreaterThanStartTimeTooltip": "The end time must be greater than the start time.",
+    "InvalidStartTimeTooltip": "Please provide a valid start time.",
+    "MainText": "Select which blobs to undelete by specifying a date range. Blobs that are deleted within this date range will be undeleted.",
+    "TimeZoneLabel": "Time zone:",
+    "TitleLabel": "Undelete Blobs by Date",
+    "StartDateLabel": "Start date:",
+    "UseLocalOption": "Local",
+    "UseUTCOption": "UTC"
+}

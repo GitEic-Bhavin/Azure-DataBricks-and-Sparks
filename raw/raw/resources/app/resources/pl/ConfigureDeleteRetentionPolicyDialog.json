@@ -1,0 +1,9 @@
+{
+  "ErrorRetentionDaysOutOfRange": "Liczba dni przechowywania musi być prawidłową liczbą całkowitą z zakresu od 1 do 365.",
+  "LabelDisableSoftDelete": "Wyłącz usuwanie nietrwałe",
+  "LabelEnableSoftDelete": "Włącz usuwanie nietrwałe",
+  "LabelRetentionDays": "Przechowywanie (dni):",
+  "LinkWhatIsSoftDelete": "Co to jest usuwanie nietrwałe?",
+  "MessageSoftDelete": "Gdy usuwanie nietrwałe jest włączone, usunięte obiekty blob i migawki pozostaną zapisane przez okres przechowywania, w trakcie którego będą mogły zostać odzyskane. Ustawienie nowych zasad może potrwać do 30 sekund.",
+  "TitleConfigureSoftDeletePolicy": "Konfigurowanie zasad usuwania nietrwałego"
+}

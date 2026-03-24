@@ -1,0 +1,8 @@
+{
+  "ButtonReset": "リセット",
+  "ListItemSelectAll": "すべて選択",
+  "LabelAreasToReset": "リセットする領域:",
+  "LinkMoreTroubleshootingHelp": "その他のトラブルシューティングのヘルプ。",
+  "MessageInstructions": "問題が発生している場合は、Storage Explorer のすべてまたは一部をリセットすると、トラブルシューティングが容易になります。 ",
+  "TitleResetStorageExplorer": "Storage Explorer のリセット"
+}

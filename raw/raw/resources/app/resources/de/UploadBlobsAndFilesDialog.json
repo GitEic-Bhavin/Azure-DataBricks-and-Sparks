@@ -1,0 +1,19 @@
+{
+  "AppendBlob": "Anfügeblob",
+  "BlockBlob": "Block-BLOB",
+  "BlobType": "Blob-Typ",
+  "BrowseFilesLabel": "Dateien durchsuchen",
+  "FilesCaption": "Dateien:",
+  "FolderCaption": "Ordner:",
+  "InfoMessage": "Pfade, die keine Dateien enthalten, werden ignoriert.",
+  "NoSelectedFiles": "Keine Dateien ausgewählt",
+  "NoSelectedFolder": "Kein Ordner ausgewählt",
+  "PageBlob": "Seiten-BLOB",
+  "SelectFolder": "Ordner zum Hochladen auswählen",
+  "UploadAsPageLabel": "VHD/VHDX-Dateien als Seitenblobs hochladen (empfohlen)",
+  "UploadButton": "Hochladen",
+  "UploadFilesTitle": "Dateien hochladen",
+  "UploadFolderTitle": "Ordner hochladen",
+  "UploadToDirectory": "In Ordner hochladen (optional)",
+  "UploadToLabel": "In Verzeichnis hochladen (optional):"
+}

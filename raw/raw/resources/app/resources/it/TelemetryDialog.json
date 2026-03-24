@@ -1,0 +1,12 @@
+{
+  "GreetingText": "Impostazioni di telemetria",
+  "LinkPrivacyStatement": "Informativa sulla privacy di Microsoft",
+  "OptOutTelemetryOption": "Rifiuta invio dei dati di telemetria",
+  "SendTelemetryOption": "Invia telemetria (scelta consigliata)",
+  "TelemetryAndPerformance": "L'invio dei dati di telemetria non influisce negativamente sulle prestazioni di Storage Explorer.",
+  "TelemetryCollection": "I dati di telemetria raccolti includono:",
+  "TelemetryCollection1": "Informazioni sulle configurazioni software e hardware.",
+  "TelemetryCollection2": "Informazioni sull'uso del software e dei servizi Microsoft per identificare tendenze e modelli di utilizzo.",
+  "TelemetryCollectionPurpose": "Storage Explorer raccoglie i dati di telemetria per consentire di migliorare la qualità, l'affidabilità e le prestazioni dei servizi e del software Microsoft.",
+  "TelemetryOptions": "È possibile rifiutare di inviare i dati di telemetria in qualsiasi momento. Per eseguire questa operazione, è sufficiente scegliere \"Rifiuta invio dei dati di telemetria\" in basso."
+}

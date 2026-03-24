@@ -1,0 +1,9 @@
+{
+  "AttributeNameLabel": "Özellik Adı",
+  "AttributeValueLabel": "Örnek Değer",
+  "DataTypeLabel": "Veri Türü",
+  "ImportTitleLabel": "Varlıkları İçeri Aktar",
+  "InsertButtonLabel": "Yerleştir",
+  "PreserveExistingValuesLabel": "Varlıklar güncelleştirilirken mevcut değerleri koru",
+  "ShouldUseNullLabel": "Boş dize değerlerini null olarak değerlendir"
+}

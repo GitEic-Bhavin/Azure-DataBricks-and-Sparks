@@ -1,0 +1,16 @@
+{
+  "AriaColumnHiddenTemplate": "%1$s kolumnen är dold",
+  "AriaColumnSizeTemplate": "%1$s kolumnstorlek",
+  "AriaColumnVisibleTemplate": "%1$s kolumnen visas",
+  "ErrorColumnSize": "Kolumnstorlekarna måste vara minst %1$s.",
+  "ErrorNoColumnSelected": "Minst en kolumn måste vara synlig.",
+  "LabelAvailableColumns": "Tillgängliga kolumner",
+  "LabelChooseColumns": "Anpassa synlighet, ordning och storlek för kolumner.",
+  "LabelClearAll": "Dölj alla",
+  "LabelMoveBottom": "Flytta till slutet",
+  "LabelMoveDown": "Flytta ned",
+  "LabelMoveTop": "Flytta till början",
+  "LabelMoveUp": "Flytta uppåt",
+  "LabelSelectAll": "Visa alla",
+  "TitleColumnOptions": "Kolumnalternativ"
+}

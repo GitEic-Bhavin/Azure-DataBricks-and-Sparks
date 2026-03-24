@@ -1,0 +1,6 @@
+{
+  "CaseInsensitiveError": "키는 고유해야 합니다(대/소문자 구분 안 함).",
+  "CaseSensitiveError": "키는 고유 해야 합니다(대/소문자 구분).",
+  "LabelAdd": "추가",
+  "SaveButtonLabel": "저장"
+}

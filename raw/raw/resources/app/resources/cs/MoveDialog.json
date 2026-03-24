@@ -1,0 +1,8 @@
+{
+  "MoveNoteLabel": "Pokud má cíl položku se stejným názvem, soubory a adresáře se přeskočí.",
+  "NewNameLabel": "Cesta k cílové složce:",
+  "ReplaceSectionLabel": "Přeskočit tento soubor, pokud už v cíli existuje soubor se stejným názvem",
+  "SkipLabel": "Přeskočit",
+  "SkipSectionLabel": "Nahradit soubor, pokud už v cílovém umístění existuje soubor se stejným názvem",
+  "TitleLabel": "Přesunout"
+}

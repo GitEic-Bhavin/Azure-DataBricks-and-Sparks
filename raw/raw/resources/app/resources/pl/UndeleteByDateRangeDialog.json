@@ -1,0 +1,13 @@
+{
+  "ButtonUndelete": "Cofnij usunięcie wybranych elementów",
+  "EndDateLabel": "Data zakończenia:",
+  "InvalidEndTimeTooltip": "Podaj prawidłowy czas zakończenia.",
+  "InvalidEndTimeGreaterThanStartTimeTooltip": "Czas zakończenia musi być późniejszy niż czas rozpoczęcia.",
+  "InvalidStartTimeTooltip": "Podaj prawidłowy czas rozpoczęcia.",
+  "MainText": "Wybierz obiekty blob, dla których chcesz cofnąć usunięcie, określając zakres dat. Zostanie cofnięte usunięcie obiektów blob, które usunięto w tym zakresie dat.",
+  "TimeZoneLabel": "Strefa czasowa:",
+  "TitleLabel": "Cofnij usunięcie obiektów blob według daty",
+  "StartDateLabel": "Data rozpoczęcia:",
+  "UseLocalOption": "Lokalne",
+  "UseUTCOption": "UTC"
+}

@@ -1,0 +1,18 @@
+{
+  "ErrorExpiryTimeGreaterThanStartTime": "L'heure d'expiration doit être postérieure à l'heure de début.",
+  "ErrorInvalidStartTime": "Indiquez une heure de début valide.",
+  "ErrorNoExpiryTime": "Champ obligatoire. Indiquez une heure d'expiration valide.",
+  "LabelLastNumberOfDays": "Dernier nombre de jours",
+  "LabelLastNumberOfHours": "Dernier nombre d'heures",
+  "LabelLastNumberOfMinutes": "Dernier nombre de minutes",
+  "LabelLastNumberOfSeconds": "Dernier nombre de secondes",
+  "LabelLastNumberOfUnits": "Dernier nombre d'unités",
+  "LabelFrom": "De :",
+  "LabelLast:": "Dernier :",
+  "LabelLocal": "Locale",
+  "LabelRange": "Plage :",
+  "LabelTimeZone": "Fuseau horaire :",
+  "LabelTo": "À :",
+  "LabelUtc": "UTC",
+  "TitleCustomTimestampQuery": "Requête d'horodatage personnalisée"
+}

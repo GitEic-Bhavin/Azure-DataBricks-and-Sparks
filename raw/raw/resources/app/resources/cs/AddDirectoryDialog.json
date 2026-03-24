@@ -1,0 +1,8 @@
+{
+  "ButtonOK": "OK",
+  "ErrorInvalidDirectoryName": "Název nesmí být prázdný ani obsahovat lomítka.",
+  "LabelName": "Název:",
+  "MessageVirtualDirectory": "Tato akce vytvoří virtuální složku. Virtuální složka ve službě Azure ve skutečnosti neexistuje, dokud do ní nevložíte, nepřetáhnete nebo nenahrajete objekty blob. Pokud chcete do virtuální složky vložit objekt blob, zkopírujte ho dříve, než vytvoříte složku.",
+  "TitleCreateNewDirectory": "Vytvoří nový adresář",
+  "TitleCreateNewVirtualDirectory": "Vytvoří nový virtuální adresář"
+}

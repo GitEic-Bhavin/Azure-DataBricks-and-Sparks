@@ -1,0 +1,17 @@
+{
+  "MessageNewRuleInstructions": "Trennen Sie mehrere Werte durch Kommas. Alle Felder sind erforderlich.",
+  "LabelRulesList": "Regelliste",
+  "TitleCorsSettings": "CORS-Einstellungen",
+  "MessageCorsSettingsDescription": "Durch Cross-Origin Resource Sharing-Regeln (CORS) können Clients auf Ressourcen aus jeder von Ihnen autorisierten Webdomäne zugreifen. Sie können bis zu fünf CORS-Regeln angeben.",
+  "ButtonAdd": "Hinzufügen",
+  "ButtonEdit": "Bearbeiten",
+  "ButtonDelete": "Löschen",
+  "InfoRulesLimitReached": "Die maximale Anzahl von Regeln wurde erreicht. Vorhandene Regeln müssen gelöscht werden, bevor eine neue Regel hinzugefügt werden kann.",
+  "LabelAllowedOrigins": "Zulässige Ursprünge:",
+  "LabelAllowedMethods": "Zulässige Methoden:",
+  "LabelAllowedHeaders": "Zulässige Header:",
+  "LabelExposedHeaders": "Verfügbar gemachte Header:",
+  "LabelMaxAge": "Maximales Alter (in Sekunden):",
+  "TitleEditCorsRule": "CORS-Regel bearbeiten",
+  "TitleAddCorsRule": "CORS-Regel hinzufügen"
+}

@@ -1,0 +1,7 @@
+{
+    "dimensions": {
+        "height": 200,
+        "width": 500
+    },
+    "view": "app/dialogs/index.html#customMessageBox"
+}

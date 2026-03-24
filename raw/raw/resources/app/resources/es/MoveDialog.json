@@ -1,0 +1,8 @@
+{
+  "MoveNoteLabel": "Los archivos y directorios se omitirán si el destino tiene un elemento con el mismo nombre.",
+  "NewNameLabel": "Ruta de acceso de la carpeta de destino:",
+  "ReplaceSectionLabel": "Omitir este archivo si el destino ya tiene un archivo con el mismo nombre",
+  "SkipLabel": "Omitir",
+  "SkipSectionLabel": "Reemplazar el archivo si el destino ya tiene un archivo con el mismo nombre",
+  "TitleLabel": "Mover"
+}

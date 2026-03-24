@@ -1,0 +1,18 @@
+{
+  "ErrorExpiryTimeGreaterThanStartTime": "到期時間必須晚於開始時間。",
+  "ErrorInvalidStartTime": "請提供有效的開始時間。",
+  "ErrorNoExpiryTime": "必要欄位。請提供有效的到期時間。",
+  "LabelLastNumberOfDays": "最後天數",
+  "LabelLastNumberOfHours": "最後小時數",
+  "LabelLastNumberOfMinutes": "最後分鐘數",
+  "LabelLastNumberOfSeconds": "最後秒數",
+  "LabelLastNumberOfUnits": "最後一個單位數",
+  "LabelFrom": "從: ",
+  "LabelLast:": "過去:",
+  "LabelLocal": "本機",
+  "LabelRange": "範圍: ",
+  "LabelTimeZone": "時區:",
+  "LabelTo": "至: ",
+  "LabelUtc": "UTC",
+  "TitleCustomTimestampQuery": "自訂時間戳記查詢"
+}

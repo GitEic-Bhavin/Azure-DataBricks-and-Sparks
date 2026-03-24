@@ -1,0 +1,20 @@
+{
+  "AdlsNote": "A renomeação funciona ao mover.",
+  "AdlsFileTitle": "Mudar Nome do Ficheiro",
+  "AdlsFileDirectoryTitle": "Renomear Diretório",
+  "BlobContainerNote": "A clonagem funciona ao copiar todos os ficheiros para um novo contentor. Esta ação poderá demorar algum tempo se existirem vários blobs.",
+  "BlobContainerTitle": "Clonar Contentor de Blobs",
+  "BlobFolderTitle": "Clonar Pasta de Blobs",
+  "BlobTitle": "Clonar Blob",
+  "CloneItemNote": "A clonagem funciona ao copiar para uma nova localização. Clonar um item grande ou uma pasta com muitos itens poderá demorar algum tempo. Os dados do instantâneo não serão preservados.",
+  "RenameButtonLabel": "Mudar o Nome",
+  "CloneButtonLabel": "Clonar",
+  "FileDirectoryTitle": "Clonar Diretório",
+  "FileShareNote": "A clonagem funciona ao copiar todos os ficheiros para uma nova partilha. Esta ação poderá demorar algum tempo se existirem vários ficheiros.",
+  "FileShareTitle": "Clonar Partilha de Ficheiros",
+  "FileTitle": "Clonar Ficheiro",
+  "ItemNote": "A renomeação funciona ao copiar para uma nova localização e, em seguida, a eliminar o item de origem. Renomear um item grande ou uma pasta com muitos itens pode demorar algum tempo. Os dados do instantâneo não serão preservados.",
+  "NewNameLabel": "Especifique o novo nome:",
+  "TableNote": "A renomeação funciona ao copiar para uma nova tabela e, em seguida, eliminar a tabela de origem. Esta ação poderá demorar algum tempo se existirem várias entidades. As propriedades e metadados não serão preservados.",
+  "TableTitle": "Mudar Nome da Tabela"
+}

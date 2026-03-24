@@ -1,0 +1,4 @@
+{
+  "ErrorUninstallExtensionDoesntExist": "Kan de extensie met de id %1$s niet verwijderen. Deze extensie is niet geïnstalleerd.",
+  "PromptConfirmUninstall": "Weet u zeker dat u %1$s wilt verwijderen? Storage Explorer moet opnieuw worden gestart om het verwijderen te voltooien."
+}

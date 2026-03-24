@@ -1,0 +1,16 @@
+{
+  "AriaColumnHiddenTemplate": "Skryté sloupce: %1$s",
+  "AriaColumnSizeTemplate": "Velikost sloupce: %1$s",
+  "AriaColumnVisibleTemplate": "Viditelné sloupce: %1$s",
+  "ErrorColumnSize": "Velikost sloupců musí být alespoň %1$s.",
+  "ErrorNoColumnSelected": "Aspoň jeden sloupec musí být viditelný.",
+  "LabelAvailableColumns": "Dostupné sloupce",
+  "LabelChooseColumns": "Umožňuje přizpůsobit viditelnost, pořadí a velikost sloupců.",
+  "LabelClearAll": "Skrýt vše",
+  "LabelMoveBottom": "Přesunout na konec",
+  "LabelMoveDown": "Dolů",
+  "LabelMoveTop": "Přesunout na začátek",
+  "LabelMoveUp": "Nahoru",
+  "LabelSelectAll": "Zobrazit vše",
+  "TitleColumnOptions": "Možnosti sloupce"
+}

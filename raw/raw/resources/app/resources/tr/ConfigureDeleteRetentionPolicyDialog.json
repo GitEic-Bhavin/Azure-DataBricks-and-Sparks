@@ -1,0 +1,9 @@
+{
+  "ErrorRetentionDaysOutOfRange": "Bekletme gün sayısı, 1 ila 365 arasında geçerli bir tamsayı olmalıdır.",
+  "LabelDisableSoftDelete": "Geçici Silmeyi Devre Dışı Bırak",
+  "LabelEnableSoftDelete": "Geçici Silmeyi etkinleştir",
+  "LabelRetentionDays": "Saklama (gün):",
+  "LinkWhatIsSoftDelete": "Geçici Silme Nedir?",
+  "MessageSoftDelete": "Geçici Silme etkinken, silinen bloblar ve anlık görüntüler belirli bir bekletme süresi için kaydedilir ve bu süre içinde kurtarılabilir. Ayarlanan yeni ilkenin etkinleşmesi 30 saniye sürer.",
+  "TitleConfigureSoftDeletePolicy": "Geçici Silme İlkesini Yapılandır"
+}

@@ -1,0 +1,4 @@
+{
+  "ErrorUninstallExtensionDoesntExist": "未能卸载 ID 为 %1$s 的扩展。未安装此类扩展。",
+  "PromptConfirmUninstall": "确定要卸载 %1$s 吗? 必须重启存储资源管理器才能完成卸载。"
+}

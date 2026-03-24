@@ -1,0 +1,6 @@
+{
+  "ButtonCopyAndReport": "Kopiera och rapportera problemet",
+  "ButtonTroubleshootingHelp": "Felsökningshjälp",
+  "MessageReportingInstructions": "Om du inte kan lösa problemet själv kan du öppna ett ärende på Storage Explorer GitHub-webbplatsen. Ange informationen nedan för att hjälpa oss diagnostisera ditt problem. Se till att ta bort eventuell personlig information som du inte vill offentliggöra innan du lägger upp det.",
+  "TitleErrorDetails": "Felinformation"
+}

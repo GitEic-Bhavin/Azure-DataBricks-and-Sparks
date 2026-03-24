@@ -1,0 +1,7 @@
+{
+    "dimensions": {
+        "height": 600,
+        "width": 800
+    },
+    "view": "app/dialogs/index.html#customizeColumnsReact"
+}

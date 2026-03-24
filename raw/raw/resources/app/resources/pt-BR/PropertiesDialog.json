@@ -1,0 +1,6 @@
+{
+  "CaseInsensitiveError": "as chaves precisam ser exclusivas (não diferenciam maiúsculas de minúsculas).",
+  "CaseSensitiveError": "as chaves precisam ser exclusivas (diferenciam maiúsculas de minúsculas).",
+  "LabelAdd": "Adicionar",
+  "SaveButtonLabel": "Salvar"
+}

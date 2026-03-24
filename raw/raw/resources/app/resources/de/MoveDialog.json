@@ -1,0 +1,8 @@
+{
+  "MoveNoteLabel": "Dateien und Verzeichnisse werden übersprungen, wenn das Ziel ein Element mit dem gleichen Namen aufweist.",
+  "NewNameLabel": "Zielordnerpfad:",
+  "ReplaceSectionLabel": "Diese Datei überspringen, wenn das Ziel bereits eine Datei mit demselben Namen enthält",
+  "SkipLabel": "Überspringen",
+  "SkipSectionLabel": "Datei ersetzen, wenn das Ziel bereits eine Datei mit dem gleichen Namen aufweist",
+  "TitleLabel": "Verschieben"
+}

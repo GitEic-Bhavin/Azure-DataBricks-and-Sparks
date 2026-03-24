@@ -1,0 +1,18 @@
+{
+  "ErrorExpiryTimeGreaterThanStartTime": "De verlooptijd moet later zijn dan de begintijd.",
+  "ErrorInvalidStartTime": "Geef een geldige begintijd op.",
+  "ErrorNoExpiryTime": "Verplicht veld. Geef een geldige verlooptijd op.",
+  "LabelLastNumberOfDays": "Laatste aantal dagen",
+  "LabelLastNumberOfHours": "Laatste aantal uren",
+  "LabelLastNumberOfMinutes": "Laatste aantal minuten",
+  "LabelLastNumberOfSeconds": "Laatste aantal seconden",
+  "LabelLastNumberOfUnits": "Laatste aantal eenheden",
+  "LabelFrom": "Van:",
+  "LabelLast:": "Laatste:",
+  "LabelLocal": "Lokaal",
+  "LabelRange": "Bereik:",
+  "LabelTimeZone": "Tijdzone:",
+  "LabelTo": "Aan:",
+  "LabelUtc": "UTC",
+  "TitleCustomTimestampQuery": "Aangepaste timestamp-query"
+}

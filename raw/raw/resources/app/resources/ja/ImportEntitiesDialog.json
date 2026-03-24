@@ -1,0 +1,9 @@
+{
+  "AttributeNameLabel": "プロパティ名",
+  "AttributeValueLabel": "サンプル値",
+  "DataTypeLabel": "データ型",
+  "ImportTitleLabel": "エンティティのインポート",
+  "InsertButtonLabel": "挿入",
+  "PreserveExistingValuesLabel": "エンティティの更新時に既存の値を保持する",
+  "ShouldUseNullLabel": "空の文字列値を null として扱う"
+}

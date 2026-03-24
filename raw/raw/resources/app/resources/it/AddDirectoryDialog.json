@@ -1,0 +1,8 @@
+{
+  "ButtonOK": "OK",
+  "ErrorInvalidDirectoryName": "Il nome non deve essere vuoto o contenere barre.",
+  "LabelName": "Nome:",
+  "MessageVirtualDirectory": "Verrà creata una cartella virtuale. Una cartella virtuale non esiste realmente in Azure fino a quando in essa non vengono incollati, trascinati o caricati BLOB. Per incollare un BLOB in una cartella virtuale, copiare il BLOB prima di creare la cartella.",
+  "TitleCreateNewDirectory": "Crea nuova directory",
+  "TitleCreateNewVirtualDirectory": "Crea nuova directory virtuale"
+}

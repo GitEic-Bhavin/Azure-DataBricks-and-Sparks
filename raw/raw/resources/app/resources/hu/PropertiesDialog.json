@@ -1,0 +1,6 @@
+{
+  "CaseInsensitiveError": "a kulcsoknak egyedinek kell lenniük (a kis-és nagybetűk megkülönböztetése nélkül).",
+  "CaseSensitiveError": "a kulcsoknak egyedinek kell lenniük (a kis-és nagybetűk megkülönböztetésével).",
+  "LabelAdd": "Hozzáadás",
+  "SaveButtonLabel": "Mentés"
+}

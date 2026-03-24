@@ -1,0 +1,18 @@
+{
+  "BypassLabel": "Bypass:",
+  "CustomProxyRadioLabel": "Usar as configurações de proxy do aplicativo",
+  "EnvProxyRadioLabel": "Usar as variáveis de ambiente",
+  "ErrorNoProxyInvalid": "Um ou mais itens de bypass são inválidos. O bypass deve usar a sintaxe da matriz JSON contendo nomes do host ou padrões válidos.",
+  "ErrorPortInvalid": "A porta é inválida. A porta deve ser um inteiro válido entre 0 e 65535.",
+  "ErrorUrlInvalid": "O URL é inválido. O URL do proxy deve ter um protocolo e nome de host válidos.",
+  "ErrorUsernameInvalid": "O nome de usuário está ausente.",
+  "NoProxyRadioLabel": "Não usar proxy",
+  "PasswordLabel": "Senha:",
+  "PortLabel": "Porta:",
+  "SourceLabel": "Origem:",
+  "SystemProxyRadioLabel": "Usar proxy do sistema",
+  "TitleLabel": "Configurações do Proxy",
+  "UrlLabel": "URL:",
+  "UseCredentialsLabel": "Usar um nome de usuário e uma senha",
+  "UsernameLabel": "Nome de usuário:"
+}

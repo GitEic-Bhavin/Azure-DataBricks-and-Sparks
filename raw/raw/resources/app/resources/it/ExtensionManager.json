@@ -1,0 +1,4 @@
+{
+  "ErrorUninstallExtensionDoesntExist": "Non è stato possibile disinstallare l'estensione con ID %1$s. Non è stata installata alcuna estensione di questo tipo.",
+  "PromptConfirmUninstall": "Disinstallare %1$s? Per completare la disinstallazione, è necessario riavviare Storage Explorer."
+}

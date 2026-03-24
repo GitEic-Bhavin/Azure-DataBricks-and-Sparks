@@ -1,0 +1,7 @@
+{
+    "dimensions": {
+        "height": 525,
+        "width": 700
+    },
+    "view": "app/dialogs/index.html#searchList"
+}

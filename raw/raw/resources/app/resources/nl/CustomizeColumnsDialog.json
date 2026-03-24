@@ -1,0 +1,16 @@
+{
+  "AriaColumnHiddenTemplate": "%1$s kolom verborgen",
+  "AriaColumnSizeTemplate": "%1$s kolomgrootte",
+  "AriaColumnVisibleTemplate": "%1$s kolom zichtbaar",
+  "ErrorColumnSize": "Kolomgrootten moeten ten minste %1$s zijn.",
+  "ErrorNoColumnSelected": "Ten minste één kolom moet zichtbaar zijn.",
+  "LabelAvailableColumns": "Beschikbare kolommen",
+  "LabelChooseColumns": "Pas de zichtbaarheid, volgorde en grootte van kolommen aan.",
+  "LabelClearAll": "Alles verbergen",
+  "LabelMoveBottom": "Naar onder verplaatsen",
+  "LabelMoveDown": "Omlaag",
+  "LabelMoveTop": "Naar boven verplaatsen",
+  "LabelMoveUp": "Omhoog",
+  "LabelSelectAll": "Alles weergeven",
+  "TitleColumnOptions": "Kolomopties"
+}

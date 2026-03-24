@@ -1,0 +1,7 @@
+.nav-button-group {
+  align-items: stretch;
+  display: grid;
+  grid-auto-rows: auto;
+  grid-template-columns: auto;
+  gap: 4px;
+}

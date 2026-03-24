@@ -1,0 +1,6 @@
+{
+  "CaseInsensitiveError": "键必须是唯一的(不区分大小写)。",
+  "CaseSensitiveError": "键必须是唯一的(区分大小写)。",
+  "LabelAdd": "添加",
+  "SaveButtonLabel": "保存"
+}

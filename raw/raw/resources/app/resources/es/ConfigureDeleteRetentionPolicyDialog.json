@@ -1,0 +1,9 @@
+{
+  "ErrorRetentionDaysOutOfRange": "Los días de retención deben ser un entero válido entre 1 y 365.",
+  "LabelDisableSoftDelete": "Deshabilitar la eliminación temporal",
+  "LabelEnableSoftDelete": "Habilitar eliminación temporal",
+  "LabelRetentionDays": "Días de retención:",
+  "LinkWhatIsSoftDelete": "¿Qué es la eliminación temporal?",
+  "MessageSoftDelete": "Cuando la eliminación temporal está habilitada, los blobs y las instantáneas que se eliminan se guardan durante un período de retención y se pueden recuperar dentro de este período. La configuración de una nueva directiva tarda 30 segundos en surtir efecto.",
+  "TitleConfigureSoftDeletePolicy": "Configurar la directiva de eliminación temporal"
+}

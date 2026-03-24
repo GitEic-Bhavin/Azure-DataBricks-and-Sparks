@@ -1,0 +1,13 @@
+{
+  "ButtonUndelete": "Zrušit odstranění",
+  "EndDateLabel": "Koncové datum:",
+  "InvalidEndTimeTooltip": "Zadejte prosím platný čas ukončení.",
+  "InvalidEndTimeGreaterThanStartTimeTooltip": "Čas ukončení musí být pozdější než čas spuštění.",
+  "InvalidStartTimeTooltip": "Zadejte prosím platný čas spuštění.",
+  "MainText": "Zadejte rozsah kalendářních dat a vyberte tak objekty blob, jejichž odstranění chcete zrušit. Odstranění objektů blob, které byly v tomto rozsahu kalendářních dat odstraněny, se zruší.",
+  "TimeZoneLabel": "Časové pásmo:",
+  "TitleLabel": "Zrušit odstranění objektů blob podle data",
+  "StartDateLabel": "Počáteční datum:",
+  "UseLocalOption": "Místní",
+  "UseUTCOption": "UTC"
+}

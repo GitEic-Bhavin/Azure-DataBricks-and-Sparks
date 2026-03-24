@@ -1,0 +1,8 @@
+{
+  "ButtonReset": "Zurücksetzen",
+  "ListItemSelectAll": "Alle auswählen",
+  "LabelAreasToReset": "Zurückzusetzende Bereiche:",
+  "LinkMoreTroubleshootingHelp": "Weitere Hilfe zur Problembehandlung.",
+  "MessageInstructions": "Wenn Probleme auftreten, können Sie die Problembehandlung vereinfachen, indem Sie den Storage-Explorer insgesamt oder teilweise zurücksetzen. ",
+  "TitleResetStorageExplorer": "Storage-Explorer zurücksetzen"
+}

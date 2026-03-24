@@ -1,0 +1,8 @@
+{
+  "ButtonReset": "重置",
+  "ListItemSelectAll": "全选",
+  "LabelAreasToReset": "要重置的区域:",
+  "LinkMoreTroubleshootingHelp": "更多疑难解答帮助。",
+  "MessageInstructions": "如果遇到问题，重置全部或部分存储资源管理器可更便于故障排除。",
+  "TitleResetStorageExplorer": "重置存储资源管理器"
+}

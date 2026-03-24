@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' 'unsafe-inline' 'unsafe-eval';
+        img-src 'self' https: data:;
+        child-src 'self';
+        object-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        style-src 'self' 'unsafe-inline';
+        connect-src 'self' https:;
+        font-src 'self' https:;" />
+
+    <link rel="stylesheet" href="./ConfigureDeleteRetentionPolicy.css" />
+</head>
+
+<body>
+    <se-dialog-window params="with: $data">
+        <se-dialog-panel params="id: 'default-panel', with: panel">
+            <div class="row">
+                <label id="instructionLabel" data-bind="text: softDeleteDescription"></label>
+                <a id="learn-more" href="#" data-bind="click: openLearnMore, text: learnMoreText"></a>
+            </div>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <input id="enableSoftDelete" type="radio" name="softDeletePolicy" value="enabled" data-bind="checked: option" />
+                </div>
+                <div class="grid-item">
+                    <label for="enableSoftDelete" data-bind="text: enableButtonText"></label>
+                </div>
+                <div class="grid-item"> </div>
+                <div class="grid-item">
+                    <label id="retentionDaysTitle" for="retentionDaysInput" data-bind="text: retentionDaysTitle"></label>
+                    <!-- Use textInput for retentionDays to achieve real-time update and validation -->
+                    <input class="invalid-field" id="retentionDaysInput" type="number" aria-labelledby="retentionDaysTitle" data-bind="css: { 'invalid-field': !!errorMessage() }, attr: {min: retentionDaysRange.minDays, max: retentionDaysRange.maxDays}, positiveIntegerOnly, textInput: retentionDaysAsString, enable: retentionDaysEnabled" />
+                </div>
+                <div class="grid-item"> </div>
+                <div class="grid-item">
+                    <se-alert params="with: alertViewModel"></se-alert>
+                </div>
+                <div class="grid-item">
+                    <input id="disableSoftDelete" type="radio" name="softDeletePolicy" value="disabled" data-bind="checked: option" />
+                </div>
+                <div class="grid-item">
+                    <label for="disableSoftDelete" data-bind="text: disableButtonText"></label>
+                </div>
+            </div>
+        </se-dialog-panel>
+    </se-dialog-window>
+
+    <script type="text/javascript" src="../index.js"></script>
+</body>
+
+</html>

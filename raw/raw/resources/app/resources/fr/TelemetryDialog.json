@@ -1,0 +1,12 @@
+{
+  "GreetingText": "Paramètres de télémétrie",
+  "LinkPrivacyStatement": "Déclaration de confidentialité Microsoft",
+  "OptOutTelemetryOption": "Refuser l'envoi de la télémétrie",
+  "SendTelemetryOption": "Envoyer la télémétrie (recommandé)",
+  "TelemetryAndPerformance": "L'envoi de la télémétrie ne dégrade pas le niveau de performance de l'Explorateur Stockage.",
+  "TelemetryCollection": "La télémétrie collectée inclut :",
+  "TelemetryCollection1": "Des informations sur vos configurations logicielles et matérielles",
+  "TelemetryCollection2": "Des informations sur la façon dont vous utilisez les logiciels et services Microsoft pour identifier les tendances et les modèles d'utilisation",
+  "TelemetryCollectionPurpose": "L'Explorateur Stockage collecte la télémétrie pour améliorer la qualité, la fiabilité et le niveau de performance des services et logiciels Microsoft.",
+  "TelemetryOptions": "Vous pouvez refuser l'envoi de la télémétrie à tout moment. Pour ce faire, il vous suffit de choisir Refuser l'envoi de la télémétrie ci-dessous."
+}

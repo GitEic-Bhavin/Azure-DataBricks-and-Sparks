@@ -1,0 +1,9 @@
+{
+  "ErrorRetentionDaysOutOfRange": "保留天數必須是介於 1 至 365 之間的有效整數。",
+  "LabelDisableSoftDelete": "停用虛刪除",
+  "LabelEnableSoftDelete": "啟用虛刪除",
+  "LabelRetentionDays": "保留天數:",
+  "LinkWhatIsSoftDelete": "什麼是虛刪除?",
+  "MessageSoftDelete": "啟用虛刪除時，已刪除 blob 和已刪除快照將於保留期間內儲存，並可在此期間內復原。設定新原則需要 30 秒才會生效。",
+  "TitleConfigureSoftDeletePolicy": "設定虛刪除原則"
+}

@@ -1,0 +1,17 @@
+{
+  "MessageNewRuleInstructions": "여러 값을 쉼표로 구분하세요. 모든 필드는 필수입니다.",
+  "LabelRulesList": "규칙 목록",
+  "TitleCorsSettings": "CORS 설정",
+  "MessageCorsSettingsDescription": "원본 간 리소스 공유 규칙을 통해 클라이언트가 권한을 부여한 모든 웹 도메인에서 리소스에 액세스할 수 있습니다. 최대 5개의 CORS 규칙을 지정할 수 있습니다.",
+  "ButtonAdd": "추가",
+  "ButtonEdit": "편집",
+  "ButtonDelete": "삭제",
+  "InfoRulesLimitReached": "최대 규칙 수에 도달했습니다. 새 규칙을 추가하려면 먼저 기존 규칙을 삭제해야 합니다.",
+  "LabelAllowedOrigins": "허용된 원본:",
+  "LabelAllowedMethods": "허용된 메서드:",
+  "LabelAllowedHeaders": "허용된 헤더:",
+  "LabelExposedHeaders": "노출된 헤더:",
+  "LabelMaxAge": "최대 기간(초):",
+  "TitleEditCorsRule": "CORS 규칙 편집",
+  "TitleAddCorsRule": "CORS 규칙 추가"
+}

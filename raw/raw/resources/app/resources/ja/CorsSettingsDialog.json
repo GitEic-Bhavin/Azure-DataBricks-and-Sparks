@@ -1,0 +1,17 @@
+{
+  "MessageNewRuleInstructions": "複数の値はコンマで区切ります。すべてのフィールドが必須です。",
+  "LabelRulesList": "規則一覧",
+  "TitleCorsSettings": "CORS の設定",
+  "MessageCorsSettingsDescription": "クロス オリジン リソース共有ルールを使用すると、クライアントは、承認された任意の Web ドメインからリソースにアクセスできるようになります。CORS ルールは 5 つまで指定できます。",
+  "ButtonAdd": "追加",
+  "ButtonEdit": "編集",
+  "ButtonDelete": "削除",
+  "InfoRulesLimitReached": "ルールの最大数に達しました。新しいルールを追加する前に、既存のルールを削除する必要があります。",
+  "LabelAllowedOrigins": "許可されたオリジン:",
+  "LabelAllowedMethods": "許可されたメソッド:",
+  "LabelAllowedHeaders": "許可されたヘッダー:",
+  "LabelExposedHeaders": "公開ヘッダー:",
+  "LabelMaxAge": "最長有効期間 (秒):",
+  "TitleEditCorsRule": "CORS ルールの編集",
+  "TitleAddCorsRule": "CORS ルールの追加"
+}

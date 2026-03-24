@@ -1,0 +1,13 @@
+{
+  "ButtonUndelete": "Wiederherstellen",
+  "EndDateLabel": "Enddatum:",
+  "InvalidEndTimeTooltip": "Geben Sie eine gültige Endzeit ein.",
+  "InvalidEndTimeGreaterThanStartTimeTooltip": "Die Endzeit muss nach der Startzeit liegen.",
+  "InvalidStartTimeTooltip": "Geben Sie eine gültige Startzeit ein.",
+  "MainText": "Wählen Sie die Blobs aus, für die der Löschvorgang rückgängig gemacht werden soll, indem Sie einen Datumsbereich angeben. Für Blobs, die innerhalb dieses Datumsbereichs gelöscht werden, wird der Löschvorgang rückgängig gemacht.",
+  "TimeZoneLabel": "Zeitzone:",
+  "TitleLabel": "Löschvorgänge für Blobs nach Datum rückgängig machen",
+  "StartDateLabel": "Startdatum:",
+  "UseLocalOption": "Lokal",
+  "UseUTCOption": "UTC"
+}

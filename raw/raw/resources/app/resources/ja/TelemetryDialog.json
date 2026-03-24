@@ -1,0 +1,12 @@
+{
+  "GreetingText": "テレメトリの設定",
+  "LinkPrivacyStatement": "Microsoft のプライバシーに関する声明",
+  "OptOutTelemetryOption": "テレメトリの送信をオプトアウトする",
+  "SendTelemetryOption": "テレメトリを送信する (推奨)",
+  "TelemetryAndPerformance": "テレメトリを送信しても、Storage Explorer のパフォーマンスが低下することはありません。",
+  "TelemetryCollection": "収集されるテレメトリには次が含まれます:",
+  "TelemetryCollection1": "ソフトウェア構成とハードウェア構成に関する情報。",
+  "TelemetryCollection2": "傾向や使用パターンを特定するための Microsoft のソフトウェアおよびサービスの使用方法に関する情報。",
+  "TelemetryCollectionPurpose": "Storage Explorer では、Microsoft のサービスとソフトウェアの品質、信頼性、パフォーマンスを向上させるために、テレメトリが収集されます。",
+  "TelemetryOptions": "テレメトリの送信は、いつでもオプトアウトできます。これを行うには、下の [テレメトリの送信をオプトアウトする] を選択してください。"
+}

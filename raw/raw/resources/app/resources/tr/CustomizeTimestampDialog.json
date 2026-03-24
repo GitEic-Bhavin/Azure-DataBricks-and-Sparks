@@ -1,0 +1,18 @@
+{
+  "ErrorExpiryTimeGreaterThanStartTime": "Bitiş saati, başlangıç saatinden sonra olmalıdır.",
+  "ErrorInvalidStartTime": "Lütfen geçerli bir başlangıç saati belirtin.",
+  "ErrorNoExpiryTime": "Gerekli alan. Lütfen geçerli bir bitiş saati belirtin.",
+  "LabelLastNumberOfDays": "Son gün sayısı",
+  "LabelLastNumberOfHours": "Son saat sayısı",
+  "LabelLastNumberOfMinutes": "Son dakika sayısı",
+  "LabelLastNumberOfSeconds": "Son saniye sayısı",
+  "LabelLastNumberOfUnits": "Son birim sayısı",
+  "LabelFrom": "Kimden:",
+  "LabelLast:": "Son:",
+  "LabelLocal": "Yerel",
+  "LabelRange": "Aralık:",
+  "LabelTimeZone": "Saat dilimi:",
+  "LabelTo": "Hedef:",
+  "LabelUtc": "UTC",
+  "TitleCustomTimestampQuery": "Özel Zaman Damgası Sorgusu"
+}

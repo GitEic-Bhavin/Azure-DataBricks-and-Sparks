@@ -1,0 +1,8 @@
+{
+  "MoveNoteLabel": "Les fichiers et les répertoires sont ignorés si la destination contient un élément portant le même nom.",
+  "NewNameLabel": "Chemin du dossier cible :",
+  "ReplaceSectionLabel": "Ignorer ce fichier si la destination contient déjà un fichier portant le même nom",
+  "SkipLabel": "Ignorer",
+  "SkipSectionLabel": "Remplacer le fichier si la destination contient déjà un fichier portant le même nom",
+  "TitleLabel": "Déplacer"
+}

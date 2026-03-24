@@ -1,0 +1,8 @@
+{
+  "MoveNoteLabel": "Pliki i katalogi zostaną pominięte, jeśli lokalizacja docelowa zawiera element o tej samej nazwie.",
+  "NewNameLabel": "Ścieżka folderu docelowego:",
+  "ReplaceSectionLabel": "Pomiń ten plik, jeśli lokalizacja docelowa zawiera już plik o takiej samej nazwie",
+  "SkipLabel": "Pomiń",
+  "SkipSectionLabel": "Zamień plik, jeśli lokalizacja docelowa zawiera już plik o takiej samej nazwie",
+  "TitleLabel": "Przenieś"
+}

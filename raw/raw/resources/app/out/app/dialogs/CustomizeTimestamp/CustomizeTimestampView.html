@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' 'unsafe-inline' 'unsafe-eval';
+        img-src 'self' https: data:;
+        child-src 'self';
+        object-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        style-src 'self' 'unsafe-inline';
+        connect-src 'self' https:;
+        font-src 'self' https:;" />
+
+    <link rel="stylesheet" href="./CustomizeTimestamp.css" />
+</head>
+
+<body>
+    <se-dialog-window params="with: $data">
+        <se-dialog-panel params="id: 'default-panel', with: panelViewModel">
+            <div class="input-group">
+                <input id="last-radio-label" class="col-1" type="radio" name="queryType" value="last" data-bind="checked: queryType"></input>
+                <label for="last-radio-label" class="col-2" data-bind="text: lastLabel"></label>
+
+                <div class="col-3 to-5 input-group">
+                    <input class="col-1 to-4" type="number" min="0" data-bind="
+                        textInput: lastNumber,
+                        enable: queryType() === 'last',
+                        attr: { title: lastTimeInputTitle }"></input>
+                    <select class="col-4 to-6" data-bind="
+                        enable: queryType() === 'last',
+                        options: timeUnits,
+                        optionsText: 'displayName',
+                        value: lastTimeUnit,
+                        attr: { title: lastTimeUnitTitle }">
+                    </select>
+                </div>
+
+                <input id="from-radio-label" class="col-1" type="radio" name="queryType" value="range" data-bind="checked: queryType"></input>
+                <label for="from-radio-label" class="col-2" data-bind="text: rangeLabel"></label>
+
+                <label for="range-from-label" class="col-2" data-bind="text: fromLabel"></label>
+                <input id="range-from-label" class="col-3 to-5" type="datetime-local" step="1" data-bind="
+                    value: startTimestamp,
+                    enable: queryType() === 'range',
+                    css: { 'invalid-field': isInvalidStartTimestamp },
+                    attr: { title: startTimestampTooltip }">
+                </input>
+
+                <label for="range-to-label" class="col-2" data-bind="text: toLabel"></label>
+                <input id="range-to-label" class="col-3 to-5" type="datetime-local" step="1" data-bind="
+                    value: endTimestamp,
+                    enable: queryType() === 'range',
+                    css: { 'invalid-field': isInvalidEndTimestamp },
+                    attr: { title: endTimestampTooltip }">
+                </input>
+
+                <label class="col-2" data-bind="text: timezoneLabel"></label>
+                <div class=" col-3 to-end radio-group">
+                    <input id="timezone-local-label" type="radio" name="timeZone" value="local" data-bind="checked: timeZone, enable: queryType() === 'range'"></input>
+                    <label for="timezone-local-label" data-bind="text: localLabel"></label>
+
+                    <input id="timezone-utc-label" type="radio" name="timeZone" value="utc" data-bind="checked: timeZone, enable: queryType() === 'range'"></input>
+                    <label for="timezone-utc-label" data-bind="text: utcLabel"></label>
+                <div>
+            </div>
+        </se-dialog-panel>
+    </se-dialog-window>
+
+    <script type="text/javascript" src="../index.js"></script>
+</body>
+
+</html>

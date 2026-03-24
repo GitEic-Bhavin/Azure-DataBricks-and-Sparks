@@ -1,0 +1,18 @@
+{
+  "BypassLabel": "바이패스",
+  "CustomProxyRadioLabel": "앱 프록시 설정 사용",
+  "EnvProxyRadioLabel": "환경 변수 사용",
+  "ErrorNoProxyInvalid": "하나 이상의 바이패스 항목이 잘못되었습니다. 바이패스는 유효한 호스트 이름 또는 패턴을 포함하는 JSON 배열 구문을 사용해야 합니다.",
+  "ErrorPortInvalid": "포트가 잘못되었습니다. 포트는 0에서 65535 사이의 유효한 정수여야 합니다.",
+  "ErrorUrlInvalid": "잘못된 URL입니다. 프록시 URL은 유효한 프로토콜과 호스트 이름이 있어야 합니다.",
+  "ErrorUsernameInvalid": "사용자 이름이 없습니다.",
+  "NoProxyRadioLabel": "프록시 사용 안 함",
+  "PasswordLabel": "암호:",
+  "PortLabel": "포트:",
+  "SourceLabel": "원본:",
+  "SystemProxyRadioLabel": "시스템 프록시 사용",
+  "TitleLabel": "프록시 설정",
+  "UrlLabel": "URL:",
+  "UseCredentialsLabel": "사용자 이름 및 암호 사용",
+  "UsernameLabel": "사용자 이름:"
+}

@@ -1,0 +1,20 @@
+{
+  "AdlsNote": "Byter namn på arbeten genom att flytta.",
+  "AdlsFileTitle": "Byt namn på fil",
+  "AdlsFileDirectoryTitle": "Byt namn på katalogen",
+  "BlobContainerNote": "Kloning innebär att alla filer kopieras till en ny container. Det här kan ta lite tid om det finns många blobbar.",
+  "BlobContainerTitle": "Klona blobcontainer",
+  "BlobFolderTitle": "Klona blobmapp",
+  "BlobTitle": "Klona blob",
+  "CloneItemNote": "Kloning innebär att objektet kopieras till en ny plats. Det kan ta lite tid att klona ett stort objekt eller en fil med många objekt. Ögonblicksbilddata bevaras inte.",
+  "RenameButtonLabel": "Byt namn",
+  "CloneButtonLabel": "Klona",
+  "FileDirectoryTitle": "Klona katalog",
+  "FileShareNote": "Kloning innebär att alla filer kopieras till en ny resurs. Det här kan ta lite tid om det finns många filer.",
+  "FileShareTitle": "Klona filresurs",
+  "FileTitle": "Klona fil",
+  "ItemNote": "Byter namn på arbeten genom att kopiera till en ny plats och sedan ta bort källobjektet. Det kan ta en stund att byta namn på ett stort objekt eller en stor mapp med många objekt. Ögonblicksbilddata kommer inte att sparas.",
+  "NewNameLabel": "Ange det nya namnet:",
+  "TableNote": "Byter namn på arbeten genom att kopiera till en ny tabell och sedan ta bort källtabellen. Det här kan ta en stund om det finns många entiteter. Egenskaper och metadata kommer inte att sparas.",
+  "TableTitle": "Byt namn på tabell"
+}

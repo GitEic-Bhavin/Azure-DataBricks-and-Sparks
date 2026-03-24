@@ -1,0 +1,10 @@
+{
+    "Title": "Help and Feedback",
+    "ButtonClose": "Close",
+    "ReportIssueLabel": "Report issue",
+    "ReportIssueDescription": "Report a bug or suggest a feature.",
+    "GetHelpLabel": "Get help",
+    "GetHelpDescription": "Open an Azure support request for help with your storage resources.",
+    "TakeSurveyLabel": "Help us improve",
+    "TakeSurveyDescription": "Provide feedback by taking a quick survey."
+}

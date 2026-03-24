@@ -1,0 +1,20 @@
+{
+  "AdlsNote": "Die Umbenennung erfolgt durch Verschieben.",
+  "AdlsFileTitle": "Datei umbenennen",
+  "AdlsFileDirectoryTitle": "Verzeichnis umbenennen",
+  "BlobContainerNote": "Das Klonen erfolgt durch Kopieren aller Dateien in einen neuen Container. Dies kann einige Zeit in Anspruch nehmen, wenn viele Blobs vorhanden sind.",
+  "BlobContainerTitle": "Blobcontainer klonen",
+  "BlobFolderTitle": "Blobordner klonen",
+  "BlobTitle": "Blob klonen",
+  "CloneItemNote": "Das Klonen erfolgt durch Kopieren an einen neuen Speicherort. Das Klonen eines großen Elements oder eines Ordners mit vielen Elementen kann einige Zeit in Anspruch nehmen. Momentaufnahmedaten werden nicht beibehalten.",
+  "RenameButtonLabel": "Umbenennen",
+  "CloneButtonLabel": "Klonen",
+  "FileDirectoryTitle": "Verzeichnis klonen",
+  "FileShareNote": "Das Klonen erfolgt durch Kopieren aller Dateien in eine neue Freigabe. Dies kann einige Zeit in Anspruch nehmen, wenn viele Dateien vorhanden sind.",
+  "FileShareTitle": "Dateifreigabe klonen",
+  "FileTitle": "Datei klonen",
+  "ItemNote": "Die Umbenennung erfolgt durch Kopieren in einen neuen Speicherort und anschließendes Löschen des Quellelements. Das Umbenennen eines großen Elements oder eines Ordners mit vielen Elementen kann einige Zeit in Anspruch nehmen. Momentaufnahmedaten werden nicht beibehalten.",
+  "NewNameLabel": "Neuen Namen angeben:",
+  "TableNote": "Die Umbenennung erfolgt durch Kopieren in eine neue Tabelle und anschließendes Löschen der Quelltabelle. Dies kann einige Zeit in Anspruch nehmen, wenn viele Entitäten vorhanden sind. Eigenschaften und Metadaten werden nicht beibehalten.",
+  "TableTitle": "Tabelle umbenennen"
+}

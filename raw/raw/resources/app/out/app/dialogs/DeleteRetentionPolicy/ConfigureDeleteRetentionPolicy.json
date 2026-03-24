@@ -1,0 +1,7 @@
+{
+    "dimensions": {
+        "height": 400,
+        "width": 500
+    },
+    "view": "app/dialogs/index.html#deleteRetentionPolicy"
+}

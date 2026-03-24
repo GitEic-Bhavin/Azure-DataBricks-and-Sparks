@@ -1,0 +1,14 @@
+{
+   "controller": {
+      "args": [
+         "$PIPE"
+      ],
+      "executable": "../Controllers/microsoft-servicehub-controller/Microsoft.ServiceHub.Controller"
+   },
+   "hosts": {
+      "rootDir": "../Hosts"
+   },
+   "services": {
+      "rootDir": "./"
+   }
+}

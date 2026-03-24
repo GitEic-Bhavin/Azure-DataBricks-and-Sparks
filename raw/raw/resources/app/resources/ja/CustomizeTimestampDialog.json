@@ -1,0 +1,18 @@
+{
+  "ErrorExpiryTimeGreaterThanStartTime": "有効期限は開始時刻より後にする必要があります。",
+  "ErrorInvalidStartTime": "有効な開始時刻を指定してください。",
+  "ErrorNoExpiryTime": "必須フィールドです。有効な有効期限を指定してください。",
+  "LabelLastNumberOfDays": "最後の日数",
+  "LabelLastNumberOfHours": "最後の時間数",
+  "LabelLastNumberOfMinutes": "最後の分数",
+  "LabelLastNumberOfSeconds": "最後の秒数",
+  "LabelLastNumberOfUnits": "最後のユニット数",
+  "LabelFrom": "開始:",
+  "LabelLast:": "直前の",
+  "LabelLocal": "ローカル",
+  "LabelRange": "範囲:",
+  "LabelTimeZone": "タイムゾーン:",
+  "LabelTo": "終了:",
+  "LabelUtc": "UTC",
+  "TitleCustomTimestampQuery": "カスタム タイムスタンプ クエリ"
+}

@@ -1,0 +1,13 @@
+{
+  "ButtonUndelete": "Rétablir",
+  "EndDateLabel": "Date de fin :",
+  "InvalidEndTimeTooltip": "Indiquez une heure de fin valide.",
+  "InvalidEndTimeGreaterThanStartTimeTooltip": "L'heure de fin doit être postérieure à l'heure de début.",
+  "InvalidStartTimeTooltip": "Indiquez une heure de début valide.",
+  "MainText": "Sélectionnez les objets blob dont la suppression doit être annulée en spécifiant une plage de dates. Les objets blob supprimés dans cette plage de dates sont restaurés.",
+  "TimeZoneLabel": "Fuseau horaire :",
+  "TitleLabel": "Annuler la suppression des objets blob par date",
+  "StartDateLabel": "Date de début :",
+  "UseLocalOption": "Locale",
+  "UseUTCOption": "UTC"
+}

@@ -1,0 +1,7 @@
+{
+    "dimensions": {
+        "height": 700,
+        "width": 600
+    },
+    "view": "app/dialogs/index.html#generateAccountSas"
+}

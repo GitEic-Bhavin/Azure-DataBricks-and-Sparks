@@ -1,0 +1,9 @@
+{
+  "ErrorRetentionDaysOutOfRange": "Le nombre de jours de conservation doit être un entier valide compris entre 1 et 365.",
+  "LabelDisableSoftDelete": "Désactiver la suppression réversible",
+  "LabelEnableSoftDelete": "Activer la suppression réversible",
+  "LabelRetentionDays": "Jours de conservation :",
+  "LinkWhatIsSoftDelete": "Qu'est-ce que la suppression réversible ?",
+  "MessageSoftDelete": "Quand la suppression réversible est activée, les objets blob et les captures instantanées supprimés sont enregistrés pour une période de conservation donnée, et peuvent être récupérés au cours de cette période. La définition d'une nouvelle stratégie nécessite 30 secondes pour prendre effet.",
+  "TitleConfigureSoftDeletePolicy": "Configurer la stratégie de suppression réversible"
+}

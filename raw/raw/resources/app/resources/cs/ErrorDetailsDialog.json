@@ -1,0 +1,6 @@
+{
+  "ButtonCopyAndReport": "Kopírovat a nahlásit problém",
+  "ButtonTroubleshootingHelp": "Nápověda k řešení potíží",
+  "MessageReportingInstructions": "Pokud tento problém nemůžete vyřešit sami, můžete otevřít problém na webu GitHub Průzkumníku služby Storage. Uveďte prosím podrobnosti, které nám pomůžou diagnostikovat váš problém. Před přidáním příspěvku zrevidujte všechny osobní informace, které nechcete zveřejnit.",
+  "TitleErrorDetails": "Podrobnosti o chybě"
+}

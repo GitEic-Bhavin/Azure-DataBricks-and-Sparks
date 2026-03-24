@@ -1,0 +1,12 @@
+{
+  "GreetingText": "Telemetri Ayarları",
+  "LinkPrivacyStatement": "Microsoft Gizlilik Bildirimi",
+  "OptOutTelemetryOption": "Telemetri Göndermekten Vazgeç",
+  "SendTelemetryOption": "Telemetri Gönder (Önerilen)",
+  "TelemetryAndPerformance": "Telemetri gönderilmesi, Depolama Gezgini performansını düşürmez.",
+  "TelemetryCollection": "Toplanan telemetri şunları içerir:",
+  "TelemetryCollection1": "Yazılım ve donanım yapılandırmalarınız hakkındaki bilgiler.",
+  "TelemetryCollection2": "Eğilim ve kullanım desenlerini belirlemek üzere Microsoft yazılım ve hizmetlerini kullanımınıza ilişkin bilgiler.",
+  "TelemetryCollectionPurpose": "Depolama Gezgini, Microsoft hizmet ve yazılımlarının kalitesini, güvenilirliğini ve performansını artırmaya yardımcı olmak için telemetri toplar.",
+  "TelemetryOptions": "Telemetri göndermekten istediğiniz zaman vazgeçebilirsiniz. Bunu yapmak için aşağıdaki \"Telemetri Göndermekten Vazgeç\" seçeneğini belirleyin."
+}

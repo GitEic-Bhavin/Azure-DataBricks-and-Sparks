@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html class="page" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' 'unsafe-inline' 'unsafe-eval';
+        img-src 'self' https: data:;
+        child-src 'self';
+        object-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        style-src 'self' 'unsafe-inline';
+        connect-src 'self' https:;
+        font-src 'self' https:;" />
+
+    <link rel="stylesheet" href="./ManageAcl.css" />
+</head>
+
+<body>
+    <se-dialog-window params="with: $data">
+        <se-dialog-panel params="id: 'default-panel', with: manageAclViewModel">
+            <div class="row">
+                <label for="resourceLabel" data-bind="text: resourceLabel"></label>
+                <input class="manage-acl-readonly-field" id="resourceLabel" type="text" readonly data-bind="value: resourceName">
+            </div>
+
+            <div class="row">
+                <!-- ko foreach: aclAlerts -->
+                <div role="alert" data-bind="attr: { id: id, 'aria-label': label }"></div>
+                <!-- /ko -->
+                <label for="accessPoliciesTable" data-bind="text: accessPoliciesLabel"></label>
+                <table id="accessPoliciesTable" class="manage-acl-table" data-bind="
+                    visible: hasPolicies,
+                    style: { 'grid-template-columns': gridTemplateColumns }
+                ">
+                    <thead>
+                        <tr>
+                            <th scope="col" data-bind="text: idLabel"></th>
+                            <th scope="col" data-bind="text: startTimeLabel"></th>
+                            <th scope="col" data-bind="text: expiryTimeLabel"></th>
+                            <!-- ko foreach: accessPolicyPermissionLabels -->
+                            <th class="manage-acl-table-permission-column" scope="col" data-bind="text: $data"></th>
+                            <!-- /ko -->
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: accessPolicies">
+                        <tr>
+                            <td data-bind="with: id">
+                                <input type="text" class="manage-acl-table-field" data-bind="
+                                    value: value,
+                                    hasFocus: hasFocus,
+                                    css: { 'invalid-field': !isValid() },
+                                    attr: { title: validationError, placeholder: placeholder, 'aria-label': $parent.idLabel }" />
+                            </td>
+                            <td>
+                                <input type="datetime-local" class="manage-acl-table-field" data-bind="
+                                    value: displayStartTimestamp,
+                                    css: { 'invalid-field': !isStartTimestampValid() },
+                                    attr: { title: startTimestampTooltip, 'aria-label': $parent.startTimeLabel }" />
+                            </td>
+                            <td>
+                                <input type="datetime-local" class="manage-acl-table-field" data-bind="
+                                    value: displayExpiryTimestamp,
+                                    css: { 'invalid-field': !isExpiryTimestampValid() },
+                                    attr: { title: expiryTimestampTooltip, 'aria-label': $parent.expiryTimeLabel }" />
+                            </td>
+                            <!-- ko foreach: permissionViewModels -->
+                            <td class="manage-acl-table-permission-column">
+                                <div>
+                                    <input type="checkbox" data-bind="
+                                        checked: isSelected,
+                                        value: value,
+                                        attr: { 'id': `permission_${$index}`, 'aria-label': label }
+                                    ">
+                                </div>
+                            </td>
+                            <!-- /ko -->
+                            <td class="manage-acl-buttons">
+                                <button data-bind="hasFocus: isRemoveButtonFocused, click: remove">
+                                    <se-icon params="with: { name: 'Delete' }" />
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="manage-acl-buttons">
+                    <button type="button" aria-label="Add access policy" class="inline-button manage-acl-table-button"
+                        data-bind="text: addButtonLabel, enable: canAdd, click: addPolicy, hasFocus: addButtonHasFocus">
+                    </button>
+                </div>
+            </div>
+
+            <div class="row" data-bind="visible: hasPolicies">
+                <label id="timeZoneLabel" data-bind="text: timeZoneLabel"></label>
+                <div>
+                    <div>
+                        <input type="radio" name="timezone" id="manage-acl-local-time-field" value="local"
+                            aria-describedby="timeZoneLabel" data-bind="checked: timeZone">
+                        <label for="manage-acl-local-time-field" data-bind="text: localTimeLabel"></label>
+                    </div>
+                    <div>
+                        <input type="radio" name="timezone" id="utc" value="utc" data-bind="checked: timeZone">
+                        <label for="utc" data-bind="text: utcLabel"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <a href="#" data-bind="text: learnMoreLabel, click: openLearnMoreLink"></a>
+            </div>
+        </se-dialog-panel>
+    </se-dialog-window>
+
+    <script type="text/javascript" src="../index.js"></script>
+</body>
+
+</html>

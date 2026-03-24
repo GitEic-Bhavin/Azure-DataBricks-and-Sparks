@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' 'unsafe-inline' 'unsafe-eval';
+        img-src 'self' https: data:;
+        child-src 'self';
+        object-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        style-src 'self' 'unsafe-inline';
+        connect-src 'self' https:;
+        font-src 'self' https:;" />
+
+    <link rel="stylesheet" href="./AppReset.css" />
+</head>
+
+<body>
+    <se-dialog-window params="with: $data">
+        <se-dialog-panel params="id: 'default-panel', with: panel">
+            <div>
+                <span data-bind="text: instructions, attr: { 'aria-label': instructions }"></span>
+                <a href="" data-bind="text: linkText, click: openTroubleShootingGuide"></a>
+            </div>
+            <div class="area-fieldset">
+                <legend class="area-legend" data-bind="text: listCaption" for="areas-list"></legend>
+                <div class="scroll-box-tall" id="areas-list">
+                    <input id="select-all-input" class="area-input" type="checkbox" data-bind="checked: isSelectAllSelected" />
+                    <label class="area-label" for="select-all-input" data-bind="text: selectAllLabel"></label>
+
+                    <!-- ko foreach: componentViewModels -->
+                    <input class="area-input" type="checkbox" data-bind="attr: { 'id': displayValue + '-input' }, checked: isSelected" />
+                    <label class="area-label" data-bind="text: displayValue, attr: { 'for': displayValue + '-input' }"></label>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </se-dialog-panel>
+    </se-dialog-window>
+
+    <script type="text/javascript" src="../index.js"></script>
+</body>
+
+</html>

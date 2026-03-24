@@ -1,0 +1,9 @@
+{
+  "ErrorRetentionDaysOutOfRange": "保留天数必须是介于 1 和 365 之间的有效整数。",
+  "LabelDisableSoftDelete": "禁用软删除",
+  "LabelEnableSoftDelete": "启用软删除",
+  "LabelRetentionDays": "保留天数:",
+  "LinkWhatIsSoftDelete": "什么是软删除?",
+  "MessageSoftDelete": "启用软删除后，系统会将已删除的 blob 和快照保存至保留期结束，且可在此期间内将其恢复。设置新策略后需要 30 秒才能生效。",
+  "TitleConfigureSoftDeletePolicy": "配置软删除策略"
+}

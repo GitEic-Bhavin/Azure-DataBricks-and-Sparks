@@ -1,0 +1,8 @@
+{
+  "ButtonReset": "Alaphelyzet",
+  "ListItemSelectAll": "Az összes kijelölése",
+  "LabelAreasToReset": "Alaphelyzetbe állítandó területek:",
+  "LinkMoreTroubleshootingHelp": "További hibaelhárítási segítség.",
+  "MessageInstructions": "Ha problémákat tapasztal, a Storage Explorer teljes vagy részleges alaphelyzetbe állítása egyszerűbbé teheti a hibaelhárítást. ",
+  "TitleResetStorageExplorer": "Storage Explorer alaphelyzetbe állítása"
+}

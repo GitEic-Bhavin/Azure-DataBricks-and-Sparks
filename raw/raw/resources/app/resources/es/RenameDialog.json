@@ -1,0 +1,20 @@
+{
+  "AdlsNote": "Para cambiar de nombre, mueva el elemento.",
+  "AdlsFileTitle": "Cambiar nombre de archivo",
+  "AdlsFileDirectoryTitle": "Cambiar el nombre del directorio",
+  "BlobContainerNote": "Para clonar, copie todos los archivos en un contenedor nuevo. Este proceso puede tardar unos minutos si hay muchos blobs.",
+  "BlobContainerTitle": "Clonar contenedor de blobs",
+  "BlobFolderTitle": "Cambiar la carpeta de blobs",
+  "BlobTitle": "Clonar blob",
+  "CloneItemNote": "Para clonar, copie en una ubicación nueva. La clonación de un elemento de gran tamaño o de una carpeta con muchos elementos puede tardar unos minutos. No se conservarán los datos de instantánea.",
+  "RenameButtonLabel": "Cambiar nombre",
+  "CloneButtonLabel": "Clonar",
+  "FileDirectoryTitle": "Clonar directorio",
+  "FileShareNote": "Para clonar, copie todos los archivos en un recurso compartido nuevo. Este proceso puede tardar unos minutos si hay muchos archivos.",
+  "FileShareTitle": "Clonar recurso compartido de archivos",
+  "FileTitle": "Clonar archivo",
+  "ItemNote": "Para cambiar de nombre, copie en una ubicación nueva y, a continuación, elimine el elemento de origen. El cambio de nombre de un elemento de gran tamaño o de una carpeta con muchos elementos puede tardar unos minutos. No se conservarán los datos de instantánea.",
+  "NewNameLabel": "Especifique el nuevo nombre:",
+  "TableNote": "Para cambiar de nombre, copie en una tabla nueva y, a continuación, elimine la tabla de origen. Este proceso puede tardar unos minutos si hay muchas entidades. No se conservarán las propiedades ni los metadatos.",
+  "TableTitle": "Cambiar el nombre de la tabla"
+}

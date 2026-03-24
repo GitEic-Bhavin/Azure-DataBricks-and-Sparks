@@ -1,0 +1,9 @@
+{
+  "ErrorRetentionDaysOutOfRange": "보존 기간(일)은 1에서 365 사이의 유효한 정수여야 합니다.",
+  "LabelDisableSoftDelete": "일시 삭제 사용 안 함",
+  "LabelEnableSoftDelete": "일시 삭제 설정",
+  "LabelRetentionDays": "보존 기간(일):",
+  "LinkWhatIsSoftDelete": "일시 삭제란?",
+  "MessageSoftDelete": "일시 삭제를 사용하도록 설정하면 삭제된 Blob 및 삭제된 스냅샷이 보존 기간에 저장되며 이 기간 내에 복구할 수 있습니다. 새 정책을 설정하고 적용되는 데 30초가 걸립니다.",
+  "TitleConfigureSoftDeletePolicy": "일시 삭제 정책 구성"
+}

@@ -1,0 +1,9 @@
+{
+  "ErrorRetentionDaysOutOfRange": "Il valore dei giorni di conservazione deve essere un numero intero valido compreso tra 1 e 365.",
+  "LabelDisableSoftDelete": "Disabilita eliminazione temporanea",
+  "LabelEnableSoftDelete": "Abilita eliminazione temporanea",
+  "LabelRetentionDays": "Giorni di conservazione:",
+  "LinkWhatIsSoftDelete": "Informazioni sull'eliminazione temporanea",
+  "MessageSoftDelete": "Quando l'eliminazione temporanea è abilitata, i BLOB e gli snapshot eliminati verranno salvati per un periodo di conservazione entro il quale potranno essere ripristinati. L'impostazione di nuovi criteri diventa effettiva dopo 30 secondi.",
+  "TitleConfigureSoftDeletePolicy": "Configura criteri di eliminazione temporanea"
+}

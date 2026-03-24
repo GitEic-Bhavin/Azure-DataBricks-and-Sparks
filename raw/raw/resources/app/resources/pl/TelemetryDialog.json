@@ -1,0 +1,12 @@
+{
+  "GreetingText": "Ustawienia telemetrii",
+  "LinkPrivacyStatement": "Zasady zachowania poufności informacji firmy Microsoft",
+  "OptOutTelemetryOption": "Zrezygnuj z wysyłania danych telemetrii",
+  "SendTelemetryOption": "Wysyłaj dane telemetrii (zalecane)",
+  "TelemetryAndPerformance": "Wysyłanie danych telemetrii nie zmniejsza wydajności Eksploratora usługi Storage.",
+  "TelemetryCollection": "Zbierane dane telemetrii obejmują:",
+  "TelemetryCollection1": "Informacje o konfiguracji oprogramowania i sprzętu.",
+  "TelemetryCollection2": "Informacje o sposobie korzystania z oprogramowania i usług firmy Microsoft na potrzeby identyfikowania trendów i wzorców użytkowania.",
+  "TelemetryCollectionPurpose": "Eksploratora usługi Storage zbiera dane telemetrii, aby pomóc w ulepszaniu jakości, niezawodności oraz wydajności usług i oprogramowania firmy Microsoft.",
+  "TelemetryOptions": "W dowolnym czasie możesz zrezygnować z wysyłania danych telemetrii. Aby to zrobić, wybierz poniższą opcję „Zrezygnuj z wysyłania danych telemetrii”."
+}

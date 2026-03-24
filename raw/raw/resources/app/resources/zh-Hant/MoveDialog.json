@@ -1,0 +1,8 @@
+{
+  "MoveNoteLabel": "如果目的地有名稱相同的項目，將會略過檔案和目錄。",
+  "NewNameLabel": "目標資料夾路徑:",
+  "ReplaceSectionLabel": "如果目的地已有相同名稱的檔案，跳過此檔案",
+  "SkipLabel": "跳過",
+  "SkipSectionLabel": "如果目的地已有相同名稱的檔案，取代該檔案",
+  "TitleLabel": "移動"
+}

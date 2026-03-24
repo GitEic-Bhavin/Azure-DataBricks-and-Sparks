@@ -1,0 +1,8 @@
+{
+  "ButtonOK": "Tamam",
+  "ErrorInvalidDirectoryName": "Ad boş olmamalı veya eğik çizgi içermemelidir.",
+  "LabelName": "Ad:",
+  "MessageVirtualDirectory": "Bu, bir sanal klasör oluşturur. Sanal klasöre blob yapıştırmadan, sürüklemeden ve yüklemeden bu klasör oluşturulmaz. Blobu sanal klasöre yapıştırmak için, klasörü oluşturmadan önce blobu kopyalayın.",
+  "TitleCreateNewDirectory": "Yeni Dizin Oluştur",
+  "TitleCreateNewVirtualDirectory": "Yeni Sanal Dizin Oluştur"
+}

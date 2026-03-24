@@ -1,0 +1,19 @@
+{
+  "AppendBlob": "追加 BLOB",
+  "BlockBlob": "ブロック BLOB",
+  "BlobType": "BLOB の種類",
+  "BrowseFilesLabel": "ファイルの参照",
+  "FilesCaption": "ファイル:",
+  "FolderCaption": "フォルダー:",
+  "InfoMessage": "ファイルが 1 つも含まれていないパスは無視されます。",
+  "NoSelectedFiles": "ファイルが選択されていません",
+  "NoSelectedFolder": "フォルダーが選択されていません",
+  "PageBlob": "ページ BLOB",
+  "SelectFolder": "アップロードするフォルダーの選択",
+  "UploadAsPageLabel": ".vhd/vhdx ファイルをページ BLOB としてアップロードする (推奨)",
+  "UploadButton": "アップロード",
+  "UploadFilesTitle": "ファイルのアップロード",
+  "UploadFolderTitle": "フォルダーのアップロード",
+  "UploadToDirectory": "フォルダーにアップロードする (省略可能)",
+  "UploadToLabel": "ディレクトリにアップロード (省略可能):"
+}

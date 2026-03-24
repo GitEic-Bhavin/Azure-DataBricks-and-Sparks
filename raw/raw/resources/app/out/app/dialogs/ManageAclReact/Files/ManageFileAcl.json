@@ -1,0 +1,7 @@
+{
+    "dimensions": {
+        "height": 600,
+        "width": 1030
+    },
+    "view": "app/dialogs/index.html#manageFileAcl"
+}

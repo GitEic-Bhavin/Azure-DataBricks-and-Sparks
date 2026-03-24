@@ -1,0 +1,4 @@
+{
+  "ErrorUninstallExtensionDoesntExist": "Fehler beim Deinstallieren der Erweiterung mit der ID %1$s. Eine solche Erweiterung ist nicht installiert.",
+  "PromptConfirmUninstall": "Möchten Sie \"%1$s\" deinstallieren? Storage-Explorer muss neu gestartet werden, um die Deinstallation abzuschließen."
+}

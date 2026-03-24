@@ -1,0 +1,18 @@
+{
+  "BypassLabel": "Förbikoppling:",
+  "CustomProxyRadioLabel": "Använd proxyinställningar för app",
+  "EnvProxyRadioLabel": "Använd miljövariabler",
+  "ErrorNoProxyInvalid": "Ett eller flera förbikopplingsobjekt är ogiltiga. Förbikopplingen måste använda JSON-matrissyntax som innehåller giltiga värdnamn eller mönster.",
+  "ErrorPortInvalid": "Porten är ogiltig. Porten måste bestå av ett giltigt heltal mellan 0 och 65535.",
+  "ErrorUrlInvalid": "URL:en är ogiltig. Proxy-URL:en måste ha ett giltigt protokoll och värdnamn.",
+  "ErrorUsernameInvalid": "Användarnamnet saknas.",
+  "NoProxyRadioLabel": "Använd inte proxy",
+  "PasswordLabel": "Lösenord:",
+  "PortLabel": "Port:",
+  "SourceLabel": "Källa:",
+  "SystemProxyRadioLabel": "Använd systemproxy",
+  "TitleLabel": "Proxyinställningar",
+  "UrlLabel": "URL:",
+  "UseCredentialsLabel": "Använd ett användarnamn och lösenord",
+  "UsernameLabel": "Användarnamn:"
+}

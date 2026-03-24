@@ -1,0 +1,4 @@
+{
+  "ErrorUninstallExtensionDoesntExist": "Échec de la désinstallation de l'extension ayant l'ID %1$s. Aucune extension de ce type n'est installée.",
+  "PromptConfirmUninstall": "Voulez-vous vraiment désinstaller %1$s ? L'Explorateur Stockage doit être redémarré pour effectuer la désinstallation."
+}

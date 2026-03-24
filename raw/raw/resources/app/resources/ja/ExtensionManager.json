@@ -1,0 +1,4 @@
+{
+  "ErrorUninstallExtensionDoesntExist": "ID %1$s の拡張機能をアンインストールできませんでした。そのような拡張機能はインストールされていません。",
+  "PromptConfirmUninstall": "%1$s をアンインストールしますか? アンインストールを完了するには、Storage Explorer を再起動する必要があります。"
+}

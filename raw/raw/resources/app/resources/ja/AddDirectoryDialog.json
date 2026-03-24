@@ -1,0 +1,8 @@
+{
+  "ButtonOK": "OK",
+  "ErrorInvalidDirectoryName": "名前を空にすることも、スラッシュを含めることもできません。",
+  "LabelName": "名前:",
+  "MessageVirtualDirectory": "これにより仮想フォルダーが作成されます。仮想フォルダーは、BLOB を貼り付け、ドラッグ、アップロードするまでは、Azure 内に実際には存在しません。BLOB を仮想フォルダーに貼り付けるには、フォルダーを作成する前に BLOB をコピーしてください。",
+  "TitleCreateNewDirectory": "新しいディレクトリの作成",
+  "TitleCreateNewVirtualDirectory": "新しい仮想ディレクトリの作成"
+}

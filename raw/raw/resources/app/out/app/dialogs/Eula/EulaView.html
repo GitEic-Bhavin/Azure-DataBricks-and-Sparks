@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' 'unsafe-inline' 'unsafe-eval';
+        img-src 'self' https: data:;
+        child-src 'self';
+        object-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        style-src 'self' 'unsafe-inline';
+        connect-src 'self' https:;
+        font-src 'self' https:;" />
+
+    <link rel="stylesheet" href="./Eula.css" />
+</head>
+
+<body>
+    <se-dialog-window params="with: $data">
+        <se-dialog-panel params="id: 'default-panel', with: panel">
+            <iframe id="test" class="themed eula-frame" src="./eula.html" sandbox="allow-scripts allow-same-origin"></iframe> <!-- CodeQL [js/insufficient-iframe-sandboxing] The sandbox exceptions are necessary for this page to work as a local single page application -->
+            <div class="row">
+                <a href="#" data-bind="text: privacyStatementLink, click: function(data, event) { openInBrowser('https://go.microsoft.com/fwlink/?LinkID=824704')}"></a>
+            </div>
+        </se-dialog-panel>
+    </se-dialog-window>
+
+    <script type="text/javascript" src="../index.js"></script>
+</body>
+
+</html>

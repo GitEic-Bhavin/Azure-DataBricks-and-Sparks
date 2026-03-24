@@ -1,0 +1,18 @@
+{
+  "ErrorExpiryTimeGreaterThanStartTime": "Čas vypršení platnosti musí být pozdější než čas spuštění.",
+  "ErrorInvalidStartTime": "Zadejte prosím platný čas spuštění.",
+  "ErrorNoExpiryTime": "Požadované pole. Zadejte prosím platný čas vypršení platnosti.",
+  "LabelLastNumberOfDays": "Poslední počet dnů",
+  "LabelLastNumberOfHours": "Poslední počet hodin",
+  "LabelLastNumberOfMinutes": "Poslední počet minut",
+  "LabelLastNumberOfSeconds": "Poslední počet sekund",
+  "LabelLastNumberOfUnits": "Poslední počet jednotek",
+  "LabelFrom": "Od:",
+  "LabelLast:": "Poslední:",
+  "LabelLocal": "Místní",
+  "LabelRange": "Rozsah:",
+  "LabelTimeZone": "Časové pásmo:",
+  "LabelTo": "Do:",
+  "LabelUtc": "UTC",
+  "TitleCustomTimestampQuery": "Dotaz na vlastní časové razítko"
+}

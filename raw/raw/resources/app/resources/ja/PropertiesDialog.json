@@ -1,0 +1,6 @@
+{
+  "CaseInsensitiveError": "キーは一意である必要があります (大文字と小文字を区別しません)。",
+  "CaseSensitiveError": "キーは一意である必要があります (大文字と小文字が区別されます)。",
+  "LabelAdd": "追加",
+  "SaveButtonLabel": "保存"
+}

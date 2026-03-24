@@ -1,0 +1,9 @@
+{
+  "AttributeNameLabel": "Eigenschaftenname",
+  "AttributeValueLabel": "Beispielwert",
+  "DataTypeLabel": "Datentyp",
+  "ImportTitleLabel": "Entitäten importieren",
+  "InsertButtonLabel": "Einfügen",
+  "PreserveExistingValuesLabel": "Vorhandene Werte beim Aktualisieren von Entitäten beibehalten",
+  "ShouldUseNullLabel": "Leere Zeichenfolgenwerte als NULL behandeln"
+}

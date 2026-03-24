@@ -1,0 +1,6 @@
+{
+  "ButtonCopyAndReport": "复制并报告问题",
+  "ButtonTroubleshootingHelp": "疑难解答帮助",
+  "MessageReportingInstructions": "如果无法自行解决此问题，建议在存储资源管理器 GitHub 站点上提交问题。请提供以下详细信息，以帮助我们诊断问题。发布问题之前请务必隐藏不希望公开的任何个人信息。",
+  "TitleErrorDetails": "错误详细信息"
+}

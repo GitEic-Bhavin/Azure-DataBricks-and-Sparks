@@ -1,0 +1,19 @@
+{
+  "AppendBlob": "附加 Blob",
+  "BlockBlob": "區塊 Blob",
+  "BlobType": "Blob 類型",
+  "BrowseFilesLabel": "瀏覽檔案",
+  "FilesCaption": "檔案:",
+  "FolderCaption": "資料夾:",
+  "InfoMessage": "將忽略未包含任何檔案的路徑。",
+  "NoSelectedFiles": "未選取任何檔案",
+  "NoSelectedFolder": "未選取任何資料夾",
+  "PageBlob": "分頁 Blob",
+  "SelectFolder": "選取要上傳的資料夾",
+  "UploadAsPageLabel": "將 .vhd/vhdx 檔案上傳為分頁 blob (建議)",
+  "UploadButton": "上傳",
+  "UploadFilesTitle": "上傳檔案",
+  "UploadFolderTitle": "上傳資料夾",
+  "UploadToDirectory": "上傳至資料夾 (選擇性)",
+  "UploadToLabel": "上傳至目錄 (選擇性):"
+}

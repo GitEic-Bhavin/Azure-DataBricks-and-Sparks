@@ -1304,3 +1304,671 @@ spark.conf.set(f"fs.azure.account.oauth2.client.endpoint.{storage_account}.dfs.c
 
   ![alt text](addrolesp.png)
 
+Cluster Scope Authentications
+---
+
+We will required to use our SA Access key or SAS in our Single Node / Multi Node Cluster during creating the cluster.
+
+![alt text](usecrds.png)
+
+
+Securing Secrets
+---
+
+We will use Azure Key-value to store cred, and then we will use azure cred into our cluster , notebook
+
+- Create KeyValut.
+
+- Go to Secrets > Add sectets name and its value.
+
+- Create Databrick secret scope  and link the secret scope with azure key valut.
+
+- Go to Databrick home url
+- Add /secrets/createScope to create secret scope.
+
+- Copy Azure Key Value DNS URL by Properties > **Vault URI**. Copy this. `https:/<keyvault_name>.valut.azure.net/`
+
+- Also copy Key valut **Resource ID**
+
+![alt text](csscope.png)
+
+- Scret Scopes created!
+
+
+- Go to Notebook
+
+```bash
+dbutils.secrets.help()
+```
+
+![alt text](schelp.png)
+
+- We will use listscope
+
+```bash
+dbutils.secrets.listScopes()
+# List all avaialble secret scope just we created
+```
+
+```bash
+dbutils.secrets.list(scope = 'Your_scope')
+# Return Secret Name
+```
+
+```bash
+dbutils.secrets.get(scope = "Your_Scope", key = "Key_Valut_Secret_Key")
+
+# Out: ['REDACTED']
+```
+
+Implement Secrets Utilities in Notebooks
+---
+
+![alt text](sctscp.png)
+
+```bash
+account_key = dbutils.secrets.get(scope = 'your_secrets_scope_name', key = 'secret_key_name')
+```
+
+```bash
+spark.conf.set(
+  "fs.azure.account.key.<SA_Name>.dfs.core.windows.net",
+  "account_key"
+)
+```
+
+```bash
+display(dbutils.fs.ls("abfss://<sa_name>.dfs.core.windows.net"))
+```
+
+![alt text](scgen2.png)
+
+Implement Secrets Utilities by Secret scope by using SAS TOKENS
+---
+
+- You have to just replace your Hardcoded value of SAS to azure key valut secret scope named.
+
+![alt text](sassct.png)
+
+---
+
+**Secrets Utilities in Clusters**
+
+- You would have to just add string for account_key and your secret scope formula.
+
+```bash
+fs.azure.account_key.<SA_Name>.dfs.core.windows.net {{secrets/<Your_Secret_Scope_Name>/<KeyValut_Secret_Key_Name}}
+```
+
+![alt text](sucluster.png)
+
+**RESTART CLUSTER ALWAYS**
+
+**Varify in Notebooks**
+
+```bash
+display(dbutils.fs.ls("abfss://<sa_name>.dfs.core.windows.net"))
+
+display(spark.read.csv("abfss://<sa_name>.dfs.core.windows.net/circuits.csv"))
+```
+
+![alt text](scclusternb.png)
+
+
+# 📦 Databricks Storage & Mounts
+
+## 📌 Overview
+
+This guide explains how to properly store and access data in Azure Databricks, why DBFS Root should be avoided for production data, and how to use Mounts and Unity Catalog.
+
+## ❌ Why NOT to Use DBFS Root
+
+DBFS Root is the default storage attached to a Databricks workspace.
+
+### Issues:
+
+* Data is **deleted when workspace is deleted**
+* Not suitable for **production or customer data**
+* Limited control over security and lifecycle
+
+👉 **Conclusion:** Never store critical data in DBFS Root.
+
+## ✅ Recommended Storage Options
+
+Store data in external Azure storage services:
+
+* Azure Blob Storage
+* Azure Data Lake Storage Gen2 (ADLS Gen2)
+
+### Benefits:
+
+* Data persists independently of Databricks workspace
+* High scalability and performance
+* Built-in replication and durability
+
+## ⚠️ Direct Access Using ABFS Protocol
+
+Example:
+
+```
+abfss://<container>@<storage-account>.dfs.core.windows.net/<file-path>
+```
+
+### Challenges:
+
+1. Long and complex URLs
+2. Requires authentication every time
+
+## ✅ Databricks Mounts (Solution)
+
+Mounts allow you to attach external storage to DBFS as a directory.
+
+### Example:
+
+```
+/mnt/customer-data
+```
+
+Now you can access data like:
+
+```
+/mnt/customer-data/file.csv
+```
+
+Instead of:
+
+```
+abfss://container@storageaccount.dfs.core.windows.net/file.csv
+```
+
+## 🔐 How Mount Works
+
+### Steps:
+
+1. Create a Service Principal (Azure AD application)
+2. Grant access to Azure Storage (ADLS/Blob)
+3. Create mount in Databricks using credentials
+
+Once mounted:
+
+* No need to pass credentials again
+* Accessible to all workspace users
+
+## 💡 Analogy
+
+Mount = Mapping a drive in your system
+
+| System     | Example   |
+| ---------- | --------- |
+| Windows    | C:, D:\   |
+| Databricks | /mnt/data |
+
+## 🚀 Benefits of Mounts
+
+* Simplified file paths
+* No repeated authentication
+* Easy data access for teams
+* Leverages Azure storage capabilities
+
+## ⚠️ Important Note
+
+Databricks Mounts are considered a **legacy approach**.
+
+## 🌟 Unity Catalog (Modern Approach)
+
+Unity Catalog is the recommended way to manage data access in Databricks.
+
+### Features:
+
+* Centralized data governance
+* Fine-grained access control
+* No manual credential handling
+* Works across multiple workspaces
+
+### Access Example:
+
+Still uses ABFS path, but without credentials.
+
+## 🔁 Mounts vs Unity Catalog
+
+| Feature                 | Mounts            | Unity Catalog |
+| ----------------------- | ----------------- | ------------- |
+| Credential Management   | Manual (one-time) | Automatic     |
+| Security                | Basic             | Advanced      |
+| Multi-workspace Support | No                | Yes           |
+| Recommended             | No                | Yes           |
+
+## 🧠 Real-World Usage
+
+* Existing projects → Mostly use Mounts
+* New projects → Prefer Unity Catalog
+
+👉 Engineers should understand both approaches.
+
+## 📝 Summary
+
+* Avoid DBFS Root for production data
+* Use Azure Storage (ADLS/Blob)
+* Use Mounts for simplified access (legacy)
+* Use Unity Catalog for modern, secure data management
+
+## 📚 Next Steps
+
+* Implement mount using Service Principal
+* Explore Unity Catalog setup
+* Integrate with Databricks notebooks and pipelines
+
+## 🔧 Example (Optional Mount Code)
+
+```python
+configs = {
+  "fs.azure.account.auth.type": "OAuth",
+  "fs.azure.account.oauth.provider.type": "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider",
+  "fs.azure.account.oauth2.client.id": "<client-id>",
+  "fs.azure.account.oauth2.client.secret": "<client-secret>",
+  "fs.azure.account.oauth2.client.endpoint": "https://login.microsoftonline.com/<tenant-id>/oauth2/token"
+}
+
+# Mount command
+dbutils.fs.mount(
+  source = "abfss://<container>@<storage-account>.dfs.core.windows.net/",
+  mount_point = "/mnt/customer-data",
+  extra_configs = configs
+)
+```
+
+
+Mount **Azure Data Lake Storage Gen2 (ADLS Gen2)** into Databricks so you can use:
+
+```
+/mnt/<your-mount-name>
+```
+
+instead of long ABFS URLs.
+
+# 🔧 High-Level Flow
+
+```
+ADLS Gen2 → Service Principal → Databricks Mount → /mnt/...
+```
+
+# 🧩 Step-by-Step Setup (Production Ready)
+
+## 🔹 Step 1: Create Service Principal (Azure AD)
+
+👉 This is like a **service account for authentication**
+
+Go to:
+
+* Azure Portal → **Azure Active Directory**
+* App registrations → **New registration**
+
+### Capture these values:
+
+* **Application (client) ID**
+* **Directory (tenant) ID**
+
+## 🔹 Step 2: Create Client Secret
+
+* Go to: Certificates & Secrets
+* Create **New client secret**
+
+👉 Copy:
+
+* **Client Secret Value (IMPORTANT)**
+
+## 🔹 Step 3: Give Access to ADLS Gen2
+
+Go to your **Storage Account**:
+
+* IAM (Access Control)
+* Add Role Assignment
+
+### Assign role:
+
+* `Storage Blob Data Contributor`
+
+### Assign to:
+
+* Your **Service Principal**
+
+## 🔹 Step 4: (IMPORTANT) Assign ACLs (for ADLS Gen2)
+
+Even after IAM, you MUST set ACL:
+
+* Go to **Storage Account → Containers**
+* Select container
+* Click **Access Control (ACL)**
+
+### Add:
+
+* Service Principal → Give **Read/Write/Execute**
+
+👉 Without this → mount will FAIL ❌
+
+## 🔹 Step 5: Mount in Databricks
+
+Now go to **Databricks Notebook** and run:
+
+```python
+configs = {
+  "fs.azure.account.auth.type": "OAuth",
+  "fs.azure.account.oauth.provider.type": "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider",
+  "fs.azure.account.oauth2.client.id": "<client-id>",
+  "fs.azure.account.oauth2.client.secret": "<client-secret>",
+  "fs.azure.account.oauth2.client.endpoint": "https://login.microsoftonline.com/<tenant-id>/oauth2/token"
+}
+
+dbutils.fs.mount(
+  source = "abfss://<container>@<storage-account>.dfs.core.windows.net/",
+  mount_point = "/mnt/customer-data",
+  extra_configs = configs
+)
+```
+
+## 🔹 Step 6: Verify Mount
+
+```python
+dbutils.fs.ls("/mnt/customer-data")
+```
+
+👉 If you see files → ✅ SUCCESS
+
+# 🔐 Best Practice (VERY IMPORTANT)
+
+Instead of hardcoding secrets:
+
+👉 Use **Databricks Secret Scope**
+
+Example:
+
+```python
+"fs.azure.account.oauth2.client.secret": dbutils.secrets.get(scope="kv-scope", key="client-secret")
+```
+
+![alt text](mountsacontainer.png)
+
+
+
+############################################
+
+# ⚡ Spark Architecture in Databricks 
+
+A Databricks cluster consists of:
+
+### 🔹 Driver Node (Brain)
+
+* Runs notebook or application code
+* Creates SparkContext
+* Controls execution (jobs, stages, tasks)
+* Does NOT process data
+
+### 🔹 Worker Nodes (Processing Units)
+
+* Virtual machines in Azure
+* Perform actual data processing
+
+![alt text](sparkarch.png)
+
+### 🔹 Executors
+
+* Run inside worker nodes
+* Handle computation and data I/O
+* Databricks uses **1 executor per worker** for simplicity and performance
+
+### 🔹 Slots (Parallel Execution)
+
+* Each CPU core = 1 slot
+* Slot executes one task
+
+## ⚙️ Execution Flow
+
+When a Spark job runs:
+
+1. **Application Start**
+
+   * Notebook or job runs on Driver
+
+2. **Job Creation**
+
+   * Each action (e.g., count, write) becomes a job
+
+3. **Stages Division**
+
+   * Jobs split into stages based on transformations and shuffles
+
+4. **Tasks Creation**
+
+   * Each stage is divided into tasks
+   * Each task processes one data partition
+
+5. **Task Distribution**
+
+   * Driver assigns tasks to executor slots
+
+6. **Execution**
+
+   * Executors process tasks in parallel
+
+7. **Result Return**
+
+   * Results sent back to Driver
+
+## 📊 Example
+
+* Data size: 1 GB
+* Partitions: 4
+* Worker node: 4 cores
+
+Execution:
+
+* 4 tasks run in parallel using 4 slots
+
+## ⚡ Parallelism
+
+Spark achieves high performance through parallelism.
+
+### Depends on:
+
+* Number of partitions
+* Number of CPU cores
+
+👉 More partitions + more cores = better parallelism
+
+## 🔼 Scaling Strategies
+
+### 🔹 Vertical Scaling
+
+* Increase CPU/RAM of a single node
+
+**Pros:**
+
+* Simple to implement
+
+**Cons:**
+
+* Limited by VM size
+
+### 🔹 Horizontal Scaling (Recommended)
+
+* Add more worker nodes
+
+**Pros:**
+
+* Handles large-scale data (TBs/PBs)
+* Improves parallel processing
+
+## 🔥 Databricks Optimization
+
+* Uses **1 executor per worker node**
+* Simplifies resource management
+* Improves stability and performance
+
+## 🧠 Key Concepts Summary
+
+| Component | Role                  |
+| --------- | --------------------- |
+| Driver    | Controls execution    |
+| Worker    | Executes tasks        |
+| Executor  | Runs inside worker    |
+| Task      | Smallest unit of work |
+| Slot      | Executes a task       |
+
+## ⚠️ Common Issues & Troubleshooting
+
+### ❌ Slow Job
+
+**Symptoms:**
+
+* Long execution time
+
+**Fix:**
+
+* Increase workers (horizontal scaling)
+* Increase partitions
+
+### ❌ Underutilized Cluster
+
+**Symptoms:**
+
+* Few tasks running
+
+**Fix:**
+
+* Increase number of partitions
+
+### ❌ Driver Failure
+
+**Symptoms:**
+
+* Notebook crash
+
+**Fix:**
+
+* Avoid large collect() operations
+* Increase driver memory
+
+Spark DataFram
+---
+
+# 📊 Spark DataFrames in Databricks
+
+
+## 🧠 What is a DataFrame?
+
+A DataFrame is a distributed collection of data organized into rows and columns with a defined schema.
+
+### Similar to:
+
+* SQL Table
+* Pandas DataFrame
+
+## ⚙️ How Spark Uses DataFrames
+
+When data is read:
+
+1. Data is loaded into a DataFrame
+2. DataFrame is split into partitions
+3. Each partition is processed in parallel
+
+👉 Enables large-scale distributed processing
+
+## 🔥 Key Concept: Partitions
+
+* DataFrame is divided into smaller chunks called partitions
+* Each partition is processed by executors
+* More partitions = more parallelism
+
+![alt text](sparkdf.png)
+
+## 🧩 DataFrame Lifecycle
+
+### 🔹 1. Read Data (Input)
+
+Using DataFrame Reader API:
+
+```python
+ df = spark.read.format("csv").load("/mnt/data/file.csv")
+```
+
+### Supported Formats:
+
+* CSV
+* JSON
+* Parquet (recommended)
+* ORC
+
+### 🔹 2. Transform Data
+
+Transformations are operations applied to DataFrames.
+
+Examples:
+
+```python
+ df.filter(df.age > 25)
+ df.groupBy("age").count()
+ df1.join(df2, "id")
+```
+
+### Common Transformations:
+
+* Filter
+* Join
+* Aggregation
+* Window functions
+
+### 🔹 3. Actions (Trigger Execution)
+
+Actions trigger actual computation.
+
+Examples:
+
+```python
+ df.count()
+ df.show()
+```
+
+### 🔹 4. Write Data (Output)
+
+Using DataFrame Writer API:
+
+```python
+ df.write.format("parquet").save("/mnt/output/")
+```
+
+## 🔁 Full Data Flow
+
+```
+Read → DataFrame → Transform → Action → Write
+```
+
+## 🧠 Important Concepts
+
+### 🔹 Lazy Evaluation
+
+* Transformations are not executed immediately
+* Execution starts only when an action is called
+
+### 🔹 DAG (Execution Plan)
+
+* Spark builds a Directed Acyclic Graph (DAG)
+* Optimizes execution before running tasks
+
+## 🔌 Data Sources API
+
+Provides:
+
+* DataFrame Reader API → Read data
+* DataFrame Writer API → Write data
+
+## 📊 Real-World Example
+
+```python
+ df = spark.read.parquet("/mnt/raw/sales")
+
+ df_clean = df.filter(df.amount > 0)
+
+ df_agg = df_clean.groupBy("region").sum("amount")
+
+ df_agg.write.mode("overwrite").parquet("/mnt/gold/sales")
+```

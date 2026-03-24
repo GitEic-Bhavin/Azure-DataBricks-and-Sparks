@@ -1,0 +1,20 @@
+{
+  "AdlsNote": "Renommage des travaux par déplacement.",
+  "AdlsFileTitle": "Renommer le fichier",
+  "AdlsFileDirectoryTitle": "Renommer le répertoire",
+  "BlobContainerNote": "Le clonage fonctionne par copie de tous les fichiers vers un nouveau conteneur. Cette opération peut prendre un certain temps, s'il existe beaucoup d'objets blob.",
+  "BlobContainerTitle": "Cloner le conteneur d’objets blob",
+  "BlobFolderTitle": "Cloner le dossier d’objets blob",
+  "BlobTitle": "Cloner l’objet blob",
+  "CloneItemNote": "Le clonage fonctionne par copie vers un nouvel emplacement. Le clonage d'un élément volumineux ou d'un dossier comportant de nombreux éléments peut prendre un certain temps. Les données de capture instantanée ne sont pas conservées.",
+  "RenameButtonLabel": "Renommer",
+  "CloneButtonLabel": "Cloner",
+  "FileDirectoryTitle": "Cloner le répertoire",
+  "FileShareNote": "Le clonage fonctionne par copie de tous les fichiers vers un nouveau partage. Cette opération peut prendre un certain temps, s'il existe beaucoup de fichiers.",
+  "FileShareTitle": "Cloner le partage de fichiers",
+  "FileTitle": "Cloner le fichier",
+  "ItemNote": "Renommage des travaux par copie vers un nouvel emplacement, puis suppression de l'élément source. Le renommage d'un élément volumineux ou d'un dossier comportant de nombreux éléments peut prendre un certain temps. Les données de capture instantanée ne sont pas conservées.",
+  "NewNameLabel": "Spécifiez le nouveau nom :",
+  "TableNote": "Renommage des travaux par copie vers une nouvelle table, puis suppression de la table source. Cette opération peut prendre un certain temps, s'il existe beaucoup d'entités. Les propriétés et les métadonnées ne sont pas conservées.",
+  "TableTitle": "Renommer la table"
+}

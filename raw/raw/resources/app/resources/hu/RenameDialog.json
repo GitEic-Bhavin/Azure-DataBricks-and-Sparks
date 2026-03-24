@@ -1,0 +1,20 @@
+{
+  "AdlsNote": "Az átnevezés áthelyezésen alapul.",
+  "AdlsFileTitle": "Fájl átnevezése",
+  "AdlsFileDirectoryTitle": "Könyvtár átnevezése",
+  "BlobContainerNote": "Klónozás során a rendszer egy új tárolóba másolja az összes fájlt. Sok blob esetén ez hosszabb ideig is eltarthat.",
+  "BlobContainerTitle": "Blobtároló klónozása",
+  "BlobFolderTitle": "Blobmappa klónozása",
+  "BlobTitle": "Blob klónozása",
+  "CloneItemNote": "Klónozás során a rendszer új helyre másolja az adatokat. Egy nagy méretű elem vagy egy sok elemet tartalmazó mappa klónozása hosszabb ideig is eltarthat. A pillanatképadatok elvesznek.",
+  "RenameButtonLabel": "Átnevezés",
+  "CloneButtonLabel": "Klónozás",
+  "FileDirectoryTitle": "Könyvtár klónozása",
+  "FileShareNote": "Klónozás során a rendszer egy új megosztásba másolja az összes fájlt. Sok fájl esetén ez hosszabb ideig is eltarthat.",
+  "FileShareTitle": "Fájlmegosztás klónozása",
+  "FileTitle": "Fájl klónozása",
+  "ItemNote": "Az átnevezés úgy működik, hogy a rendszer új helyre másolja az adatokat, majd törli a forráselemet. Egy nagy méretű elem vagy egy sok elemet tartalmazó mappa átnevezése hosszabb ideig is eltarthat. A pillanatképadatok elvesznek.",
+  "NewNameLabel": "Adja meg az új nevet:",
+  "TableNote": "Az átnevezés úgy működik, hogy a rendszer egy új táblába másolja az adatokat, majd törli a forrástáblát. Ez hosszabb ideig is eltarthat, ha sok entitás van. A tulajdonságok és a metaadatok elvesznek.",
+  "TableTitle": "Táblázat átnevezése"
+}

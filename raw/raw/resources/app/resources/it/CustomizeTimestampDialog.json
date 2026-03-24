@@ -1,0 +1,18 @@
+{
+  "ErrorExpiryTimeGreaterThanStartTime": "L'ora di scadenza deve essere successiva all'ora di inizio.",
+  "ErrorInvalidStartTime": "Specificare un'ora di inizio valida.",
+  "ErrorNoExpiryTime": "Campo obbligatorio. Specificare un'ora di scadenza valida.",
+  "LabelLastNumberOfDays": "Ultimo numero di giorni",
+  "LabelLastNumberOfHours": "Ultimo numero di ore",
+  "LabelLastNumberOfMinutes": "Ultimo numero di minuti",
+  "LabelLastNumberOfSeconds": "Ultimo numero di secondi",
+  "LabelLastNumberOfUnits": "Ultimo numero di unità",
+  "LabelFrom": "Da:",
+  "LabelLast:": "Ultimo/i:",
+  "LabelLocal": "Locale",
+  "LabelRange": "Intervallo:",
+  "LabelTimeZone": "Fuso orario:",
+  "LabelTo": "A:",
+  "LabelUtc": "UTC",
+  "TitleCustomTimestampQuery": "Query timestamp personalizzata"
+}

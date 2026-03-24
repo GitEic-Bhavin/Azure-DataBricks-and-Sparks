@@ -1,0 +1,8 @@
+{
+  "ButtonReset": "Återställ",
+  "ListItemSelectAll": "Markera allt",
+  "LabelAreasToReset": "Områden som ska återställas:",
+  "LinkMoreTroubleshootingHelp": "Mer felsökningshjälp.",
+  "MessageInstructions": "Om du har problem kan en återställning av hela eller delar av Storage Explorer göra felsökningen enklare. ",
+  "TitleResetStorageExplorer": "Återställ Storage Explorer"
+}

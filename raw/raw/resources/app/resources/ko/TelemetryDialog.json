@@ -1,0 +1,12 @@
+{
+  "GreetingText": "원격 분석 설정",
+  "LinkPrivacyStatement": "Microsoft 개인정보처리방침",
+  "OptOutTelemetryOption": "원격 분석 보내기 옵트아웃",
+  "SendTelemetryOption": "원격 분석 보내기(권장)",
+  "TelemetryAndPerformance": "원격 분석을 보내도 Storage Explorer의 성능이 저하되지 않습니다.",
+  "TelemetryCollection": "수집된 원격 분석에 다음이 포함됩니다.",
+  "TelemetryCollection1": "소프트웨어 및 하드웨어 구성에 대한 정보",
+  "TelemetryCollection2": "추세 및 사용 패턴을 파악하기 위한 Microsoft 소프트웨어 및 서비스를 사용하는 방법에 대한 정보",
+  "TelemetryCollectionPurpose": "Storage Explorer는 Microsoft 서비스 및 소프트웨어의 품질, 안정성 및 성능을 개선하는 데 도움이 되는 원격 분석을 수집합니다.",
+  "TelemetryOptions": "언제든지 원격 분석 보내기를 옵트아웃할 수 있습니다. 이 작업을 수행하려면 아래의 \"원격 분석 보내기 옵트아웃\"을 선택하면 됩니다."
+}

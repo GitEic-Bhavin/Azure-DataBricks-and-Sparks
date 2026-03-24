@@ -1,0 +1,9 @@
+{
+  "AttributeNameLabel": "Nazwa właściwości",
+  "AttributeValueLabel": "Przykładowa wartość",
+  "DataTypeLabel": "Typ danych",
+  "ImportTitleLabel": "Importuj jednostki",
+  "InsertButtonLabel": "Insert",
+  "PreserveExistingValuesLabel": "Zachowaj istniejące wartości podczas aktualizowania jednostek",
+  "ShouldUseNullLabel": "Traktuj puste ciągi jako wartości null"
+}

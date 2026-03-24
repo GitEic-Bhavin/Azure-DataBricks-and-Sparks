@@ -1,0 +1,19 @@
+{
+  "AppendBlob": "Blob anexo",
+  "BlockBlob": "Blob en bloques",
+  "BlobType": "Tipo de blob",
+  "BrowseFilesLabel": "Examinar archivos",
+  "FilesCaption": "Archivos:",
+  "FolderCaption": "Carpeta:",
+  "InfoMessage": "Las rutas de acceso que no contienen archivos se omitirán.",
+  "NoSelectedFiles": "No hay ningún archivo seleccionado.",
+  "NoSelectedFolder": "No hay ninguna carpeta seleccionada.",
+  "PageBlob": "Blob en páginas",
+  "SelectFolder": "Seleccionar carpeta para cargarla",
+  "UploadAsPageLabel": "Cargar archivos .vhd/vhdx como blobs en páginas (recomendado)",
+  "UploadButton": "Cargar",
+  "UploadFilesTitle": "Cargar archivos",
+  "UploadFolderTitle": "Cargar carpeta",
+  "UploadToDirectory": "Cargar en la carpeta (opcional)",
+  "UploadToLabel": "Cargar en el directorio (opcional):"
+}

@@ -1,0 +1,8 @@
+{
+  "ButtonOK": "확인",
+  "ErrorInvalidDirectoryName": "이름은 비어 있거나 슬래시를 포함할 수 없습니다.",
+  "LabelName": "이름:",
+  "MessageVirtualDirectory": "이렇게 하면 가상 폴더가 생성됩니다. 가상 폴더에 Blob을 붙여넣거나, 끌거나, 업로드할 때까지는 Azure에 가상 폴더가 실제로 있지 않습니다. 가상 폴더에 Blob을 붙여넣으려면 폴더를 만들기 전에 Blob을 복사합니다.",
+  "TitleCreateNewDirectory": "새 디렉터리 만들기",
+  "TitleCreateNewVirtualDirectory": "새 가상 디렉터리 만들기"
+}

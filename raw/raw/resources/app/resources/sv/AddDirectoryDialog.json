@@ -1,0 +1,8 @@
+{
+  "ButtonOK": "OK",
+  "ErrorInvalidDirectoryName": "Namnet får inte vara tomt eller innehålla snedstreck.",
+  "LabelName": "Namn:",
+  "MessageVirtualDirectory": "Det här skapar en virtuell mapp. En virtuell mapp finns inte egentligen i Azure förrän du klistrar in, drar eller laddar upp blobar i den. Om du vill klistra in en blob i en virtuell mapp kopierar du bloben innan du skapar mappen.",
+  "TitleCreateNewDirectory": "Skapa ny katalog",
+  "TitleCreateNewVirtualDirectory": "Skapa ny virtuell katalog"
+}

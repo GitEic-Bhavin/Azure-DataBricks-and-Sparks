@@ -1,0 +1,19 @@
+{
+  "AppendBlob": "Ekleme Blobu",
+  "BlockBlob": "Blok Blobu",
+  "BlobType": "Blob türü",
+  "BrowseFilesLabel": "Dosyalara Gözat",
+  "FilesCaption": "Dosyalar:",
+  "FolderCaption": "Klasör:",
+  "InfoMessage": "Dosya içermeyen yollar yok sayılacak.",
+  "NoSelectedFiles": "Dosya seçilmedi",
+  "NoSelectedFolder": "Klasör seçilmedi",
+  "PageBlob": "Sayfa Blobu",
+  "SelectFolder": "Karşıya yüklenecek klasörü seç",
+  "UploadAsPageLabel": ".vhd/vhdx dosyalarını sayfa blobu olarak yükle (önerilen)",
+  "UploadButton": "Karşıya yükle",
+  "UploadFilesTitle": "Dosyaları Karşıya Yükle",
+  "UploadFolderTitle": "Klasörü Karşıya Yükle",
+  "UploadToDirectory": "Klasöre yükle (isteğe bağlı)",
+  "UploadToLabel": "Dizine yükle (isteğe bağlı):"
+}

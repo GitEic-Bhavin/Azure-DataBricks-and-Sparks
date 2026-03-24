@@ -1,0 +1,6 @@
+{
+  "CaseInsensitiveError": "Schlüssel müssen eindeutig sein (Groß-/Kleinschreibung nicht relevant).",
+  "CaseSensitiveError": "Schlüssel müssen eindeutig sein (Groß-/Kleinschreibung relevant).",
+  "LabelAdd": "Hinzufügen",
+  "SaveButtonLabel": "Speichern"
+}

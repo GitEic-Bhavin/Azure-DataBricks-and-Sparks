@@ -1,0 +1,17 @@
+{
+  "MessageNewRuleInstructions": "Separe los distintos valores con una coma. Todos los campos son obligatorios.",
+  "LabelRulesList": "Lista de reglas",
+  "TitleCorsSettings": "Configuración de CORS",
+  "MessageCorsSettingsDescription": "Las reglas de uso compartido de recursos entre orígenes permiten a los clientes acceder a los recursos de cualquier dominio web que autorice. Puede especificar hasta cinco reglas CORS.",
+  "ButtonAdd": "Agregar",
+  "ButtonEdit": "Editar",
+  "ButtonDelete": "Eliminar",
+  "InfoRulesLimitReached": "Se ha alcanzado el número máximo de reglas. Deberán eliminarse las reglas existentes para poder agregar una nueva regla.",
+  "LabelAllowedOrigins": "Orígenes permitidos:",
+  "LabelAllowedMethods": "Métodos permitidos:",
+  "LabelAllowedHeaders": "Encabezados permitidos:",
+  "LabelExposedHeaders": "Encabezados expuestos:",
+  "LabelMaxAge": "Antigüedad máxima (en segundos):",
+  "TitleEditCorsRule": "Editar la regla CORS",
+  "TitleAddCorsRule": "Agregar una regla CORS"
+}

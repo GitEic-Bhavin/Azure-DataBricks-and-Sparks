@@ -1,0 +1,13 @@
+{
+  "ButtonUndelete": "Annulla eliminazione",
+  "EndDateLabel": "Data di fine:",
+  "InvalidEndTimeTooltip": "Specificare un'ora di fine valida.",
+  "InvalidEndTimeGreaterThanStartTimeTooltip": "L'ora di fine deve essere successiva all'ora di inizio.",
+  "InvalidStartTimeTooltip": "Specificare un'ora di inizio valida.",
+  "MainText": "Selezionare i BLOB di cui annullare l'eliminazione specificando un intervallo di date. I BLOB eliminati in questo intervallo di date verranno ripristinati.",
+  "TimeZoneLabel": "Fuso orario:",
+  "TitleLabel": "Annulla eliminazione dei BLOB per data",
+  "StartDateLabel": "Data di inizio:",
+  "UseLocalOption": "Locale",
+  "UseUTCOption": "UTC"
+}

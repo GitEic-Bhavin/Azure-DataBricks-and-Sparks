@@ -1,0 +1,16 @@
+{
+  "AriaColumnHiddenTemplate": "%1$s Spalte ausgeblendet",
+  "AriaColumnSizeTemplate": "%1$s Spaltengröße",
+  "AriaColumnVisibleTemplate": "%1$s Spalte sichtbar",
+  "ErrorColumnSize": "Spaltengrößen müssen mindestens %1$s sein.",
+  "ErrorNoColumnSelected": "Es muss mindestens eine Spalte sichtbar sein.",
+  "LabelAvailableColumns": "Verfügbare Spalten",
+  "LabelChooseColumns": "Passen Sie die Sichtbarkeit, Reihenfolge und Größe von Spalten an.",
+  "LabelClearAll": "Alles ausblenden",
+  "LabelMoveBottom": "Nach unten verschieben",
+  "LabelMoveDown": "Nach unten",
+  "LabelMoveTop": "Nach oben verschieben",
+  "LabelMoveUp": "Nach oben",
+  "LabelSelectAll": "Alle anzeigen",
+  "TitleColumnOptions": "Spaltenoptionen"
+}

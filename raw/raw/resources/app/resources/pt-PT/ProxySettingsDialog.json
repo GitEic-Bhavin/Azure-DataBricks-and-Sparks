@@ -1,0 +1,18 @@
+{
+  "BypassLabel": "Omissão:",
+  "CustomProxyRadioLabel": "Utilizar definições de proxy da aplicação",
+  "EnvProxyRadioLabel": "Utilizar variáveis do ambiente",
+  "ErrorNoProxyInvalid": "Um ou mais itens ignorados são inválidos. A omissão tem de utilizar a sintaxe de matriz JSON que contenha padrões ou nomes de anfitrião válidos.",
+  "ErrorPortInvalid": "A porta é inválida. A porta tem de ser um número inteiro válido entre 0 e 65535.",
+  "ErrorUrlInvalid": "O URL é inválido. O URL do proxy tem de ter um protocolo e um nome do anfitrião válidos.",
+  "ErrorUsernameInvalid": "O nome de utilizador está em falta.",
+  "NoProxyRadioLabel": "Não utilizar o proxy",
+  "PasswordLabel": "Palavra-passe:",
+  "PortLabel": "Porta:",
+  "SourceLabel": "Origem:",
+  "SystemProxyRadioLabel": "Utilize o proxy do sistema",
+  "TitleLabel": "Definições de Proxy",
+  "UrlLabel": "URL:",
+  "UseCredentialsLabel": "Utilizar um nome de utilizador e palavra-passe",
+  "UsernameLabel": "Nome de utilizador:"
+}

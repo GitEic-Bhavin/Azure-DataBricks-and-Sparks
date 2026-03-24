@@ -1,0 +1,8 @@
+{
+  "ButtonOK": "确定",
+  "ErrorInvalidDirectoryName": "名称不能为空或包含斜杠。",
+  "LabelName": "名称:",
+  "MessageVirtualDirectory": "此操作将创建一个虚拟文件夹。在将 blob 粘贴、拖动或上传到虚拟文件夹之前，Azure 中实际上并不存在虚拟文件夹。要将 blob 粘贴到虚拟文件夹中，请在创建文件夹之前复制 blob。",
+  "TitleCreateNewDirectory": "创建新目录",
+  "TitleCreateNewVirtualDirectory": "创建新虚拟目录"
+}

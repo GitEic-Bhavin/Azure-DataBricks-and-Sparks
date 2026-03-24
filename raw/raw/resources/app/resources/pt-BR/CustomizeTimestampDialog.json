@@ -1,0 +1,18 @@
+{
+  "ErrorExpiryTimeGreaterThanStartTime": "A hora de expiração precisa ser posterior à hora de início.",
+  "ErrorInvalidStartTime": "Forneça uma hora de início válida.",
+  "ErrorNoExpiryTime": "Campo obrigatório. Forneça uma hora de expiração válida.",
+  "LabelLastNumberOfDays": "Último número de dias",
+  "LabelLastNumberOfHours": "Último número de horas",
+  "LabelLastNumberOfMinutes": "Último número de minutos",
+  "LabelLastNumberOfSeconds": "Último número de segundos",
+  "LabelLastNumberOfUnits": "Último número de unidades",
+  "LabelFrom": "De:",
+  "LabelLast:": "Último:",
+  "LabelLocal": "Local",
+  "LabelRange": "Intervalo:",
+  "LabelTimeZone": "Fuso horário:",
+  "LabelTo": "Para:",
+  "LabelUtc": "UTC",
+  "TitleCustomTimestampQuery": "Consulta de Carimbo de Data/Hora Personalizada"
+}

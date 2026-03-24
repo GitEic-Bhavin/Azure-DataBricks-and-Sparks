@@ -1,0 +1,18 @@
+{
+  "BypassLabel": "Mellőzés:",
+  "CustomProxyRadioLabel": "Alkalmazásproxy-beállítások használata",
+  "EnvProxyRadioLabel": "Környezeti változók használata",
+  "ErrorNoProxyInvalid": "Egy vagy több megkerülési elem érvénytelen. A mellőzésnek érvényes állomásneveket vagy mintákat tartalmazó JSON-tömbszintaxist kell használnia.",
+  "ErrorPortInvalid": "A port érvénytelen. A portnak 0 és 65535 közötti érvényes egész számnak kell lennie.",
+  "ErrorUrlInvalid": "Az URL-cím érvénytelen. A proxy URL-címének érvényes protokollal és állomásnévvel kell rendelkeznie.",
+  "ErrorUsernameInvalid": "Hiányzik a felhasználónév.",
+  "NoProxyRadioLabel": "Proxy használatának mellőzése",
+  "PasswordLabel": "Jelszó:",
+  "PortLabel": "Port:",
+  "SourceLabel": "Forrás:",
+  "SystemProxyRadioLabel": "Rendszerproxy használata",
+  "TitleLabel": "Proxybeállítások",
+  "UrlLabel": "URL:",
+  "UseCredentialsLabel": "Felhasználónév és jelszó használata",
+  "UsernameLabel": "Felhasználónév:"
+}

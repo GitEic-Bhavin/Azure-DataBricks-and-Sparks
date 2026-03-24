@@ -1,0 +1,24 @@
+.sign-in-group {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+.sign-in-group .sign-in-message {
+  display: block;
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: 120%;
+}
+.sign-in-group .progress-ring {
+  height: 48px;
+  width: 48px;
+}
+.sign-in-group .device-code-flow-button {
+  display: flex;
+  justify-content: center;
+}
+.sign-in-group .device-code-flow-button button {
+  width: fit-content;
+}

@@ -1,0 +1,7 @@
+{
+    "dimensions": {
+        "height": 250,
+        "width": 500
+    },
+    "view": "app/dialogs/index.html#nps"
+}

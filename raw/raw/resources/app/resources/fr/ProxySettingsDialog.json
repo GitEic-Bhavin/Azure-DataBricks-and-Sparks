@@ -1,0 +1,18 @@
+{
+  "BypassLabel": "Contournement :",
+  "CustomProxyRadioLabel": "Utiliser des paramètres de proxy d'application",
+  "EnvProxyRadioLabel": "Utiliser des variables d'environnement",
+  "ErrorNoProxyInvalid": "Un ou plusieurs éléments de contournement ne sont pas valides. Le contournement doit utiliser la syntaxe de tableau JSON contenant des noms d'hôte ou des modèles valides.",
+  "ErrorPortInvalid": "Le port n’est pas valide. Le port doit être un entier valide compris entre 0 et 65535.",
+  "ErrorUrlInvalid": "L’URL n’est pas valide. URL de proxy web doit avoir un protocole et un nom d’hôte valides.",
+  "ErrorUsernameInvalid": "Le nom d’utilisateur est manquant.",
+  "NoProxyRadioLabel": "Ne pas utiliser de proxy",
+  "PasswordLabel": "Mot de passe :",
+  "PortLabel": "Port :",
+  "SourceLabel": "Source :",
+  "SystemProxyRadioLabel": "Utiliser un proxy système",
+  "TitleLabel": "Paramètres du proxy",
+  "UrlLabel": "URL :",
+  "UseCredentialsLabel": "Utiliser un nom d'utilisateur et un mot de passe",
+  "UsernameLabel": "Nom d’utilisateur :"
+}

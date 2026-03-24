@@ -1,0 +1,18 @@
+{
+  "ErrorExpiryTimeGreaterThanStartTime": "A lejárat időpontjának a kezdő időpontnál későbbinek kell lennie.",
+  "ErrorInvalidStartTime": "Érvényes kezdési időpontot adjon meg.",
+  "ErrorNoExpiryTime": "Kötelező mező. Érvényes lejárati időt adjon meg.",
+  "LabelLastNumberOfDays": "Napok legutóbbi száma",
+  "LabelLastNumberOfHours": "Órák legutóbbi száma",
+  "LabelLastNumberOfMinutes": "Percek legutóbbi száma",
+  "LabelLastNumberOfSeconds": "Másodpercek legutóbbi száma",
+  "LabelLastNumberOfUnits": "Egységek legutóbbi száma",
+  "LabelFrom": "Forrás:",
+  "LabelLast:": "Utolsó:",
+  "LabelLocal": "Helyi",
+  "LabelRange": "Tartomány:",
+  "LabelTimeZone": "Időzóna:",
+  "LabelTo": "Címzett:",
+  "LabelUtc": "UTC",
+  "TitleCustomTimestampQuery": "Egyéni időbélyeg-lekérdezés"
+}

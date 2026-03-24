@@ -1,0 +1,12 @@
+{
+  "GreetingText": "Telemetriinställningar",
+  "LinkPrivacyStatement": "Microsofts sekretesspolicy",
+  "OptOutTelemetryOption": "Avanmäl dig från att skicka telemetri",
+  "SendTelemetryOption": "Skicka telemetri (rekommenderas)",
+  "TelemetryAndPerformance": "Sändning av telemetri försämrar inte prestandan för Storage Explorer.",
+  "TelemetryCollection": "Insamlad telemetri omfattar:",
+  "TelemetryCollection1": "Information om dina program- och maskinvarukonfigurationer.",
+  "TelemetryCollection2": "Information om hur du använder program och tjänster från Microsoft för att identifiera trender och användningsmönster.",
+  "TelemetryCollectionPurpose": "Storage Explorer samlar in telemetri för att förbättra kvalitet, tillförlitlighet och prestanda för Microsoft-tjänster och programvara.",
+  "TelemetryOptions": "Du kan när som helst avanmäla dig från att skicka telemetri. Gör det genom att välja ”Avanmäl dig från att skicka telemetri” nedan."
+}

@@ -1,0 +1,9 @@
+{
+  "ErrorRetentionDaysOutOfRange": "Os dias de retenção têm de ser um número inteiro válido entre 1 e 365.",
+  "LabelDisableSoftDelete": "Desativar Eliminação de Forma Recuperável",
+  "LabelEnableSoftDelete": "Ativar Eliminação de Forma Recuperável",
+  "LabelRetentionDays": "Dias de retenção:",
+  "LinkWhatIsSoftDelete": "O que é a Eliminação de Forma Recuperável?",
+  "MessageSoftDelete": "Quando a Eliminação de Forma Recuperável está ativada, os blobs eliminados e os instantâneos eliminados serão guardados num período de retenção e podem ser recuperados neste período. A definição de uma nova política requer 30 segundos para entrar em vigor.",
+  "TitleConfigureSoftDeletePolicy": "Configurar Política de Eliminação de Software"
+}

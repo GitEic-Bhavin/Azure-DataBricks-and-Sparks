@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' 'unsafe-inline' 'unsafe-eval';
+        img-src 'self' https: data:;
+        child-src 'self';
+        object-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        style-src 'self' 'unsafe-inline';
+        connect-src 'self' https:;
+        font-src 'self' https:;" />
+
+    <link rel="stylesheet" href="./CustomizeColumns.css" />
+</head>
+
+<body>
+    <se-dialog-window params="with: $data">
+        <se-dialog-panel params="id: 'default-panel', with: panel">
+            <div class="row">
+                <label id="availableColumnsLabel" data-bind="text: availableColumnsLabel"></label>
+                <div class="column-options">
+                    <ul data-bind="foreach: columns" aria-labelledby="availableColumnsLabel" tabindex="0">
+                        <li class="list-item" data-bind="attr: { title: columnName }, click: $parent.handleClick ">
+                            <input type="checkbox" data-bind="attr: { id: inputId, 'aria-selected': selected() ? 'true': 'false' }, checked: selected" />
+                            <label data-bind="text: displayName, attr: { for: inputId }"></label>
+                        </li>
+                    </ul>
+                    <div class="column-options-buttons">
+                        <button data-bind="text: selectAllLabel, click: selectAll, enable: canSelectAll"></button>
+                        <button data-bind="text: clearAllLabel, click: clearAll, enable: anyColumnSelected"></button>
+                        <button data-bind="text: moveTopLabel, click: moveTop, enable: canMoveUp"></button>
+                        <button data-bind="text: moveUpLabel, click: moveUp, enable: canMoveUp"></button>
+                        <button data-bind="text: moveDownLabel, click: moveDown, enable: canMoveDown"></button>
+                        <button data-bind="text: moveBottomLabel, click: moveBottom, enable: canMoveDown"></button>
+                    </div>
+                </div>
+            </div>
+
+            <se-alert params="with: alertViewModel"></se-alert>
+        </se-dialog-panel>
+    </se-dialog-window>
+
+    <script type="text/javascript" src="../index.js"></script>
+</body>
+
+</html>

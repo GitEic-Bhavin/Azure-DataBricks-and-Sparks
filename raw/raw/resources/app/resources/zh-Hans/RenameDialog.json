@@ -1,0 +1,20 @@
+{
+  "AdlsNote": "通过移动将工作重命名。",
+  "AdlsFileTitle": "重命名文件",
+  "AdlsFileDirectoryTitle": "重命名目录",
+  "BlobContainerNote": "复制到新容器即可克隆成功。如果有大量 blob，则可能需要一段时间。",
+  "BlobContainerTitle": "克隆 Blob 容器",
+  "BlobFolderTitle": "克隆 Blob 文件夹",
+  "BlobTitle": "克隆 Blob",
+  "CloneItemNote": "复制到新位置即可克隆成功。克隆较大的项或包含大量项的文件夹可能需要一段时间。系统不会保留快照数据。",
+  "RenameButtonLabel": "重命名",
+  "CloneButtonLabel": "克隆",
+  "FileDirectoryTitle": "克隆目录",
+  "FileShareNote": "将所有文件复制到新共享即可克隆成功。如果有大量文件，则可能需要一段时间。",
+  "FileShareTitle": "克隆文件共享",
+  "FileTitle": "克隆文件",
+  "ItemNote": "通过复制到新位置，然后删除源项即可将工作重命名。重命名较大的项或包含大量项的文件夹可能需要一段时间。系统不会保留快照数据。",
+  "NewNameLabel": "请指定新名称:",
+  "TableNote": "通过复制到一个新表，然后删除源表即可将工作重命名。如果有大量实体，则此过程可能需要一段时间。系统不会保留属性和元数据。",
+  "TableTitle": "重命名表"
+}

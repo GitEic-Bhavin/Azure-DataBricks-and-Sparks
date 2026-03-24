@@ -1,0 +1,6 @@
+{
+  "ButtonCopyAndReport": "Kopiuj i zgłoś problem",
+  "ButtonTroubleshootingHelp": "Pomoc dotycząca rozwiązywania problemów",
+  "MessageReportingInstructions": "Jeśli nie potrafisz rozwiązać tego problemu samodzielnie, możesz otworzyć problem na stronie dotyczącej Eksploratora usługi Storage w witrynie GitHub. Podaj szczegóły poniżej, aby pomóc nam zdiagnozować problem. Pamiętaj, aby przed opublikowaniem usunąć wszelkie informacje osobiste, których nie chcesz udostępniać publicznie.",
+  "TitleErrorDetails": "Szczegóły błędu"
+}

@@ -1,0 +1,18 @@
+{
+  "ErrorExpiryTimeGreaterThanStartTime": "Czas wygaśnięcia musi być późniejszy niż czas rozpoczęcia.",
+  "ErrorInvalidStartTime": "Podaj prawidłowy czas rozpoczęcia.",
+  "ErrorNoExpiryTime": "Pole wymagane. Podaj prawidłowy czas wygaśnięcia.",
+  "LabelLastNumberOfDays": "Ostatnia liczba dni",
+  "LabelLastNumberOfHours": "Ostatnia liczba godzin",
+  "LabelLastNumberOfMinutes": "Ostatnia liczba minut",
+  "LabelLastNumberOfSeconds": "Ostatnia liczba sekund",
+  "LabelLastNumberOfUnits": "Ostatnia liczba jednostek",
+  "LabelFrom": "Od:",
+  "LabelLast:": "Ostatnie:",
+  "LabelLocal": "Lokalne",
+  "LabelRange": "Zakres:",
+  "LabelTimeZone": "Strefa czasowa:",
+  "LabelTo": "Do:",
+  "LabelUtc": "UTC",
+  "TitleCustomTimestampQuery": "Niestandardowe zapytanie dotyczące sygnatury czasowej"
+}

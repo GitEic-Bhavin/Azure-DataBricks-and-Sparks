@@ -1,0 +1,7 @@
+{
+    "dimensions": {
+        "height": 600,
+        "width": 960
+    },
+    "view": "app/dialogs/index.html#manageTableAcl"
+}

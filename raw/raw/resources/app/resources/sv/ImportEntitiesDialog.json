@@ -1,0 +1,9 @@
+{
+  "AttributeNameLabel": "Namn på egenskap",
+  "AttributeValueLabel": "Exempelvärde",
+  "DataTypeLabel": "Datatyp",
+  "ImportTitleLabel": "Importera entiteter",
+  "InsertButtonLabel": "Infoga",
+  "PreserveExistingValuesLabel": "Behåll befintliga värden vid uppdatering av entiteter",
+  "ShouldUseNullLabel": "Behandla tomma strängvärden som null"
+}

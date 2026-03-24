@@ -1,0 +1,4 @@
+{
+  "ErrorUninstallExtensionDoesntExist": "無法解除安裝識別碼為 %1$s 的延伸模組。未安裝此延伸模組。",
+  "PromptConfirmUninstall": "確定要解除安裝 %1$s 嗎? 必須重新啟動儲存體總管才能完成解除安裝。"
+}

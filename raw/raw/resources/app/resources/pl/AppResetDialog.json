@@ -1,0 +1,8 @@
+{
+  "ButtonReset": "Resetuj",
+  "ListItemSelectAll": "Zaznacz wszystko",
+  "LabelAreasToReset": "Obszary do zresetowania:",
+  "LinkMoreTroubleshootingHelp": "Więcej informacji dotyczących rozwiązywania problemów.",
+  "MessageInstructions": "Jeśli występują problemy, zresetowanie całego Eksploratora usługi Storage lub jego części może ułatwić ich rozwiązanie. ",
+  "TitleResetStorageExplorer": "Resetowanie Eksploratora usługi Storage"
+}

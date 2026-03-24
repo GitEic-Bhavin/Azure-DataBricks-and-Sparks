@@ -1,0 +1,6 @@
+{
+  "CaseInsensitiveError": "nycklar måste vara unika (skiftlägesokänsliga).",
+  "CaseSensitiveError": "nycklar måste vara unika (skiftlägeskänsliga).",
+  "LabelAdd": "Lägg till",
+  "SaveButtonLabel": "Spara"
+}

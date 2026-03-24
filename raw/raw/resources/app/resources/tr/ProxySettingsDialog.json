@@ -1,0 +1,18 @@
+{
+  "BypassLabel": "Atla:",
+  "CustomProxyRadioLabel": "Uygulama ara sunucusu ayarlarını kullan",
+  "EnvProxyRadioLabel": "Ortam değişkenlerini kullan",
+  "ErrorNoProxyInvalid": "Bir veya daha fazla atlama öğesi geçersiz. Atlama, geçerli ana bilgisayar adları veya desenler içeren JSON söz dizimi kullanmalıdır.",
+  "ErrorPortInvalid": "Bağlantı noktası geçersiz. Bağlantı noktası 0 ile 65535 arasında geçerli bir tamsayı olmalıdır.",
+  "ErrorUrlInvalid": "URL geçersiz. Ara sunucu URL’si geçerli bir protokol ve ana bilgisayar adı içermelidir.",
+  "ErrorUsernameInvalid": "Kullanıcı adı eksik.",
+  "NoProxyRadioLabel": "Ara sunucu kullanma",
+  "PasswordLabel": "Parola:",
+  "PortLabel": "Bağlantı Noktası:",
+  "SourceLabel": "Kaynak:",
+  "SystemProxyRadioLabel": "Sistem ara sunucusu kullan",
+  "TitleLabel": "Proxy Ayarları",
+  "UrlLabel": "URL:",
+  "UseCredentialsLabel": "Kullanıcı adı ve parola kullan",
+  "UsernameLabel": "Kullanıcı Adı:"
+}

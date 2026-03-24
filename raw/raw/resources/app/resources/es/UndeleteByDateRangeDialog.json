@@ -1,0 +1,13 @@
+{
+  "ButtonUndelete": "Recuperar",
+  "EndDateLabel": "Fecha de finalización:",
+  "InvalidEndTimeTooltip": "Proporcione una hora de finalización válida.",
+  "InvalidEndTimeGreaterThanStartTimeTooltip": "La hora de finalización debe ser posterior a la hora de inicio.",
+  "InvalidStartTimeTooltip": "Proporcione una hora de inicio válida.",
+  "MainText": "Especifique un intervalo de fechas para seleccionar los blobs que se van a recuperar. Se recuperarán los blobs eliminados dentro de este intervalo de fechas.",
+  "TimeZoneLabel": "Zona horaria:",
+  "TitleLabel": "Recuperar blobs por fecha",
+  "StartDateLabel": "Fecha de inicio:",
+  "UseLocalOption": "Local",
+  "UseUTCOption": "UTC"
+}

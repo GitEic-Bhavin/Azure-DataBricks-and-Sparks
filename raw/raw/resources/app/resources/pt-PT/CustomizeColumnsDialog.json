@@ -1,0 +1,16 @@
+{
+  "AriaColumnHiddenTemplate": "%1$s coluna oculta",
+  "AriaColumnSizeTemplate": "%1$s tamanho da coluna",
+  "AriaColumnVisibleTemplate": "%1$s coluna visível",
+  "ErrorColumnSize": "Os tamanhos das colunas têm de ser, pelo menos, %1$s.",
+  "ErrorNoColumnSelected": "Tem de estar visível, pelo menos, uma coluna.",
+  "LabelAvailableColumns": "Colunas Disponíveis",
+  "LabelChooseColumns": "Personalize a visibilidade, a ordem e o tamanho das colunas.",
+  "LabelClearAll": "Ocultar Tudo",
+  "LabelMoveBottom": "Mover para o Fundo",
+  "LabelMoveDown": "Mover para Baixo",
+  "LabelMoveTop": "Mover para o topo",
+  "LabelMoveUp": "Mover Para Cima",
+  "LabelSelectAll": "Mostrar Tudo",
+  "TitleColumnOptions": "Opções de Coluna"
+}

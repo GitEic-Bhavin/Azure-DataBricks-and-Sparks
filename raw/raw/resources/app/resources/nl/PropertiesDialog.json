@@ -1,0 +1,6 @@
+{
+  "CaseInsensitiveError": "sleutels moeten uniek zijn (niet hoofdlettergevoelig).",
+  "CaseSensitiveError": "sleutels moeten uniek zijn (hoofdlettergevoelig).",
+  "LabelAdd": "Toevoegen",
+  "SaveButtonLabel": "Opslaan"
+}

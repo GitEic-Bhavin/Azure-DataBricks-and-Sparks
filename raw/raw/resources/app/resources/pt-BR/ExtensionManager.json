@@ -1,0 +1,4 @@
+{
+  "ErrorUninstallExtensionDoesntExist": "Falha ao desinstalar a extensão com a ID %1$s. Essa extensão não está instalada.",
+  "PromptConfirmUninstall": "Tem certeza de que deseja desinstalar %1$s? O Gerenciador de Armazenamento precisa ser reiniciado para concluir a desinstalação."
+}

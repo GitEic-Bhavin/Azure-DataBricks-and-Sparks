@@ -1,0 +1,19 @@
+{
+  "AppendBlob": "Objet blob d’ajout",
+  "BlockBlob": "Objet blob de blocs",
+  "BlobType": "Type d'objet blob",
+  "BrowseFilesLabel": "Parcourir les fichiers",
+  "FilesCaption": "Fichiers :",
+  "FolderCaption": "Dossier :",
+  "InfoMessage": "Les chemins qui ne contiennent aucun fichier sont ignorés.",
+  "NoSelectedFiles": "Aucun fichier sélectionné",
+  "NoSelectedFolder": "Aucun dossier sélectionné",
+  "PageBlob": "Objet blob de pages",
+  "SelectFolder": "Sélectionner le dossier à charger",
+  "UploadAsPageLabel": "Charger les fichiers .vhd/vhdx en tant qu'objets blob de pages (recommandé)",
+  "UploadButton": "Charger",
+  "UploadFilesTitle": "Charger les fichiers",
+  "UploadFolderTitle": "Charger le dossier",
+  "UploadToDirectory": "Charger dans le dossier (facultatif)",
+  "UploadToLabel": "Charger dans le répertoire (facultatif) :"
+}

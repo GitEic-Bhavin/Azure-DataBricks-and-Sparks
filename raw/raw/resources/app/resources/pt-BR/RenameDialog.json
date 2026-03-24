@@ -1,0 +1,20 @@
+{
+  "AdlsNote": "Renomeando os trabalhos movendo-os.",
+  "AdlsFileTitle": "Renomear Arquivo",
+  "AdlsFileDirectoryTitle": "Renomear o Diretório",
+  "BlobContainerNote": "A clonagem funciona copiando todos os arquivos para um novo contêiner. Isso poderá demorar um pouco se houver muitos blobs.",
+  "BlobContainerTitle": "Clonar Contêiner de Blob",
+  "BlobFolderTitle": "Clonar Pasta de Blobs",
+  "BlobTitle": "Clonar Blob",
+  "CloneItemNote": "A clonagem funciona com uma cópia para uma nova localização. A clonagem de um item grande ou de uma pasta com muitos itens pode demorar um pouco. Os dados do instantâneo não serão preservados.",
+  "RenameButtonLabel": "Renomear",
+  "CloneButtonLabel": "Clonar",
+  "FileDirectoryTitle": "Clonar Diretório",
+  "FileShareNote": "A clonagem funciona copiando todos os arquivos para um novo compartilhamento. Isso poderá demorar um pouco se houver muitos arquivos.",
+  "FileShareTitle": "Clonar Compartilhamento de Arquivos",
+  "FileTitle": "Clonar Arquivo",
+  "ItemNote": "Renomeando os trabalhos copiando-os para um novo local e, em seguida, excluindo o item de origem. A renomeação de um item grande ou de uma pasta com muitos itens pode demorar um pouco. Os dados do instantâneo não serão preservados.",
+  "NewNameLabel": "Especifique o novo nome:",
+  "TableNote": "Renomeando os trabalhos copiando-os para uma nova tabela e, em seguida, excluindo a tabela de origem. Isso poderá demorar um pouco se houver muitas entidades. As propriedades e os metadados não serão preservados.",
+  "TableTitle": "Renomear Tabela"
+}

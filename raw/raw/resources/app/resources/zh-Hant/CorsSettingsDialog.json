@@ -1,0 +1,17 @@
+{
+  "MessageNewRuleInstructions": "以逗號分隔多個值。所有欄位都是必要項。",
+  "LabelRulesList": "規則清單",
+  "TitleCorsSettings": "CORS 設定",
+  "MessageCorsSettingsDescription": "跨原始來源資源共用可讓用戶端存取您所授權之所有 web 網域的資源。您最多可指定五個 CORS 規則。",
+  "ButtonAdd": "加入",
+  "ButtonEdit": "編輯",
+  "ButtonDelete": "刪除",
+  "InfoRulesLimitReached": "已達到規則數上限。必須先刪除現有的規則，才能新增規則。",
+  "LabelAllowedOrigins": "允許的來源:",
+  "LabelAllowedMethods": "允許的方法:",
+  "LabelAllowedHeaders": "允許的標頭:",
+  "LabelExposedHeaders": "公開的標頭:",
+  "LabelMaxAge": "存留期上限 (秒):",
+  "TitleEditCorsRule": "編輯 CORS 規則",
+  "TitleAddCorsRule": "新增 CORS 規則"
+}

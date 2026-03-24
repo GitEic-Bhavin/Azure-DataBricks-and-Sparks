@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html class="page" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' 'unsafe-inline' 'unsafe-eval';
+        img-src 'self' https: data:;
+        child-src 'self';
+        object-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        style-src 'self' 'unsafe-inline';
+        connect-src 'self' https:;
+        font-src 'self' https:;" />
+    <link href="./css/site.css" rel="stylesheet" />
+    <title>Microsoft Azure Storage Explorer</title>
+</head>
+
+<!-- Avoid the selection of the body element when a dialog is open -->
+
+<body>
+    <!-- ko with: infoBarViewModel -->
+    <div class="info-bar" aria-live="assertive" aria-labelledby="message" data-bind="css: { 'transition-in': isShowing() }, accessibility: { escape: closeClicked }">
+        <se-icon params="with: { name: 'StatusInfoColor' }"></se-icon>
+        <span class="info-bar-message" id="message" data-bind="text: message, attr: { title: message }"></span>
+        <div class="info-bar-actions">
+            <!-- ko foreach: actions -->
+            <button class="action-button" data-bind="text: text, click: () => $parent.actionClicked($data)"></button>
+            <!-- /ko -->
+            <button class="action-button" data-bind="click: closeClicked, text: closeText"></button>
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <div class="shell">
+        <div class="panel vertical-toolbar" data-bind="with: verticalToolbarPanelViewModel">
+            <div class="content">
+                <div class="upper-buttons">
+                    <!-- ko foreach: panelButtons -->
+                    <button class="vertical-toolbar-button" data-bind="
+                        click: click,
+                        event: { contextmenu: contextMenu },
+                        css: { selected: $parent.activePanel() === id && !$parent.isCollapsed()  },
+                        attr: {
+                            'aria-label': displayName,
+                            'aria-expanded': $parent.activePanel() === id && !$parent.isCollapsed() ? 'true' : 'false'
+                        }
+                    ">
+                        <!-- ko if: isNamedIcon -->
+                        <div class="vertical-toolbar-button-icon">
+                            <se-icon params="with: { name: icon }"></se-icon>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko ifnot: isNamedIcon -->
+                        <div class="vertical-toolbar-button-icon" data-bind="icon: icon"></div>
+                        <!-- /ko-->
+                    </button>
+                    <!-- /ko -->
+
+                    <div class="toolbar-divider"></div>
+
+                    <!-- ko foreach: functionButtons -->
+                    <button class="vertical-toolbar-button" data-bind="
+                        click: click,
+                        attr: { 'aria-label': displayName, title: displayName }
+                    ">
+                        <!-- ko if: isNamedIcon -->
+                        <div class="vertical-toolbar-button-icon">
+                            <se-icon params="with: { name: icon }"></se-icon>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko ifnot: isNamedIcon -->
+                        <div class="vertical-toolbar-button-icon" data-bind="icon: icon"></div>
+                        <!-- /ko-->
+                    </button>
+                    <!-- /ko -->
+                </div>
+                <div class="bottom-buttons">
+                    <!-- ko foreach: supplementalButtons -->
+                    <button class="vertical-toolbar-button feedback" data-bind="
+                        click: click,
+                        attr: { 'aria-label': displayName, title: displayName }
+                    ">
+                        <!-- ko if: isNamedIcon -->
+                        <div class="vertical-toolbar-button-icon">
+                            <se-icon params="with: { name: icon }"></se-icon>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko ifnot: isNamedIcon -->
+                        <div class="vertical-toolbar-button-icon" data-bind="icon: icon"></div>
+                        <!-- /ko-->
+                    </button>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+        <div class="panel left">
+            <div class="divider vertical"></div>
+            <div class="content">
+                <!-- ko template: { name: 'tabPanelTemplate', data: leftPanelViewModel } -->
+                <!-- /ko -->
+            </div>
+            <div class="drag-surface"></div>
+        </div>
+        <div id="panel-right" class="panel right" data-bind="style: { bottom: rightPanelBottom }, dimensionChange: editorPanelViewModel">
+            <div class="tab-group" data-bind="foreach: editorPanelViewModel.tabPanels">
+                <div class="content" data-bind="css: { 'showing-tab': !!$data.activeTab() }, style: { 'width': $data.fractionCss }">
+                    <!-- ko template: { name: 'tabPanelTemplate', data: $data } -->
+                    <!-- /ko -->
+                </div>
+                <!-- ko if: !$data.isLastInGroup() -->
+                <div class="tab-divider" data-bind="resize: $data,
+                    event: { dblclick: (data, event) => { $data?.splitTabPanel?.onDividerDoubleClick(); } },
+                    style: { left: $data.fractionCss }"
+                >
+                </div>
+                <!-- /ko -->
+            </div>
+            <div class="drag-surface"></div>
+        </div>
+        <div class="panel bottom" data-bind="style: { height: bottomPanelHeight }">
+            <div class="divider horizontal"></div>
+            <div class="content">
+                <!-- ko template: { name: 'tabPanelTemplate', data: activityPanelViewModel } -->
+                <!-- /ko -->
+            </div>
+            <div class="drag-surface"></div>
+        </div>
+    </div>
+
+    <script type="text/html" id="tabPanelTemplate">
+        <!-- ko ifnot: activeTab() -->
+        <div class="letterpress" data-bind="icon: '../media/StorageExplorerLetterpress.svg'"></div>
+        <!-- /ko -->
+
+        <div class="tab-panel" data-bind="attr: { id: tabPanelId }, css: { 'non-empty': !!activeTab(), 'active-in-split-view': !!splitTabPanel && isActiveInSplitView() }">
+            <div role="tablist" class="tab-container" data-bind="
+                css: { 'temporary-active': (!!activeTab() && activeTab().isTemporary) },
+                accessibility: { arrowKey: arrowKey },
+                event: { wheel: onTabListScroll },
+                visible: showTabList">
+
+                <div class="tab-list">
+                    <!-- ko foreach: temporaryTabs -->
+                    <se-tab params="with: $data"></se-tab>
+                    <!-- /ko -->
+                    <!-- ko foreach: openTabs -->
+                    <se-tab params="with: $data"></se-tab>
+                    <!-- /ko -->
+                </div>
+
+                <div class="tab-spacer" data-bind="visible: !!activeTab(),
+                    css: { 'reorder-over': spacerReorderOver },
+                    event: {
+                        dragenter: function ($data, event) { return $data.onDragEnter('tab-spacer', event); },
+                        dragleave: function ($data, event) { return $data.onDragLeave('tab-spacer', event); },
+                        dragover: function ($data, event) { return $data.onDragOver('tab-spacer', event); },
+                        drop: function ($data, event) { return $data.onDrop('tab-spacer', event); }
+                    }">
+                </div>
+
+                <div class="tab-panel-expander">
+                    <button class="expander transparent" aria-label="Toggle Panel" data-bind="
+                        visible: showExpander,
+                        click: toggle,
+                        accessibility: { enter: toggle },
+                        attr: { 'aria-expanded': !isCollapsed() ? 'true' : 'false' }"
+                    >
+                        <div class="expander-button-content">
+                            <se-icon params="with: { name: expanderIcon }"></se-icon>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ko foreach: cachedTabs -->
+            <!-- ko if: environment === 'webview' -->
+            <div class="tab-content" data-bind="visible: isActive, webview: tabViewModel"></div>
+            <!-- /ko -->
+            <!-- /ko -->
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        // Load index file with require to avoid resolving module paths from
+        // electron node modules and falling back to their parents folders before
+        // our own node modules. This solves the problem where the app is executed
+        // from a child folder of another installation of the app and we end up
+        // loading modules from both places.
+        require("./index.js");
+    </script>
+</body>
+
+</html>

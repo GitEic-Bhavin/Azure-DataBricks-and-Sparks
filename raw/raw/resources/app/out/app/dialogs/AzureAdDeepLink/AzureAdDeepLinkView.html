@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="page" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' 'unsafe-inline' 'unsafe-eval';
+        img-src 'self' https: data:;
+        child-src 'self';
+        object-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        style-src 'self' 'unsafe-inline';
+        connect-src 'self' https:;
+        font-src 'self' https:;" />
+
+    <link rel="stylesheet" href="./AzureAdDeepLink.css" />
+</head>
+
+<body>
+    <se-dialog-window params="with: $data">
+        <se-dialog-panel params="id: 'default-panel', with: panels['default-panel']">
+            <h2 data-bind="text: actionSelectPrompt, attr: { 'aria-label': actionSelectPrompt }"></h2>
+
+            <div class="nav-button-group" data-bind="foreach: resourceNavButtons">
+                <se-nav-button params="with: $data"></se-nav-button>
+            </div>
+            </se-dialog-panel>
+
+        <se-dialog-panel params="id: 'deeplink-sign-in-entry-target', with: panels['deeplink-sign-in-entry-target']">
+            <!-- ko template: { name: 'entry-panel' }--><!-- /ko -->
+        </se-dialog-panel>
+
+        <se-dialog-panel params="id: 'deeplink-sign-in-entry-root', with: panels['deeplink-sign-in-entry-root']">
+            <!-- ko template: { name: 'entry-panel' }--><!-- /ko -->
+        </se-dialog-panel>
+
+        <se-dialog-panel params="id: 'summary', with: panels['summary']">
+            <h2 data-bind="text: summaryLabel, attr: { 'aria-label': summaryLabel }"></h2>
+
+            <div class="property-group" data-bind="foreach: values">
+                <label class="property-label" data-bind="text: label, attr: { for: label }"></label>
+                <div class="property-value" data-bind="text: value, attr: { id: label, title: value }"></div>
+            </div>
+            <se-alert params="with: securityStatusViewModel"></se-alert>
+            <se-alert params="with: emulatorStatusViewModel"></se-alert>
+        </se-dialog-panel>
+
+        <se-dialog-panel params="id: 'tenant-select', with: panels['tenant-select']">
+            <label for="azure-account-picker" class="account-label" data-bind="text: accountPickerLabel"></label>
+            <div id="azure-account-picker" role="listbox" class="list account-list">
+                <!-- ko foreach: accounts -->
+                <div role="option" class="selectable-list-item" data-bind="
+                    hasFocus: focused,
+                    css: { 'selected': $parent.selectedAccount() === $data, 'account-list-option': !!icon(), 'account-list-option-no-icon': !icon() },
+                    click: (data, event) => { $parent.selectAccount(data); },
+                    attr: { tabIndex: $parent.selectedAccount() === $data ? '0': '-1' },
+                    event: { keydown: (data, event) => $parent.onAccountKeyDown(data, event) }
+                ">
+                    <img class="account-list-option-icon" data-bind="visible: !!icon(), attr: { src: icon }" />
+                    <div>
+                        <div data-bind="text: displayName"></div>
+                        <div data-bind="text: email"></div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </se-dialog-panel>
+    </se-dialog-window>
+
+    <script type="text/javascript" src="../index.js"></script>
+</body>
+
+<script id="entry-panel" type="text/html">
+    <div class="input-group">
+        <label class="col-all label" data-bind="text: displayNameLabel, attr: { for: `${id}-display-name` }"></label>
+        <input class="col-all input" data-bind="
+            textInput: displayName.value,
+            attr: { id: `${id}-display-name` },
+            css: { 'invalid-field': !!displayName.isModified() && !displayName.isValid() }" />
+
+        <label class="col-all label" data-bind="text: entryLabel, attr: { for: `${id}-entry` }"></label>
+        <textarea disabled class="col-all input" rows="5" data-bind="
+            textInput: entry.value,
+            attr: { id: `${id}-entry` },
+            css: { 'invalid-field': !!entry.isModified() && !entry.isValid() }">
+        </textarea>
+    </div>
+
+    <se-alert params="with: validationAlert"></se-alert>
+    <!-- ko foreach: validationWarnings -->
+    <se-alert params="with: $data"></se-alert>
+    <!-- /ko-->
+</script>
+</html>

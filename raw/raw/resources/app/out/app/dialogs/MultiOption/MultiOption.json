@@ -1,0 +1,7 @@
+{
+    "dimensions": {
+        "height": 370,
+        "width": 500
+    },
+    "view": "app/dialogs/index.html#multiOption"
+}

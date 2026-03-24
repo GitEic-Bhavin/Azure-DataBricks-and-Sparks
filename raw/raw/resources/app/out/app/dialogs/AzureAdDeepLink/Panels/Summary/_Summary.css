@@ -1,0 +1,17 @@
+.property-group {
+  align-items: baseline;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: auto 1fr;
+  margin-bottom: 12px;
+}
+.property-group .property-label {
+  font-weight: bold;
+  grid-column: 1;
+  margin-bottom: 4px;
+}
+.property-group .property-value {
+  grid-column: 2;
+  margin-bottom: 4px;
+  overflow-wrap: anywhere;
+}

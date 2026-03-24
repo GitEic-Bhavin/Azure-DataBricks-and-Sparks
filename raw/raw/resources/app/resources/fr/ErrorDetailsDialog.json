@@ -1,0 +1,6 @@
+{
+  "ButtonCopyAndReport": "Copier et signaler le problème",
+  "ButtonTroubleshootingHelp": "Aide à la résolution des problèmes",
+  "MessageReportingInstructions": "Si vous ne parvenez pas à résoudre ce problème vous-même, vous pouvez le signaler sur la page de site GitHub dédiée à l'Explorateur Stockage. Indiquez les détails ci-dessous pour nous aider à diagnostiquer votre problème. Veillez à supprimer toutes les informations personnelles que vous ne souhaitez pas rendre publiques avant de poster le problème.",
+  "TitleErrorDetails": "Détails de l'erreur"
+}
