@@ -1854,7 +1854,7 @@ Spark DataFram
 # 📊 Spark DataFrames in Databricks
 
 
-## 🧠 What is a DataFrame?
+## 🧠 What is a DataFrame? 
 
 A DataFrame is a distributed collection of data organized into rows and columns with a defined schema.
 
