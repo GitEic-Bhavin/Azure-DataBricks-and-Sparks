@@ -1,8 +1,0 @@
-{
-  "MoveNoteLabel": "移動先に同じ名前の項目があるファイルとディレクトリはスキップされます。",
-  "NewNameLabel": "ターゲット フォルダーのパス:",
-  "ReplaceSectionLabel": "宛先に同じ名前のファイルが既に存在する場合は、このファイルをスキップする",
-  "SkipLabel": "スキップ",
-  "SkipSectionLabel": "宛先に同じ名前のファイルが既に存在する場合は、ファイルを置き換える",
-  "TitleLabel": "移動"
-}

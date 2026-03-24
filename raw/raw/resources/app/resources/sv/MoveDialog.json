@@ -1,8 +1,0 @@
-{
-  "MoveNoteLabel": "Filer och kataloger kommer att hoppas över om målet har ett objekt med samma namn.",
-  "NewNameLabel": "Sökväg till målmapp:",
-  "ReplaceSectionLabel": "Hoppa över den här filen om målet redan har en fil med samma namn",
-  "SkipLabel": "Hoppa över",
-  "SkipSectionLabel": "Byt ut filen om målet redan har en fil med samma namn",
-  "TitleLabel": "Flytta"
-}

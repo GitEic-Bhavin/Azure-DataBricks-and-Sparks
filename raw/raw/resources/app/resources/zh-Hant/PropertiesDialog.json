@@ -1,6 +1,0 @@
-{
-  "CaseInsensitiveError": "金鑰不得重複 (不區分大小寫)。",
-  "CaseSensitiveError": "金鑰不得重複 (區分大小寫)。",
-  "LabelAdd": "新增",
-  "SaveButtonLabel": "儲存"
-}

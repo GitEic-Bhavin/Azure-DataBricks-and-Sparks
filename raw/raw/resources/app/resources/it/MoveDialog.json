@@ -1,8 +1,0 @@
-{
-  "MoveNoteLabel": "Se nella destinazione è presente un elemento con lo stesso nome, i file e le directory verranno ignorati.",
-  "NewNameLabel": "Percorso della cartella di destinazione:",
-  "ReplaceSectionLabel": "Ignora questo file se nella destinazione è già presente un file con lo stesso nome",
-  "SkipLabel": "Ignora",
-  "SkipSectionLabel": "Sostituisci il file se nella destinazione è già presente un file con lo stesso nome",
-  "TitleLabel": "Sposta"
-}

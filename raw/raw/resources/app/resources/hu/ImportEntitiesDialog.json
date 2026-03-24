@@ -1,9 +1,0 @@
-{
-  "AttributeNameLabel": "Tulajdonság neve",
-  "AttributeValueLabel": "Mintaérték",
-  "DataTypeLabel": "Adattípus",
-  "ImportTitleLabel": "Entitások importálása",
-  "InsertButtonLabel": "Beszúrás",
-  "PreserveExistingValuesLabel": "Meglévő értékek megőrzése az entitások frissítésekor",
-  "ShouldUseNullLabel": "Üres sztringértékek nullként kezelése"
-}

@@ -1,4 +1,0 @@
-{
-  "ErrorUninstallExtensionDoesntExist": "%1$s kimlikli uzantı kaldırılamadı. Bu uzantı yüklü değil.",
-  "PromptConfirmUninstall": "%1$s uzantısını kaldırmak istediğinizden emin misiniz? Kaldırma işleminin tamamlanması için Depolama Gezgini'nin yeniden başlatılması gerekiyor."
-}

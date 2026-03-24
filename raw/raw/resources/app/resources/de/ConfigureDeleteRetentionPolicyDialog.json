@@ -1,9 +1,0 @@
-{
-  "ErrorRetentionDaysOutOfRange": "Der Wert für Aufbewahrungstage muss eine gültige ganze Zahl zwischen 1 und 365 sein.",
-  "LabelDisableSoftDelete": "Vorläufiges Löschen deaktivieren",
-  "LabelEnableSoftDelete": "Vorläufiges Löschen aktivieren",
-  "LabelRetentionDays": "Aufbewahrung (Tage):",
-  "LinkWhatIsSoftDelete": "Was ist vorläufiges Löschen?",
-  "MessageSoftDelete": "Wenn das vorläufige Löschen aktiviert ist, werden gelöschte Blobs und Momentaufnahmen für einen bestimmten Zeitraum gespeichert und können innerhalb dieses Zeitraums wiederhergestellt werden. Wenn eine neue Richtlinie festgelegt wird, tritt diese nach 30 Sekunden in Kraft.",
-  "TitleConfigureSoftDeletePolicy": "Richtlinie für vorläufiges Löschen konfigurieren"
-}

@@ -1,4 +1,0 @@
-{
-  "ErrorUninstallExtensionDoesntExist": "Nepovedlo se odinstalovat rozšíření s ID %1$s. Žádné takové rozšíření není nainstalované.",
-  "PromptConfirmUninstall": "Opravdu chcete odinstalovat %1$s? Aby se odinstalace dokončila, musí se Průzkumník služby Storage restartovat."
-}

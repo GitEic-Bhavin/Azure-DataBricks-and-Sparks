@@ -1,8 +1,0 @@
-{
-  "ButtonOK": "Aceptar",
-  "ErrorInvalidDirectoryName": "El nombre no debe estar vacío ni contener barras diagonales.",
-  "LabelName": "Nombre:",
-  "MessageVirtualDirectory": "Esta acción creará una carpeta virtual. Una carpeta virtual no existe realmente en Azure hasta que se peguen, se arrastren o se carguen blobs en ella. Para pegar un blob en una carpeta virtual, cópielo antes de crear la carpeta.",
-  "TitleCreateNewDirectory": "Crear directorio",
-  "TitleCreateNewVirtualDirectory": "Crear nuevo directorio virtual"
-}

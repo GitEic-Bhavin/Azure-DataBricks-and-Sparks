@@ -1,9 +1,0 @@
-{
-  "ErrorRetentionDaysOutOfRange": "Doba uchovávání ve dnech musí být platné celé číslo v rozmezí 1 až 365.",
-  "LabelDisableSoftDelete": "Zakázat obnovitelné odstranění",
-  "LabelEnableSoftDelete": "Povolit obnovitelné odstranění",
-  "LabelRetentionDays": "Doba uchování (dny):",
-  "LinkWhatIsSoftDelete": "Co je obnovitelné odstranění?",
-  "MessageSoftDelete": "Když je povoleno obnovitelné odstranění, odstraněné objekty blob a snímky se uloží po určitou dobu uchování, ve které je možné je obnovit. Nastavení nové zásady se projeví po 30 sekundách.",
-  "TitleConfigureSoftDeletePolicy": "Konfigurovat zásady obnovitelného odstranění"
-}

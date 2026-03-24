@@ -1,8 +1,0 @@
-{
-  "ButtonOK": "確定",
-  "ErrorInvalidDirectoryName": "名稱不得為空白或包含斜線。",
-  "LabelName": "名稱:",
-  "MessageVirtualDirectory": "這會建立虛擬資料夾。在您將 blob 貼上、拖曳或上傳至虛擬資料夾前，虛擬資料夾不會實際存在 Azure 內。若要將 blob 貼上虛擬資料夾，請於建立資料夾前複製 blob。",
-  "TitleCreateNewDirectory": "建立新目錄",
-  "TitleCreateNewVirtualDirectory": "建立新虛擬目錄"
-}

@@ -1,6 +1,0 @@
-{
-  "CaseInsensitiveError": "las claves deben ser únicas (sin distinción de mayúsculas y minúsculas).",
-  "CaseSensitiveError": "las claves deben ser únicas (con distinción de mayúsculas y minúsculas).",
-  "LabelAdd": "Agregar",
-  "SaveButtonLabel": "Guardar"
-}

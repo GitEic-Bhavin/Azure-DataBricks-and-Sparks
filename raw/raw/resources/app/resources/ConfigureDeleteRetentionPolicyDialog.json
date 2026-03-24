@@ -1,9 +1,0 @@
-{
-    "ErrorRetentionDaysOutOfRange": "Retention days must be a valid integer between 1 and 365.",
-    "LabelDisableSoftDelete": "Disable Soft Delete",
-    "LabelEnableSoftDelete": "Enable Soft Delete",
-    "LabelRetentionDays": "Retention days:",
-    "LinkWhatIsSoftDelete": "What is Soft Delete?",
-    "MessageSoftDelete": "When Soft Delete is enabled, deleted blobs and deleted snapshots will be saved for a retention period and can be recovered within this period. Setting a new policy requires 30 seconds to take effect.",
-    "TitleConfigureSoftDeletePolicy": "Configure Soft Delete Policy"
-}

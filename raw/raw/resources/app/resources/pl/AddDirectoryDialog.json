@@ -1,8 +1,0 @@
-{
-  "ButtonOK": "OK",
-  "ErrorInvalidDirectoryName": "Nazwa nie może być pusta ani zawierać ukośników.",
-  "LabelName": "Nazwa:",
-  "MessageVirtualDirectory": "Spowoduje to utworzenie folderu wirtualnego. Folder wirtualny w rzeczywistości nie istnieje na platformie Azure, dopóki nie zostaną do niego wklejone, przeciągnięte lub przekazane obiekty blob. Aby wkleić obiekt blob do folderu wirtualnego, skopiuj obiekt blob przed utworzeniem folderu.",
-  "TitleCreateNewDirectory": "Tworzenie nowego katalogu",
-  "TitleCreateNewVirtualDirectory": "Utwórz nowy katalog wirtualny"
-}

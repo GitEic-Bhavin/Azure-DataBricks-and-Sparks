@@ -1,9 +1,0 @@
-{
-  "ErrorRetentionDaysOutOfRange": "保持日数は、1 から 365 の有効な整数である必要があります。",
-  "LabelDisableSoftDelete": "論理的な削除の無効化",
-  "LabelEnableSoftDelete": "論理削除の有効化",
-  "LabelRetentionDays": "保持日数:",
-  "LinkWhatIsSoftDelete": "論理的な削除とは?",
-  "MessageSoftDelete": "論理的な削除を有効にすると、削除された BLOB と削除されたスナップショットは保持期間のあいだ保存され、この期間内であれば回復できます。新しいポリシー設定が有効になるまで 30 秒かかります。",
-  "TitleConfigureSoftDeletePolicy": "論理的な削除ポリシーの構成"
-}

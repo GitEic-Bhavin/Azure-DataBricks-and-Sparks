@@ -1,4 +1,0 @@
-{
-  "ErrorUninstallExtensionDoesntExist": "ID가 %1$s인 확장을 제거하지 못했습니다. 해당 확장이 설치되어 있지 않습니다.",
-  "PromptConfirmUninstall": "%1$s을(를) 제거하시겠습니까? 제거를 완료하려면 Storage Explorer를 다시 시작해야 합니다."
-}

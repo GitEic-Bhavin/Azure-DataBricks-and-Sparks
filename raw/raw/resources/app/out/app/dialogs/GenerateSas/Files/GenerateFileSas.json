@@ -1,7 +1,0 @@
-{
-    "dimensions": {
-        "height": 650,
-        "width": 600
-    },
-    "view": "app/dialogs/index.html#generateFileSas"
-}

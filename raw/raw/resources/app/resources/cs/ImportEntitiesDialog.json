@@ -1,9 +1,0 @@
-{
-  "AttributeNameLabel": "Název vlastnosti",
-  "AttributeValueLabel": "Ukázková hodnota",
-  "DataTypeLabel": "Datový typ",
-  "ImportTitleLabel": "Importovat entity",
-  "InsertButtonLabel": "Vložit",
-  "PreserveExistingValuesLabel": "Zachovat existující hodnoty při aktualizaci entit",
-  "ShouldUseNullLabel": "Považovat prázdné řetězcové hodnoty za null"
-}

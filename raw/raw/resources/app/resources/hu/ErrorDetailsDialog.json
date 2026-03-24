@@ -1,6 +1,0 @@
-{
-  "ButtonCopyAndReport": "Másolás és probléma jelentése",
-  "ButtonTroubleshootingHelp": "Hibaelhárítási súgó",
-  "MessageReportingInstructions": "Ha nem tudja megoldani a problémát, nyithat egy problémát a Storage Explorer GitHub-helyén. A probléma diagnosztizálásának elősegítéséhez adja meg a lenti részleteket. A közzététel előtt mindenképpen távolítsa el az összes olyan személyes adatot, amelyet nem szeretne nyilvánossá tenni.",
-  "TitleErrorDetails": "Hiba részletei"
-}

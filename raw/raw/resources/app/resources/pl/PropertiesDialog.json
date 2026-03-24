@@ -1,6 +1,0 @@
-{
-  "CaseInsensitiveError": "klucze muszą być unikatowe (bez uwzględniania wielkości liter).",
-  "CaseSensitiveError": "klucze muszą być unikatowe (z uwzględnieniem wielkości liter).",
-  "LabelAdd": "Dodaj",
-  "SaveButtonLabel": "Zapisz"
-}

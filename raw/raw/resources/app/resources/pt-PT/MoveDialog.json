@@ -1,8 +1,0 @@
-{
-  "MoveNoteLabel": "Os ficheiros e diretórios serão ignorados se o destino tiver um item com o mesmo nome.",
-  "NewNameLabel": "Caminho da pasta de destino:",
-  "ReplaceSectionLabel": "Ignorar este ficheiro se o destino já tiver um ficheiro com o mesmo nome",
-  "SkipLabel": "Ignorar",
-  "SkipSectionLabel": "Substituir o ficheiro se o destino já tiver um ficheiro com o mesmo nome",
-  "TitleLabel": "Mover"
-}

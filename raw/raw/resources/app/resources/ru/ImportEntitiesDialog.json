@@ -1,9 +1,0 @@
-{
-  "AttributeNameLabel": "Имя свойства",
-  "AttributeValueLabel": "Пример значения",
-  "DataTypeLabel": "Тип данных",
-  "ImportTitleLabel": "Импорт сущностей",
-  "InsertButtonLabel": "Вставить",
-  "PreserveExistingValuesLabel": "Сохранять существующие значения при обновлении сущностей",
-  "ShouldUseNullLabel": "Считать пустые строковые значения как null"
-}

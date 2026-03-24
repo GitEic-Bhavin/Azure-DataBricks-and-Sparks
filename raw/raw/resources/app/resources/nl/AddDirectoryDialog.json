@@ -1,8 +1,0 @@
-{
-  "ButtonOK": "OK",
-  "ErrorInvalidDirectoryName": "De naam mag niet leeg zijn of slashes bevatten.",
-  "LabelName": "Naam:",
-  "MessageVirtualDirectory": "Hiermee wordt een virtuele map gemaakt. Een virtuele map bestaat pas in Azure wanneer u blobs erin hebt geplakt, ernaar toe hebt gesleept of ernaar hebt geüpload. Als u een blob in een virtuele map wilt plakken, kopieert u de blob voordat u de map maakt.",
-  "TitleCreateNewDirectory": "Een nieuwe map maken",
-  "TitleCreateNewVirtualDirectory": "Een nieuwe virtuele map maken"
-}

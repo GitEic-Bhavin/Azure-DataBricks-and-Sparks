@@ -1,7 +1,0 @@
-{
-    "dimensions": {
-        "height": 700,
-        "width": 930
-    },
-    "view": "app/dialogs/index.html#connectDialog"
-}

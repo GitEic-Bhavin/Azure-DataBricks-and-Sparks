@@ -1,9 +1,0 @@
-{
-  "AttributeNameLabel": "Nombre de propiedad",
-  "AttributeValueLabel": "Valor de ejemplo",
-  "DataTypeLabel": "Tipo de datos",
-  "ImportTitleLabel": "Importar entidades",
-  "InsertButtonLabel": "Insertar",
-  "PreserveExistingValuesLabel": "Conservar los valores existentes al actualizar las entidades",
-  "ShouldUseNullLabel": "Tratar los valores de cadena vacíos como NULL"
-}

@@ -1,8 +1,0 @@
-{
-    "MoveNoteLabel": "Files and directories will be skipped if the destination has an item with the same name.",
-    "NewNameLabel": "Target folder path:",
-    "ReplaceSectionLabel": "Skip this file if destination already has a file wih same name",
-    "SkipLabel": "Skip",
-    "SkipSectionLabel": "Replace the file if destination already has a file with same name",
-    "TitleLabel": "Move"
-}

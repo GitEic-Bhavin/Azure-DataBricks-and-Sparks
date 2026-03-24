@@ -1,7 +1,0 @@
-{
-    "dimensions": {
-        "height": 675,
-        "width": 600
-    },
-    "view": "app/dialogs/index.html#generateHnsBlobSas"
-}

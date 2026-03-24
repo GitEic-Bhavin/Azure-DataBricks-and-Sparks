@@ -1,9 +1,0 @@
-{
-  "AttributeNameLabel": "屬性名稱",
-  "AttributeValueLabel": "範例值",
-  "DataTypeLabel": "資料類型",
-  "ImportTitleLabel": "匯入實體",
-  "InsertButtonLabel": "插入",
-  "PreserveExistingValuesLabel": "更新實體時保留現有的值",
-  "ShouldUseNullLabel": "將空字串值視為 null"
-}

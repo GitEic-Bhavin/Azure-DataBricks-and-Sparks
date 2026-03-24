@@ -1,8 +1,0 @@
-{
-  "MoveNoteLabel": "如果目标具有同名的项，则跳过文件和目录。",
-  "NewNameLabel": "目标文件夹路径:",
-  "ReplaceSectionLabel": "如果目标已有同名文件，则跳过此文件",
-  "SkipLabel": "跳过",
-  "SkipSectionLabel": "如果目标已有同名文件，则替换该文件",
-  "TitleLabel": "移动"
-}

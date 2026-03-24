@@ -1,9 +1,0 @@
-{
-  "AttributeNameLabel": "属性名称",
-  "AttributeValueLabel": "示例值",
-  "DataTypeLabel": "数据类型",
-  "ImportTitleLabel": "导入实体",
-  "InsertButtonLabel": "插入",
-  "PreserveExistingValuesLabel": "更新实体时保留现有值",
-  "ShouldUseNullLabel": "将空字符串值视为 Null"
-}

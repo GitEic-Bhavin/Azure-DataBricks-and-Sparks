@@ -1,7 +1,0 @@
-{
-    "dimensions": {
-        "height": 675,
-        "width": 800
-    },
-    "view": "app/dialogs/index.html#proxySettings"
-}

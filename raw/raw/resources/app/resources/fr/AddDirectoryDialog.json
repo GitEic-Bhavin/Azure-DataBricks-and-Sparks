@@ -1,8 +1,0 @@
-{
-  "ButtonOK": "OK",
-  "ErrorInvalidDirectoryName": "Le nom ne doit pas être vide ou contenir des barres obliques.",
-  "LabelName": "Nom :",
-  "MessageVirtualDirectory": "Cela va entraîner la création d'un dossier virtuel. Un dossier virtuel n'existe pas réellement dans Azure tant que vous n'avez pas collé, fait glisser ou chargé des objets blob dans celui-ci. Pour coller un objet blob dans un dossier virtuel, copiez l'objet blob avant de créer le dossier.",
-  "TitleCreateNewDirectory": "Créer un annuaire",
-  "TitleCreateNewVirtualDirectory": "Créer un répertoire virtuel "
-}

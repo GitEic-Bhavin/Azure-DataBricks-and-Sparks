@@ -1,9 +1,0 @@
-{
-  "ErrorRetentionDaysOutOfRange": "Antalet kvarhållningsdagar måste vara ett giltigt heltal mellan 1 och 365.",
-  "LabelDisableSoftDelete": "Inaktivera mjuk borttagning",
-  "LabelEnableSoftDelete": "Aktivera mjuk borttagning",
-  "LabelRetentionDays": "Kvarhållningsdagar:",
-  "LinkWhatIsSoftDelete": "Vad är mjuk borttagning?",
-  "MessageSoftDelete": "När mjuk borttagning är aktiverat sparas borttagna blobar och borttagna ögonblicksbilder under en kvarhållningsperiod och kan återställas inom den perioden. Om du anger en ny princip så tar det 30 sekunder innan den börjar gälla.",
-  "TitleConfigureSoftDeletePolicy": "Konfigurera princip för mjuk borttagning"
-}

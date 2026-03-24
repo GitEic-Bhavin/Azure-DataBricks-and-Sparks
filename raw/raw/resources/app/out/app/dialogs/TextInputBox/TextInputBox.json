@@ -1,7 +1,0 @@
-{
-    "dimensions": {
-        "height": 490,
-        "width": 650
-    },
-    "view": "app/dialogs/index.html#textInputMessageBox"
-}

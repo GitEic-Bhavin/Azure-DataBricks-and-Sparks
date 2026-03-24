@@ -1,9 +1,0 @@
-{
-  "ErrorRetentionDaysOutOfRange": "Retentieperiode in dagen moet een geldig geheel getal tussen 1 en 365 zijn.",
-  "LabelDisableSoftDelete": "Voorlopig verwijderen uitschakelen",
-  "LabelEnableSoftDelete": "Voorlopig verwijderen inschakelen",
-  "LabelRetentionDays": "Retentieperiode in dagen:",
-  "LinkWhatIsSoftDelete": "Wat is voorlopig verwijderen?",
-  "MessageSoftDelete": "Als voorlopig verwijderen is ingeschakeld, worden verwijderde blobs en verwijderde momentopnamen gedurende een retentieperiode opgeslagen en kunnen deze binnen deze periode worden hersteld. Na het instellen duurt het 30 seconden voordat een nieuw beleid van kracht wordt.",
-  "TitleConfigureSoftDeletePolicy": "Beleid voor voorlopig verwijderen configureren"
-}

@@ -1,4 +1,0 @@
-{
-    "ErrorUninstallExtensionDoesntExist": "Failed to uninstall extension with ID %1$s. No such extension is installed.",
-    "PromptConfirmUninstall": "Are you sure you want to uninstall %1$s? Storage Explorer must be restarted to complete the uninstall."
-}

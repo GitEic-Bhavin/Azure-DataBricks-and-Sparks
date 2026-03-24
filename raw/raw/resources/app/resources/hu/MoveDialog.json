@@ -1,8 +1,0 @@
-{
-  "MoveNoteLabel": "A rendszer kihagyja a fájlokat és a könyvtárakat, ha azok célhelyen azonos nevű elem található.",
-  "NewNameLabel": "Célmappa elérési útja:",
-  "ReplaceSectionLabel": "A fájl kihagyása, ha a célhelyen már található azonos nevű fájl",
-  "SkipLabel": "Kihagyás",
-  "SkipSectionLabel": "A fájl cseréje, ha a célhelyen már található ugyanolyan nevű fájl",
-  "TitleLabel": "Áthelyezés"
-}

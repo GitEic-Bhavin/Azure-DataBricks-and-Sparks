@@ -1,6 +1,0 @@
-{
-    "CaseInsensitiveError": "keys must be unique (case insensitive).",
-    "CaseSensitiveError": "keys must be unique (case sensitive).",
-    "LabelAdd": "Add",
-    "SaveButtonLabel": "Save"
-}

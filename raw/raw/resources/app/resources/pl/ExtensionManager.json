@@ -1,4 +1,0 @@
-{
-  "ErrorUninstallExtensionDoesntExist": "Nie można odinstalować rozszerzenia o identyfikatorze %1$s. Takie rozszerzenie nie jest zainstalowane.",
-  "PromptConfirmUninstall": "Czy na pewno chcesz odinstalować rozszerzenie %1$s? Aby ukończyć odinstalowanie, należy ponownie uruchomić Eksploratora usługi Storage."
-}

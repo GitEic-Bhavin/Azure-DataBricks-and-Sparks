@@ -1,9 +1,0 @@
-{
-  "AttributeNameLabel": "Naam van eigenschap",
-  "AttributeValueLabel": "Voorbeeldwaarde",
-  "DataTypeLabel": "Gegevenstype",
-  "ImportTitleLabel": "Entiteiten importeren",
-  "InsertButtonLabel": "Invoegen",
-  "PreserveExistingValuesLabel": "Bestaande waarden behouden bij het bijwerken van entiteiten",
-  "ShouldUseNullLabel": "Lege tekenreekswaarden behandelen als null"
-}

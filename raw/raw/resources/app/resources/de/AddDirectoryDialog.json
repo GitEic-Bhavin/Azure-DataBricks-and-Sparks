@@ -1,8 +1,0 @@
-{
-  "ButtonOK": "OK",
-  "ErrorInvalidDirectoryName": "Der Name darf nicht leer sein oder Schrägstriche enthalten.",
-  "LabelName": "Name:",
-  "MessageVirtualDirectory": "Hiermit wird ein virtueller Ordner erstellt. Ein virtueller Ordner ist in Azure erst dann vorhanden, wenn Sie Blobs in den Ordner einfügen, hochladen oder per Drag &amp; Drop hineinziehen. Um ein Blob in einen virtuellen Ordner einzufügen, kopieren Sie das Blob, bevor Sie den Ordner erstellen.",
-  "TitleCreateNewDirectory": "Neues Verzeichnis erstellen",
-  "TitleCreateNewVirtualDirectory": "Neues virtuelles Verzeichnis erstellen"
-}

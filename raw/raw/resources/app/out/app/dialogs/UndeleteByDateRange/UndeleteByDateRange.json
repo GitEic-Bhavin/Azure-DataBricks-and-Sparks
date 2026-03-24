@@ -1,7 +1,0 @@
-{
-    "dimensions": {
-        "height": 450,
-        "width": 500
-    },
-    "view": "app/dialogs/index.html#undeleteByDateRange"
-}

@@ -1,8 +1,0 @@
-{
-  "ButtonOK": "OK",
-  "ErrorInvalidDirectoryName": "A név nem lehet üres, és nem tartalmazhat perjelet.",
-  "LabelName": "Név:",
-  "MessageVirtualDirectory": "A művelet egy virtuális mappát hoz létre. A virtuális mappa valójában nem létezik az Azure-ban, amíg nem illeszt be, húz vagy tölt fel blobokat abba. Ha egy virtuális mappába szeretne egy blobot beilleszteni, másolja a blobot a mappa létrehozása előtt.",
-  "TitleCreateNewDirectory": "Új könyvtár létrehozása",
-  "TitleCreateNewVirtualDirectory": "Új virtuális könyvtár létrehozása"
-}

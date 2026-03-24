@@ -1,6 +1,0 @@
-{
-  "CaseInsensitiveError": "les clés doivent être uniques (insensibles à la casse).",
-  "CaseSensitiveError": "les clés doivent être uniques (sensibles à la casse).",
-  "LabelAdd": "Ajouter",
-  "SaveButtonLabel": "Enregistrer"
-}

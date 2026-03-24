@@ -1,9 +1,0 @@
-{
-  "ErrorRetentionDaysOutOfRange": "A megőrzés időtartamának (napban) 1 és 365 közötti érvényes egész számnak kell lennie.",
-  "LabelDisableSoftDelete": "Helyreállítható törlés letiltása",
-  "LabelEnableSoftDelete": "Helyreállítható törlés engedélyezése",
-  "LabelRetentionDays": "Megőrzés időtartama (nap):",
-  "LinkWhatIsSoftDelete": "Mi a helyreállítható törlés?",
-  "MessageSoftDelete": "Ha a helyreállítható törlés engedélyezve van, a rendszer menti a törölt blobokat és a törölt pillanatképeket egy megőrzési időszakra, és azok ebben az időszakban helyreállíthatók. Egy új szabályzat beállításának érvénybe léptetése 30 másodpercet vesz igénybe.",
-  "TitleConfigureSoftDeletePolicy": "Helyreállítható törlési szabályzat konfigurálása"
-}

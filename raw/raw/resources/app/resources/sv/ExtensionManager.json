@@ -1,4 +1,0 @@
-{
-  "ErrorUninstallExtensionDoesntExist": "Det gick inte att avinstallera tillägget med id %1$s Inget sådant tillägg finns installerat.",
-  "PromptConfirmUninstall": "Vill du avinstallera %1$s? Storage Explorer måste startas om för att avinstallationen ska kunna slutföras."
-}

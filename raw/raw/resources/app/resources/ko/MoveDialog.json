@@ -1,8 +1,0 @@
-{
-  "MoveNoteLabel": "대상에 이름이 같은 항목이 있으면 파일 및 디렉터리를 건너뜁니다.",
-  "NewNameLabel": "대상 폴더 경로:",
-  "ReplaceSectionLabel": "대상에 같은 이름의 파일이 이미 있는 경우 이 파일 건너뛰기",
-  "SkipLabel": "건너뛰기",
-  "SkipSectionLabel": "대상에 같은 이름의 파일이 이미 있는 경우 파일 바꾸기",
-  "TitleLabel": "이동"
-}

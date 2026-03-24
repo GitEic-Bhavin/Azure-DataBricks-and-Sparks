@@ -1,9 +1,0 @@
-{
-  "AttributeNameLabel": "속성 이름",
-  "AttributeValueLabel": "샘플 값",
-  "DataTypeLabel": "데이터 형식",
-  "ImportTitleLabel": "엔터티 가져오기",
-  "InsertButtonLabel": "삽입",
-  "PreserveExistingValuesLabel": "엔터티를 업데이트할 때 기존 값 유지",
-  "ShouldUseNullLabel": "빈 문자열 값을 null로 처리"
-}

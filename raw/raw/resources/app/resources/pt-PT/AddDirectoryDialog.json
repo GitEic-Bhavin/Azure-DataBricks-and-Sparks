@@ -1,8 +1,0 @@
-{
-  "ButtonOK": "OK",
-  "ErrorInvalidDirectoryName": "O nome não pode estar vazio ou conter barras.",
-  "LabelName": "Nome:",
-  "MessageVirtualDirectory": "Esta ação irá criar uma pasta virtual. Não existe realmente uma pasta virtual no Azure enquanto não colar, arrastar ou carregar blobs para a mesma. Para colar um blob numa pasta virtual, copie o blob antes de criar a pasta.",
-  "TitleCreateNewDirectory": "Criar Novo Diretório",
-  "TitleCreateNewVirtualDirectory": "Criar Novo Diretório Virtual"
-}

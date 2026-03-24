@@ -1,4 +1,0 @@
-{
-  "ErrorUninstallExtensionDoesntExist": "Nem sikerült leválasztani a(z) %1$s azonosítójú bővítményt. Nincs telepítve ilyen bővítmény.",
-  "PromptConfirmUninstall": "Biztosan leválasztja a(z) %1$s bővítményt? Az leválasztás befejezéséhez újra kell indítani a Storage Explorert."
-}

@@ -1,4 +1,0 @@
-{
-  "ErrorUninstallExtensionDoesntExist": "No se pudo desinstalar la extensión con el identificador %1$s. No existe tal extensión instalada.",
-  "PromptConfirmUninstall": "¿Seguro que quiere desinstalar %1$s? El Explorador de Storage debe reiniciarse para completar la desinstalación."
-}
