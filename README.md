@@ -2034,3 +2034,459 @@ Example:
 * Data transformation and cleaning
 * Joining related datasets
 * Preparing analytics-ready data
+
+#####################################3
+
+# 🏎️ Formula 1 Databricks Project – Requirements Explained
+
+## 📌 Overview
+
+This document explains the project requirements in a simple Databricks (Lakehouse) way.
+
+---
+
+# 🟢 1. Ingestion Requirements (Bronze Layer)
+
+## What we need to do
+
+* Read all 8 input files (CSV + JSON)
+* Apply proper schema (column names, data types)
+* Add audit columns:
+
+  * `ingestion_date`
+  * `source`
+* Store data in **Parquet format**
+* Support **incremental load (append only)**
+
+## Databricks Understanding
+
+👉 This is your **Bronze Layer**
+
+```
+Raw Files → Clean Schema → Add Audit Columns → Store as Parquet
+```
+
+👉 Important points:
+
+* Never overwrite full data
+* Always **append new data (new race)**
+
+---
+
+# 🟡 2. Transformation Requirements (Silver/Gold Layer)
+
+## What we need to do
+
+* Join datasets (example: races + results)
+* Create clean tables for reporting
+* Add audit columns again
+* Store as Parquet
+* Support incremental processing
+
+## Databricks Understanding
+
+👉 This is your **Silver + Gold Layers**
+
+```
+Bronze → Clean + Join → Aggregation → Final Tables
+```
+
+👉 Example:
+
+* Combine `races` + `results` → race_results table
+
+👉 Important:
+
+* Only reprocess changed data (incremental)
+
+---
+
+# 📊 3. BI Reporting Requirements
+
+## What we need to build
+
+* Driver Standings (per year)
+* Constructor Standings (per year)
+
+## Databricks Output
+
+👉 These are **Gold tables** used for dashboards
+
+
+# 📈 4. Analytical Requirements
+
+## What we need to analyze
+
+* Most dominant drivers (last 10 years + all time)
+* Most dominant teams
+* Ranking based on performance
+
+## Output
+
+* Tables + dashboards + visualizations
+
+👉 Example:
+
+* Top drivers by total wins
+
+---
+
+# 📊 5. Dashboard Requirement
+
+* Build dashboards inside **Databricks SQL**
+* Share insights visually
+
+---
+
+# ⚙️ 6. Scheduling & Monitoring
+
+## Requirements
+
+* Run pipeline every Sunday 10 PM
+* If no new data → pipeline should not fail
+* Monitor pipeline
+* Re-run failed jobs
+* Set alerts
+
+## Databricks Solution
+
+👉 Use:
+
+* Workflows (Jobs)
+* Alerts
+* Job monitoring UI
+
+# 🔒 7. Non-Functional Requirements
+
+## GDPR (Delete data)
+
+* Ability to see history data & delete specific records
+
+## Time Travel
+
+* Query old data versions
+
+## Rollback
+
+* Restore previous data state
+
+## Databricks Solution
+
+👉 Use **Delta Lake**
+
+* DELETE support
+* Time Travel
+* Versioning
+
+## Solution Architecuture Overview
+
+## Step 1 - Export Data of Ergast API
+
+- raw.zip file downloaded already.
+
+## Step 2 - ADLS Raw Layer
+
+- We already create `raw`, `processed`, `presentations`, `demo` container in ADLS container.
+
+- We already Uploaded `raw.zip` total 8 files including folders in `raw` containers.
+
+## Step 3 - Ingest and Process this data by Databrick Notebook.
+
+- Proces data by notebook and stores this processed data into `processed` container.
+
+## Step 4 - Transform data
+
+- Transformed data is initially created in a `parquet format`.
+
+- Stores this transformed data into `presentation` container.
+
+## Step 5 - Analyze
+
+- We will analyze this data by using notebook.
+
+To achive this , we will use Azure Data Factory to make this workflow.
+
+![alt text](f1arch.png)
+
+
+
+Circuit file - DataFram Reader 
+---
+
+- We will see how to use the Dataframe Read API to read the data from CSV file into a Spark DataFrame.
+
+## Step 1 - Cluster is Running
+
+## Step 2 - Create Ingestoin folder in workspace
+
+- Create Ingestion folder under workspace and create Notebook `1.ingest_circuits_file` under this ingestion folder
+
+- Connect this notebook to cluster.
+
+## Step 3 - Find Formula of spark to read csv
+
+- Go to docs for spark read csv 
+
+![alt text](ffrc.png)
+
+- In Notebook
+
+```bash
+circuits_df = spark.read.csv("dbfs://mnt/<sa_name>.container/circuits.csv")
+
+spark.read.csv("dbfs://mnt/raw/circuits.csv")
+```
+
+```bash
+display(dbutils.fs.mounts())
+```
+
+![alt text](readcsvspk.png)
+
+- Show csv
+
+```bash
+circuits_df.show()
+
+<Your_Vars of spark.read.csv("path")>.show()
+```
+
+![alt text](scsv.png)
+
+**Use Header to show 1st line as header**
+
+```bash
+circuits_df = sparks.read.option("header", True).csv("dbfs:/mnt/<Your_Object_Path")
+```
+
+![alt text](header.png)
+
+- You can see here, hearder has added in a first line of each columns. 
+
+- Ex. circuitId, circuitRef etc
+
+## Circuit File -  Specify Schema
+
+- See which data types used in *.csv
+
+```bash
+circuits_df.printSchema()
+```
+
+![alt text](ps.png)
+
+- Bydefault sparks is considering your all csv data as **String** Now.
+
+- It doesn't understood there is int, float data types are there in csv.
+
+
+`How to Do that ?`
+
+- Use `InferSchema` 
+
+
+![alt text](infers.png)
+
+- Now check for printSchema.
+
+- It should show data types
+
+```bash
+circuits_df.printSchema()
+```
+
+![alt text](psma.png)
+
+
+
+## Use **StructType** and **StructField**
+
+StructType means the full schema.
+
+Think of it as the container for the whole row structure.
+
+- If your file has 5 columns, StructType contains all 5 column definitions.
+
+So:
+
+- StructType = full schema
+
+- StructField = one column inside that schema
+
+### What is StructField?
+
+StructField means one column definition.
+
+For each column, you give:
+
+column name
+data type
+nullable or not
+
+Example:
+
+```python
+StructField("circuit_id", IntegerType(), False)
+```
+
+**False** - DataType Value shoudn't empty.
+
+column name = circuit_id
+type = integer
+null values not allowed
+
+So each StructField describes one column.
+
+```python
+circuits_schema = StructType([
+    StructField("circuit_id", IntegerType(), False),
+    StructField("circuit_reference", StringType(), True),
+    StructField("name", StringType(), True),
+    StructField("location", StringType(), True),
+    StructField("country", StringType(), True),
+    StructField("latitude", DoubleType(), True),
+    StructField("longitude", DoubleType(), True),
+    StructField("altitude", IntegerType(), True)
+])
+```
+
+- Once Import python library and this set schema manually as above , so spark will not required to guess which data types and schemas of data.
+
+- Display data.
+
+```python
+circuits_selected_df = circuits_df.select("circuitId", "circuitRef", "name", "location", "country", "lat", "lng", "alt")
+```
+
+```python
+display(circuits_selected_df)
+```
+
+![alt text](dd.png)
+
+**Now We have set schemas and data types**.
+
+## Select only Required columns
+
+- Use df_vars.select("column1","column2")
+
+- In our case, df_vars is circuits_df
+
+![alt text](serecl.png)
+
+
+
+## WithColumnRenamed
+
+```bash
+circuits_renamed_df = circuits_selected_df.withColumnRenamed("Your_Column_name", "New_name")
+```
+
+![alt text](withcolumnrenamed.png)
+
+
+## Add/Replace new column
+
+- Add new column named `Ingestion Date` - which will hold current timestamp.
+
+- Refer Docs 
+
+![alt text](addrdocs.png)
+
+
+```bash
+circuits_renamed_df = circuits_selected_df.withColumnRenamed("Your_Column_name", "New_name")
+```
+
+
+```python
+circuits_selected_df = circuits_df.select("circuitId", "circuitRef", "name", "location", "country", "lat", "lng", "alt")
+```
+
+- To add columns
+
+- Import python library
+
+```python
+from pyspark.sql.functions import current_timestamp
+```
+
+- Add Columns `ingestion_date`
+
+```python
+circuits_final_df = circuits_renamed_df.withColumn("ingestion_date", current_timestamp())
+```
+- Display circuits_final_df
+
+
+![alt text](addcl.png)
+
+Here, `("ingestion_date", current_timestamp())` - "ingestion_date" is param set to Add columnd new/existing and "current_timestamp() is add a functions.
+
+**What if we want to add new columnd named `env` as value set to `productions` ?**
+
+- We can't add `Productions` as a string/column in place of functions as second parameters.
+
+- We can add `Productions` as Value of `Env` as string by **Function named LIT**.
+
+- Import lit library
+
+```python
+from pyspark.sql.functions import current_timestamp, lit
+```
+- Add new column named `env`
+
+```python
+circuits_final_df = circuits_renamed_df.withColumn("ingestion_date", current_timestamp()) \
+.withcolumn("env", lit("Productions))
+```
+
+![alt text](addlit.png)
+
+## Write Data to File system - Azure Data Lack Storage Gen2
+
+- We will write data in format of `parquet`.
+
+
+- use `parquet()` API
+
+```python
+circuits_final_df.write.parquet("/mnt/<sa_name>.processed/circuits")
+```
+
+
+![alt text](wdtosa.png)
+
+- Read parquet data from processed containers
+
+```bash
+df = spark.read.parquet("/mnt/sabhavindb/processed/circuits")
+```
+
+- Display df
+
+```bash
+display(df)
+```
+
+
+![alt text](ddf.png)
+
+
+- If it is failing use keyword `overwrite`
+
+```bash
+circuits_final_df.write.mode.("overwrite").parquet("/mnt/sahavindb/processed/circuits")
+```
+
+- **This will not work due to unity catelog block dbfs. You can't use /mnt**.
+
+- You can enable `/mnt` in unity catelog. But this is not recommended.
+
+- Use abfss to write directlyh on processed container
+
+![alt text](useabfss.png)
+
+- Display
+
+![alt text](dp.png)
