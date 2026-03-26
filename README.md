@@ -2490,3 +2490,1007 @@ circuits_final_df.write.mode.("overwrite").parquet("/mnt/sahavindb/processed/cir
 - Display
 
 ![alt text](dp.png)
+
+
+## Data Ingestion - Races
+
+**We will ingest the `races.csv` file from  raw container to processed container**
+
+- We did earlier for `raw.csv` ,  we did read csv using read api , make transform data and write date into processed data and save it as `parquet` format.
+
+- We will do Schema Set, Column Add, Column Modify, Specific Column Modify.
+
+```python
+races_schema = StructType(fields=[
+      StructField("raceId", IntegerType, False,),
+      StructField("year", IntegerType, True)])
+      # Many column name will be here .... 
+
+```
+
+
+![alt text](addschrc.png)
+
+**Use Header to show 1st line as header**
+
+```bash
+races_df = spark.read.option("hearder". True) \  # Define header for 1st line
+                     .schema(races_schema) \  # Define shchema in above step
+                     .csv("/mnt/<sa_name>.raw/races.csv") # Location of your data races.csv
+```
+
+- Display it
+
+```bash
+display(races_df)
+```
+
+![alt text](readrc.png)
+
+##################################
+
+
+
+# Azure Databricks – Races Data Ingestion Pipeline (Beginner Friendly)
+
+---
+
+## 🧠 Big Picture (What are we doing?)
+
+This notebook is doing a **data ingestion pipeline** in Azure Databricks:
+
+👉 Read raw CSV data
+👉 Apply proper schema (structure)
+👉 Transform data (add columns, fix types)
+👉 Select & rename columns
+👉 Save into processed layer (Parquet)
+
+---
+
+## 🧱 Step 1: Create Notebook
+
+You created a notebook:
+
+```python
+# ingest races file
+```
+
+👉 This is just your workspace to write PySpark code.
+
+---
+
+## 📥 Step 2: Understand Source Data (Schema)
+
+### Problem:
+
+CSV file = **unstructured / loosely typed**
+
+👉 Spark may guess wrong datatypes → BAD PRACTICE
+
+---
+
+### Solution:
+
+Define schema manually using:
+
+* `StructType` → full schema
+* `StructField` → each column
+
+---
+
+### Example:
+
+```python
+from pyspark.sql.types import StructType, StructField, IntegerType, StringType, DateType
+
+races_schema = StructType([
+    StructField("raceId", IntegerType(), False),
+    StructField("year", IntegerType(), True),
+    StructField("round", IntegerType(), True),
+    StructField("circuitId", IntegerType(), True),
+    StructField("name", StringType(), True),
+    StructField("date", DateType(), True),
+    StructField("time", StringType(), True)
+])
+```
+
+---
+
+### 🔥 Function Explanation:
+
+* `StructType()` → Defines complete schema structure
+* `StructField()` → Defines each column
+* `IntegerType()` → Integer datatype
+* `StringType()` → String datatype
+* `DateType()` → Date datatype
+* `False` → Column cannot be null
+
+---
+
+### 🔥 Important Concept:
+
+| MySQL Type | Spark Type      |
+| ---------- | --------------- |
+| int        | IntegerType     |
+| varchar    | StringType      |
+| date       | DateType        |
+| time       | ❌ Not available |
+
+👉 So `time` → stored as **String**
+
+---
+
+## 📊 Step 3: Read CSV into DataFrame
+
+```python
+races_df = spark.read \
+    .option("header", True) \
+    .schema(races_schema) \
+    .csv("/mnt/formula1dl/raw/races.csv")
+```
+
+---
+
+### 🔍 Function Explanation:
+
+* `spark.read` → Entry point to read data in Spark
+* `.option("header", True)` → First row is column name
+* `.schema()` → Apply predefined schema
+* `.csv()` → Read CSV file
+
+---
+
+### 📁 Path Explanation:
+
+```
+/mnt/formula1dl/raw/races.csv
+```
+
+👉 This is a mounted storage (ADLS/Blob)
+
+* `/mnt` → Mount point
+* `formula1dl` → Storage account
+* `raw` → Raw data layer
+
+---
+
+## ➕ Step 4: Add New Columns
+
+```python
+from pyspark.sql.functions import current_timestamp, to_timestamp, concat, col, lit
+
+races_with_timestamp_df = races_df \
+    .withColumn("ingestion_date", current_timestamp()) \
+    .withColumn("race_timestamp",
+        to_timestamp(
+            concat(col("date"), lit(" "), col("time")),
+            "yyyy-MM-dd HH:mm:ss"
+        )
+    )
+```
+
+![alt text](addcrc.png)
+
+
+
+### 🔥 Function Explanation:
+
+* `withColumn()` → Add or modify column
+* `current_timestamp()` → Current system timestamp
+* `concat()` → Combine multiple columns
+* `col()` → Reference a column
+* `lit()` → Add constant value (space here)
+* `to_timestamp()` → Convert string to timestamp
+
+---
+
+### 🧠 Why this step?
+
+* Add `ingestion_date` → track when data was loaded
+* Combine `date` + `time` → create proper timestamp
+
+---
+
+### 🧠 Example:
+
+```
+2023-03-05 + 14:00:00 → 2023-03-05 14:00:00
+```
+
+---
+
+## 🎯 Step 5: Select & Rename Columns
+
+```python
+from pyspark.sql.functions import col
+
+races_selected_df = races_with_timestamp_df.select(
+    col("raceId").alias("race_id"),
+    col("year").alias("race_year"),
+    col("round"),
+    col("circuitId").alias("circuit_id"),
+    col("name"),
+    col("ingestion_date"),
+    col("race_timestamp")
+)
+```
+
+![alt text](renameclrc.png)
+
+
+
+### 🔥 Function Explanation:
+
+* `select()` → Choose required columns
+* `alias()` → Rename column
+
+---
+
+### 🧠 Why?
+
+* Clean naming convention
+* Remove unnecessary columns
+
+---
+
+## 💾 Step 6: Write Data (Processed Layer)
+
+```python
+races_selected_df.write \
+    .mode("overwrite") \
+    .parquet("/mnt/formula1dl/processed/races")
+```
+
+![alt text](wrdap.png)
+
+
+### 🔥 Function Explanation:
+
+* `.write` → Save DataFrame
+* `.mode("overwrite")` → Replace existing data
+* `.parquet()` → Save in Parquet format
+
+---
+
+## 🚀 Why Parquet?
+
+| CSV ❌      | Parquet ✅     |
+| ---------- | ------------- |
+| Slow       | Fast          |
+| No schema  | Schema stored |
+| Large size | Compressed    |
+
+
+## 📂 Step 7: Validate Output
+
+```python
+dbutils.fs.ls("/mnt/formula1dl/processed/races")
+```
+
+👉 Lists files
+
+```python
+spark.read.parquet("/mnt/formula1dl/processed/races")
+```
+
+👉 Read data again
+
+![alt text](reread.png)
+
+
+### 🔥 Function Explanation:
+
+* `dbutils.fs.ls()` → List files in storage
+* `spark.read.parquet()` → Read parquet file
+
+---
+
+## 🧹 Step 8: Cleanup
+
+Remove unnecessary `display()` commands for clean notebook.
+
+---
+
+## 🧠 FINAL ARCHITECTURE FLOW
+
+```
+RAW (CSV)
+   ↓
+Read with Schema
+   ↓
+Transform (timestamp + ingestion date)
+   ↓
+Select + Rename
+   ↓
+Write
+   ↓
+PROCESSED (Parquet)
+```
+
+---
+
+## 💡 Real-World Understanding
+
+This follows **Medallion Architecture**:
+
+| Layer              | Meaning             |
+| ------------------ | ------------------- |
+| Raw                | Original data       |
+| Processed (Silver) | Cleaned data        |
+| Gold               | Business-ready data |
+
+
+## Partitioning Data
+
+- `👉 Splitting data into multiple folders based on a column value`
+
+
+
+- `Without partition:`
+👉 Spark scans ALL data ❌
+
+- `With partition:`
+👉 Spark reads only required partition ✅
+
+- If you want to `Split Data Based on Column name like` **reace_year** to evaluate or to see Year based Race Data, You can do it with help of `partition`.
+
+- TO DO PARTITION, use `.partitionBy("race_year")` → Split data into folders based on column
+
+```python
+races_selected_df.write \
+    .mode("overwrite") \
+    .partitionBy("race_year") \                   
+    .parquet("/mnt/formula1dl/processed/races") # Location of data 
+```
+
+```python
+display(spark.read.parquet("/mnt/formula1dl/processed/races"))
+```
+
+![alt text](py.png)
+
+- This is real ex
+
+![alt text](pyear.png)
+
+Data Ingestion - JSON
+---
+
+We will do Read, Transform, Write on JSON file.
+
+JSON file have following columns.
+
+![alt text](jsoncl.png)
+
+- And Will Transform into this New Column name.
+
+![alt text](trcl.png)
+
+- **`We will also see DDL Method for Schema Set`**.
+
+### Step 1 - Set Schema using DDL
+
+- Instead of using StructType, they used a DDL schema string.
+
+
+```python
+constructors_shema = "constructorId INT, constructorRef STRING, name STRING, nationality STRING, url STRING"
+```
+
+### Step 2 - Read JSON File
+
+- Here we wouldn't require to write `header` to read 1st line from file. 
+
+- `JSON will not required to write header`.
+
+```python
+constructor_df = spark.read \
+    .schema(constructor_schema) \
+    .json("/mnt/formula1dl/raw/constructors.json")
+```
+
+  - spark.read → starts reading data
+
+  - .schema(...) → applies your schema
+
+  - .json(...) → reads JSON file
+
+- Display
+
+```python
+display(constructor_df)
+```
+
+![alt text](readjs.png)
+
+### Step 3 - Drop unwanted columns
+
+- use `drop('column_name')`
+
+```python
+constructor_dropped_df = constructor_df.drop('url')
+```
+
+![alt text](dropcl.png)
+
+### Step 4 - Rename columns and add Ingestion date
+
+```python
+constructor_final_df = constructor_dropped_df.withColumnRenamed("constructorId", "constructor_id") \
+                                             .withColumnRenamed("constructorRef", "constructor_ref") \
+                                             .withColumn("ingestion_date", current_timestamp())
+```
+
+- Display Renamed
+
+```python
+display(constructor_final_df)
+```
+
+![alt text](renamej.png)
+
+### Step 5 - Write output to parquet format
+
+```python
+constructor_final_df.write.mode("overwrite").parquet("/mnt/formula1/processed/")
+```
+
+- List processed container
+
+```python
+%fs
+ls /mnt/formula1/processed/constructors
+```
+
+![alt text](writoj.png)
+
+#################################################3
+
+# Azure Databricks – Drivers Data Ingestion (Nested JSON)
+
+## 🧠 Big Picture (What are we doing?)
+
+This notebook is processing a **nested JSON file** in Azure Databricks:
+
+👉 Read JSON data (with nested structure)
+👉 Apply schema (including nested schema)
+👉 Transform data (flatten nested fields)
+👉 Rename & clean columns
+👉 Save into processed layer (Parquet)
+
+## 📂 Source Data (Important)
+
+The driver JSON file contains **nested data**:
+
+```json
+{
+  "driverId": 1,
+  "driverRef": "hamilton",
+  "name": {
+    "forename": "Lewis",
+    "surname": "Hamilton"
+  },
+  "dob": "1985-01-07",
+  "nationality": "British",
+  "url": "http://..."
+}
+```
+
+## 🧠 Core Concept
+
+👉 `name` is NOT a normal column
+👉 It is a **nested JSON object (struct)**
+
+So we must:
+
+* Define **inner schema** (for name)
+* Define **outer schema** (full JSON)
+
+## 🧱 Step 1: Define Inner Schema (Nested Object)
+
+```python
+from pyspark.sql.types import StructType, StructField, StringType
+
+name_schema = StructType([
+    StructField("forename", StringType(), True),
+    StructField("surname", StringType(), True)
+])
+```
+
+![alt text](insc.png)
+
+### 🔥 Function Explanation:
+
+* `StructType()` → Defines structure
+* `StructField()` → Defines each field
+* `StringType()` → String datatype
+
+## 🧱 Step 2: Define Outer Schema
+
+```python
+from pyspark.sql.types import IntegerType, DateType
+
+driver_schema = StructType([
+    StructField("driverId", IntegerType(), False),
+    StructField("driverRef", StringType(), True),
+    StructField("number", StringType(), True),
+    StructField("code", StringType(), True),
+    StructField("name", name_schema, True),
+    StructField("dob", DateType(), True),
+    StructField("nationality", StringType(), True),
+    StructField("url", StringType(), True)
+])
+```
+
+![alt text](ousc.png)
+
+### 🔥 Important Line:
+
+```python
+StructField("name", name_schema, True)
+```
+
+👉 This means:
+
+* `name` is a struct
+* Its structure is defined by `name_schema`
+
+## 📊 Step 3: Read JSON File
+
+```python
+drivers_df = spark.read \
+    .schema(driver_schema) \
+    .json("/mnt/formula1dl/raw/drivers.json")
+```
+
+### 🔥 Function Explanation:
+
+* `spark.read` → Read data
+* `.schema()` → Apply schema
+* `.json()` → Read JSON file
+
+### 🧠 Important Note:
+
+❌ No `header=True` needed
+👉 JSON already contains column names
+
+## 🔍 Step 4: Check Schema
+
+```python
+drivers_df.printSchema()
+```
+
+![alt text](ptsc.png)
+
+### Output:
+
+```
+name: struct
+  |-- forename: string
+  |-- surname: string
+```
+
+## ➕ Step 5: Transform Data (Flatten Nested JSON)
+
+```python
+from pyspark.sql.functions import current_timestamp, concat, col, lit
+
+drivers_with_columns_df = drivers_df \
+    .withColumn("ingestion_date", current_timestamp()) \
+    .withColumn("name",
+        concat(col("name.forename"), lit(" "), col("name.surname"))
+    )
+```
+
+![alt text](renameclj.png)
+
+### 🔥 Function Explanation:
+
+* `withColumn()` → Add/modify column
+* `current_timestamp()` → Add ingestion time
+* `concat()` → Combine columns
+* `col("name.forename")` → Access nested field
+* `lit(" ")` → Add space
+
+### 🧠 What is happening?
+
+```text
+name.forename + " " + name.surname
+```
+
+👉 Converts nested object into flat column:
+
+```
+Lewis Hamilton
+```
+
+## 🎯 Step 6: Drop Unwanted Columns
+
+```python
+drivers_final_df = drivers_with_columns_df.drop("url")
+```
+
+### 🧠 Why?
+
+* `url` not required
+* Nested fields already flattened
+
+## 💾 Step 7: Write Data (Processed Layer)
+
+```python
+drivers_final_df.write \
+    .mode("overwrite") \
+    .parquet("/mnt/formula1dl/processed/drivers")
+```
+
+![alt text](wdjs.png)
+
+### 🔥 Function Explanation:
+
+* `.write` → Save data
+* `.mode("overwrite")` → Replace old data
+* `.parquet()` → Save in optimized format
+
+## 🧠 FINAL ARCHITECTURE FLOW
+
+```
+RAW (Nested JSON)
+   ↓
+Read with Nested Schema
+   ↓
+Flatten Nested Fields
+   ↓
+Rename + Add Columns
+   ↓
+Drop Unwanted Columns
+   ↓
+PROCESSED (Parquet)
+```
+
+## 💡 Key Learnings
+
+* Nested JSON requires **nested schema**
+* StructType can define complex structures
+* Use `col("parent.child")` to access nested fields
+* Flatten nested data for analytics
+
+# Azure Databricks – Results Data Ingestion (JSON → Partitioned Parquet)
+
+## 🧠 Big Picture (What are we doing?)
+
+This notebook processes the **results JSON file** and prepares it for analytics:
+
+👉 Read JSON data with schema
+👉 Rename columns (clean naming)
+👉 Add ingestion timestamp
+👉 Drop unwanted columns
+👉 Write optimized data to Data Lake (Parquet) with partitioning
+
+## 📂 Source Data
+
+* File: `results.json`
+* Format: JSON
+* Location: `/mnt/formula1dl/raw/`
+
+## 🧱 Step 1: Define Schema
+
+```python
+from pyspark.sql.types import StructType, StructField, IntegerType, StringType, FloatType
+
+results_schema = StructType([
+    StructField("resultId", IntegerType(), False),
+    StructField("raceId", IntegerType(), True),
+    StructField("driverId", IntegerType(), True),
+    StructField("constructorId", IntegerType(), True),
+    StructField("number", StringType(), True),
+    StructField("grid", IntegerType(), True),
+    StructField("position", IntegerType(), True),
+    StructField("positionText", StringType(), True),
+    StructField("positionOrder", IntegerType(), True),
+    StructField("points", FloatType(), True),
+    StructField("laps", IntegerType(), True),
+    StructField("time", StringType(), True),
+    StructField("milliseconds", IntegerType(), True),
+    StructField("fastestLap", IntegerType(), True),
+    StructField("rank", IntegerType(), True),
+    StructField("fastestLapTime", StringType(), True),
+    StructField("fastestLapSpeed", FloatType(), True),
+    StructField("statusId", IntegerType(), True)
+])
+```
+
+### 🔥 Function Explanation:
+
+* `StructType()` → Defines full schema
+* `StructField()` → Defines each column
+* `IntegerType()` → Integer values
+* `StringType()` → Text values
+* `FloatType()` → Decimal values
+
+## 📊 Step 2: Read JSON File
+
+```python
+results_df = spark.read \
+    .schema(results_schema) \
+    .json("/mnt/formula1dl/raw/results.json")
+```
+
+### 🔥 Function Explanation:
+
+* `spark.read` → Read data
+* `.schema()` → Apply schema
+* `.json()` → Read JSON file
+
+### 🧠 Note:
+
+❌ No `header=True` required
+👉 JSON already contains column names
+
+## ➕ Step 3: Rename Columns & Add Ingestion Date
+
+```python
+from pyspark.sql.functions import current_timestamp, col
+
+results_with_columns_df = results_df.select(
+    col("resultId").alias("result_id"),
+    col("raceId").alias("race_id"),
+    col("driverId").alias("driver_id"),
+    col("constructorId").alias("constructor_id"),
+    col("number"),
+    col("grid"),
+    col("position"),
+    col("positionText").alias("position_text"),
+    col("positionOrder").alias("position_order"),
+    col("points"),
+    col("laps"),
+    col("time"),
+    col("milliseconds"),
+    col("fastestLap").alias("fastest_lap"),
+    col("rank"),
+    col("fastestLapTime").alias("fastest_lap_time"),
+    col("fastestLapSpeed").alias("fastest_lap_speed"),
+    col("statusId").alias("status_id"),
+    current_timestamp().alias("ingestion_date")
+)
+```
+
+### 🔥 Function Explanation:
+
+* `select()` → Select required columns
+* `alias()` → Rename columns
+* `current_timestamp()` → Add ingestion time
+
+### 🧠 Why this step?
+
+* Convert CamelCase → snake_case
+* Add ingestion tracking
+
+## 🗑️ Step 4: Drop Unwanted Columns
+
+```python
+results_final_df = results_with_columns_df.drop(col("status_id"))
+```
+
+### 🔥 Function Explanation:
+
+* `drop()` → Remove column
+* `col()` → Column reference
+
+### 🧠 Why?
+
+* Remove unnecessary data
+* Keep dataset clean
+
+## 💾 Step 5: Write Data (Partitioned Output)
+
+```python
+results_final_df.write \
+    .mode("overwrite") \
+    .partitionBy("race_id") \
+    .parquet("/mnt/formula1dl/processed/results")
+```
+
+### 🔥 Function Explanation:
+
+* `.write` → Save data
+* `.mode("overwrite")` → Replace old data
+* `.partitionBy("race_id")` → Split data by race
+* `.parquet()` → Save in optimized format
+
+## 📂 Partition Output Example
+
+```
+/mnt/formula1dl/processed/results/
+    race_id=1/
+    race_id=2/
+    race_id=3/
+```
+
+### 🧠 Why Partition?
+
+Without partition:
+👉 Full dataset scan ❌
+
+With partition:
+👉 Only required data read ✅
+
+### ⚡ Example Query
+
+```
+SELECT * FROM results WHERE race_id = 1
+```
+
+👉 Reads only `race_id=1` folder → Faster 🚀
+
+## 🔍 Step 6: Validate Output
+
+```python
+spark.read.parquet("/mnt/formula1dl/processed/results")
+```
+
+
+# Azure Databricks – Pitstops Data Ingestion (Multiline JSON)
+
+## 🧠 Big Picture (What are we doing?)
+
+This notebook processes a **multiline JSON file** in Azure Databricks:
+
+👉 Read multiline JSON data
+👉 Apply schema
+👉 Fix parsing issue using `multiLine=True`
+👉 Rename columns & add ingestion timestamp
+👉 Write optimized data to Data Lake (Parquet)
+
+## 📂 Source Data
+
+* File: `pitstops.json`
+* Format: Multiline JSON
+* Location: `/mnt/formula1dl/raw/`
+
+## 🧠 Core Concept (VERY IMPORTANT)
+
+### ❌ Default Behavior in Spark
+
+```python
+multiLine = False
+```
+
+👉 Spark expects JSON like:
+
+```json
+{"name":"abc","age":25}
+{"name":"def","age":30}
+```
+
+### ❌ Problem with Multiline JSON
+
+Actual file looks like:
+
+![alt text](mljs.png)
+
+```json
+[
+  {
+    "raceId": 1,
+    "driverId": 44,
+    "stop": 2
+  },
+  {
+    "raceId": 2,
+    "driverId": 5,
+    "stop": 3
+  }
+]
+```
+
+👉 JSON records are spread across multiple lines
+👉 Spark cannot parse → results in **NULL values**
+
+## ✅ Solution
+
+```python
+.option("multiLine", True)
+```
+
+👉 This tells Spark to read the entire JSON object properly
+
+## 🧱 Step 1: Define Schema
+
+```python
+from pyspark.sql.types import StructType, StructField, IntegerType, StringType
+
+pitstops_schema = StructType([
+    StructField("raceId", IntegerType(), True),
+    StructField("driverId", IntegerType(), True),
+    StructField("stop", IntegerType(), True),
+    StructField("lap", IntegerType(), True),
+    StructField("time", StringType(), True),
+    StructField("duration", StringType(), True),
+    StructField("milliseconds", IntegerType(), True)
+])
+```
+
+### 🔥 Function Explanation:
+
+* `StructType()` → Defines schema
+* `StructField()` → Defines each column
+
+## 📊 Step 2: Read Multiline JSON
+
+```python
+pitstops_df = spark.read \
+    .option("multiLine", True) \
+    .schema(pitstops_schema) \
+    .json("/mnt/formula1dl/raw/pitstops.json")
+```
+
+### 🔥 Function Explanation:
+
+* `spark.read` → Read data
+* `.option("multiLine", True)` → Enable multiline JSON support
+* `.schema()` → Apply schema
+* `.json()` → Read JSON file
+
+### 🧠 Why this works?
+
+👉 Spark now reads the entire JSON structure instead of line-by-line
+
+## ➕ Step 3: Rename Columns & Add Ingestion Date
+
+```python
+from pyspark.sql.functions import current_timestamp
+
+final_df = pitstops_df \
+    .withColumnRenamed("raceId", "race_id") \
+    .withColumnRenamed("driverId", "driver_id") \
+    .withColumn("ingestion_date", current_timestamp())
+```
+
+### 🔥 Function Explanation:
+
+* `withColumnRenamed()` → Rename columns
+* `current_timestamp()` → Add ingestion time
+
+## 💾 Step 4: Write Data (Parquet)
+
+```python
+final_df.write \
+    .mode("overwrite") \
+    .parquet("/mnt/formula1dl/processed/pitstops")
+```
+
+### 🔥 Function Explanation:
+
+* `.write` → Save data
+* `.mode("overwrite")` → Replace old data
+* `.parquet()` → Optimized format
+
+## 🔍 Step 5: Validate Output
+
+```python
+spark.read.parquet("/mnt/formula1dl/processed/pitstops")
+```
+
+## 🧠 FINAL ARCHITECTURE FLOW
+
+```
+RAW (Multiline JSON)
+   ↓
+Read with multiLine=True
+   ↓
+Apply Schema
+   ↓
+Rename + Add ingestion date
+   ↓
+Write (Parquet)
+   ↓
+PROCESSED
+```
+
+## 💡 Key Learnings
+
+* Multiline JSON needs special handling
+* Use `.option("multiLine", True)`
+* Schema still required for consistency
+
+
