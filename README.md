@@ -3493,4 +3493,1741 @@ PROCESSED
 * Use `.option("multiLine", True)`
 * Schema still required for consistency
 
+#########################################################
 
+# Azure Databricks – Lap Times Data Ingestion (Multiple CSV Files)
+
+## 🧠 Big Picture (What are we doing?)
+
+This notebook processes **multiple CSV files from a folder** in Azure Databricks:
+
+👉 Read multiple CSV files (from folder)
+👉 Apply schema
+👉 Combine all files into one DataFrame
+👉 Rename columns & add ingestion timestamp
+👉 Write optimized data to Data Lake (Parquet)
+
+## 📂 Source Data
+
+* Folder: `lap_times/`
+* Format: CSV (multiple files)
+* Location: `/mnt/formula1dl/raw/`
+
+- This is how our lap_time/*.csv format.
+
+![alt text](lt-js.png)
+
+## 🧠 Core Concept (VERY IMPORTANT)
+
+👉 Spark treats **all files in a folder as one dataset**
+
+Example:
+
+```
+lap_times/
+  part-1.csv
+  part-2.csv
+  part-3.csv
+  part-4.csv
+  part-5.csv
+```
+
+👉 Spark reads all files together → creates **one DataFrame**
+
+## 🧱 Step 1: Define Schema
+
+```python
+from pyspark.sql.types import StructType, StructField, IntegerType
+
+lap_times_schema = StructType([
+    StructField("raceId", IntegerType(), True),
+    StructField("driverId", IntegerType(), True),
+    StructField("lap", IntegerType(), True),
+    StructField("position", IntegerType(), True),
+    StructField("time", StringType(), True),
+    StructField("milliseconds", IntegerType(), True)
+])
+```
+
+### 🔥 Function Explanation:
+
+* `StructType()` → Defines schema
+* `StructField()` → Defines each column
+
+## 📊 Step 2: Read Multiple CSV Files (Folder)
+
+```python
+lap_times_df = spark.read \
+    .schema(lap_times_schema) \
+    .csv("/mnt/formula1dl/raw/lap_times/")
+```
+
+### 🔥 Function Explanation:
+
+* `spark.read` → Read data
+* `.schema()` → Apply schema
+* `.csv()` → Read CSV files from folder
+
+### 🧠 What happens here?
+
+👉 Spark automatically:
+
+* Reads all CSV files in the folder
+* Combines them into one DataFrame
+
+## ⭐ Optional: Use Wildcard Path
+
+```python
+lap_times_df = spark.read \
+    .schema(lap_times_schema) \
+    .csv("/mnt/formula1dl/raw/lap_times/*.csv")
+```
+
+![alt text](readmfjs.png)
+
+### 🧠 Why use wildcard?
+
+👉 Useful when folder contains multiple file types
+
+Example:
+
+* `.csv`
+* `.json`
+* `.txt`
+
+👉 `*.csv` ensures only CSV files are read
+
+## 🔍 Step 3: Validate Data
+
+```python
+lap_times_df.count()
+```
+
+### 🧠 Why?
+
+* Ensure all files are read
+* Verify total record count
+
+Example:
+
+* 5 files × ~100k rows = ~500k records
+
+## ➕ Step 4: Rename Columns & Add Ingestion Date
+
+```python
+from pyspark.sql.functions import current_timestamp
+
+final_df = lap_times_df \
+    .withColumnRenamed("raceId", "race_id") \
+    .withColumnRenamed("driverId", "driver_id") \
+    .withColumn("ingestion_date", current_timestamp())
+```
+
+### 🔥 Function Explanation:
+
+* `withColumnRenamed()` → Rename columns
+* `current_timestamp()` → Add ingestion time
+
+
+## 💾 Step 5: Write Data (Parquet)
+
+```python
+final_df.write \
+    .mode("overwrite") \
+    .parquet("/mnt/formula1dl/processed/lap_times")
+```
+
+
+### 🔥 Function Explanation:
+
+* `.write` → Save data
+* `.mode("overwrite")` → Replace old data
+* `.parquet()` → Optimized format
+
+
+## 🔍 Step 6: Validate Output
+
+```python
+spark.read.parquet("/mnt/formula1dl/processed/lap_times")
+```
+
+![alt text](rwmfjs.png)
+
+## 🧠 FINAL ARCHITECTURE FLOW
+
+```
+RAW (Multiple CSV Files)
+   ↓
+Read Folder
+   ↓
+Apply Schema
+   ↓
+Combine Files Automatically
+   ↓
+Rename + Add ingestion date
+   ↓
+Write (Parquet)
+   ↓
+PROCESSED
+```
+
+
+
+# Qualifying Data Ingestion using Azure Databricks
+
+## 📌 Overview
+
+This project demonstrates how to ingest **Qualifying JSON data** into a processed data layer using Azure Databricks. The pipeline reads raw JSON files, applies schema, transforms data, and writes it in Parquet format.
+
+
+## 📂 Data Flow
+
+**Raw Layer → Transformation → Processed Layer**
+
+* Source: `/mnt/raw/qualifying`
+* Target: `/mnt/processed/qualifying`
+
+This we would have to modify columns and add new columns
+
+![alt text](qlamcl.png)
+
+This is how our data is look like.
+
+
+Data is like multi line json files.
+
+![alt text](dfql.png)
+
+## ⚙️ Steps
+
+### 1. Read JSON Files
+
+* Reads multiple JSON files from a folder
+* Uses predefined schema
+* Handles multi-line JSON
+
+```python
+from pyspark.sql.types import StructType, StructField, IntegerType, StringType
+
+qualifying_schema = StructType([
+    StructField("qualifyId", IntegerType(), True),
+    StructField("raceId", IntegerType(), True),
+    StructField("driverId", IntegerType(), True),
+    StructField("constructorId", IntegerType(), True),
+    StructField("number", IntegerType(), True),
+    StructField("position", IntegerType(), True),
+    StructField("q1", StringType(), True),
+    StructField("q2", StringType(), True),
+    StructField("q3", StringType(), True)
+])
+
+df = spark.read \
+    .option("multiLine", True) \
+    .schema(qualifying_schema) \
+    .json("/mnt/raw/qualifying")
+```
+
+### 2. Transform Data
+
+#### Rename Columns
+
+* Convert camelCase → snake_case
+
+#### Add Ingestion Timestamp
+
+```python
+from pyspark.sql.functions import current_timestamp
+
+qualifying_final_df = df \
+    .withColumnRenamed("qualifyId", "qualify_id") \
+    .withColumnRenamed("raceId", "race_id") \
+    .withColumnRenamed("driverId", "driver_id") \
+    .withColumnRenamed("constructorId", "constructor_id") \
+    .withColumn("ingestion_date", current_timestamp())
+```
+
+### 3. Write Data
+
+* Format: Parquet
+* Mode: Overwrite
+
+```python
+qualifying_final_df.write \
+  .mode("overwrite") \
+  .format("parquet") \
+  .save("/mnt/processed/qualifying")
+```
+
+### 4. Validate Data (Display)
+
+```python
+display(spark.read.parquet("/mnt/processed/qualifying"))
+```
+
+
+# Azure Databricks – Workflow & Productionization (Overview)
+
+## 🧠 Purpose of This Section
+
+This section focuses on converting your existing Databricks notebooks into **production-ready data pipelines**.
+
+Instead of running notebooks manually, you will learn how to:
+
+👉 Automate execution
+👉 Reuse code across notebooks
+👉 Pass dynamic parameters
+👉 Chain multiple notebooks into workflows
+👉 Schedule and manage executions using Databricks Jobs
+
+## 🎯 What You Will Learn
+
+### 1. Reusing Code Across Notebooks
+
+* How to include one notebook inside another
+* Centralize common logic (configs, utility functions)
+* Avoid code duplication
+
+### 2. Parameterizing Notebooks
+
+* Define input parameters using widgets
+* Pass dynamic values (env, paths, dates)
+* Make notebooks reusable across environments (dev/test/prod)
+
+### 3. Notebook Orchestration
+
+* Call one notebook from another
+* Create end-to-end workflows
+* Control execution order of multiple ingestion notebooks
+
+### 4. Passing Parameters Between Notebooks
+
+* Send values from parent to child notebook
+* Use parameters to control logic dynamically
+* Build flexible pipelines
+
+### 5. Creating Databricks Jobs
+
+* Run notebooks automatically
+* Schedule jobs (daily/hourly/on-demand)
+* Monitor execution status
+* Handle failures and retries
+
+
+
+# Azure Databricks – Reusability using %run (Configuration + Common Functions)
+
+## 🧠 Big Picture (What are we doing?)
+
+In this step, we improve our ingestion notebooks to make them **production-ready and reusable**.
+
+Instead of hardcoding values and repeating logic, we:
+
+👉 Move configuration (paths) into a separate notebook
+👉 Move common logic (functions) into another notebook
+👉 Reuse them using `%run`
+
+
+## ❌ Problem (Before)
+
+Each ingestion notebook contains:
+
+* Hardcoded paths
+  n
+
+```python
+"/mnt/formula1dl/raw"
+"/mnt/formula1dl/processed"
+```
+
+* Repeated logic
+
+```python
+.withColumn("ingestion_date", current_timestamp())
+```
+
+### ⚠️ Issues
+
+* Difficult to maintain
+* Changes required in multiple notebooks
+* Not suitable for multiple environments (dev/test/prod)
+
+
+## ✅ Solution (After)
+
+We split logic into **three parts**:
+
+```
+includes/
+   configuration
+   common_functions
+
+ingestion/
+   circuits
+   races
+   drivers
+```
+
+
+## 📁 1. Configuration Notebook
+
+**1. Reusing Code Across Notebooks**
+
+Stores reusable variables (paths)
+
+```python
+raw_folder_path = "/mnt/formula1dl/raw"
+processed_folder_path = "/mnt/formula1dl/processed"
+presentation_folder_path = "/mnt/formula1dl/presentation"
+```
+
+
+### 🧠 Purpose
+
+* Avoid hardcoding
+* Centralize configuration
+* Easy environment switch
+
+
+## 📁 2. Common Functions Notebook
+
+Stores reusable functions
+
+```python
+from pyspark.sql.functions import current_timestamp
+
+
+def add_ingestion_date(input_df):
+    output_df = input_df.withColumn("ingestion_date", current_timestamp())
+    return output_df
+```
+
+
+### 🧠 Function Explanation
+
+* Takes a DataFrame (`input_df`)
+* Adds `ingestion_date`
+* Returns updated DataFrame
+
+
+## ⚡ 3. Using %run in Ingestion Notebook
+
+```python
+%run ../includes/configuration
+%run ../includes/common_functions
+```
+
+
+### 🔥 What %run does
+
+* Executes another notebook
+* Makes all variables and functions available
+
+
+## 🔁 Using Configuration Variables
+
+```python
+circuits_df = spark.read \
+    .option("header", True) \
+    .schema(circuits_schema)
+    .csv(f"{raw_folder_path}/circuits.csv")
+```
+
+```python
+df.write.parquet(f"{processed_folder_path}/circuits")
+```
+
+
+## 🔁 Using Common Function
+
+![alt text](bfct.png)
+
+
+```python
+circuits_final_df = add_ingestion_date(circuits_renamed_df)
+```
+
+
+### 🧠 Important Concept
+
+* `input_df` is NOT automatic
+* You pass it while calling function
+
+```python
+add_ingestion_date(circuits_df)
+```
+
+👉 `circuits_df` becomes `input_df`
+
+## 🧠 Flow Summary
+
+```
+Ingestion Notebook
+   ↓
+%run configuration → variables available
+%run common_functions → functions available
+   ↓
+Read DataFrame
+   ↓
+Call function (pass DataFrame)
+   ↓
+Write output
+```
+
+## ⚠️ Important Rules
+
+* `%run` must be in separate cell
+* Path should be correct (`../includes/...`)
+* Always run `%run` before using variables/functions
+
+
+# 2. Parameterizing Notebooks
+
+Earlier, `%run` was used to **reuse code** from another notebook.
+
+Now, widgets are used to **reuse the same notebook with different input values**.
+
+So:
+
+* `%run` → reuse **code**
+* widgets/parameters → reuse **the notebook itself**
+
+
+# Why this is useful
+
+Suppose you have the same kind of data coming from:
+
+* Ergast API
+* official Formula 1 website
+
+The structure is similar, so you do **not** want two separate notebooks.
+
+Instead, you use one notebook and pass a parameter like:
+
+```python
+data_source = "ergast"
+```
+
+or
+
+```python
+data_source = "formula1_official"
+```
+
+Then the notebook stores that value in the output.
+
+
+# What is a widget?
+
+A widget is just a **Databricks input box** for a notebook.
+
+It can be:
+
+* text box
+* dropdown
+* combobox
+* multiselect
+
+In this lesson, they use a **text widget** because it is the simplest.
+
+
+# Step 1: Create the widget
+
+```python
+dbutils.widgets.text("p_data_source", "")
+```
+
+## What this means
+
+* `p_data_source` = widget name
+* `""` = default value
+
+This creates a notebook parameter named `p_data_source`.
+
+The `p_` prefix usually means **parameter**.
+
+
+# Step 2: Read the widget value
+
+```python
+v_data_source = dbutils.widgets.get("p_data_source")
+```
+
+## What this means
+
+* `dbutils.widgets.get(...)` fetches the value entered in the widget
+* `v_data_source` stores that value in a normal Python variable
+
+So if you type:
+
+```python
+testing
+```
+
+into the widget, then:
+
+```python
+v_data_source
+```
+
+will contain `"testing"`.
+
+
+# Important idea
+
+The widget is the **input box**.
+
+The variable is the **value you read from that box**.
+
+So:
+
+* widget name: `p_data_source`
+* variable name: `v_data_source`
+
+
+
+# Step 3: Add the value to the DataFrame
+
+They add a new column called `data_source`.
+
+```python
+.withColumn("data_source", lit(v_data_source))
+```
+
+![alt text](poptparam.png)
+
+## Why `lit()`?
+
+Because `v_data_source` is just a Python string.
+
+Spark cannot directly add a plain string as a DataFrame column.
+
+So `lit()` converts the string into a Spark column value.
+
+Example:
+
+```python
+lit("testing")
+```
+
+becomes a column value that Spark can place into every row.
+
+
+
+# What happens in the output?
+
+If you pass:
+
+```python
+testing
+```
+
+then every row gets:
+
+```text
+data_source = testing
+```
+
+So now the output data clearly shows where it came from.
+
+
+
+# Why this matters in real projects
+
+This is very useful for:
+
+* tracking source system
+* handling multiple environments
+* same notebook for different datasets
+* easier maintenance
+
+For example, the same notebook can run for:
+
+* dev
+* test
+* prod
+
+just by changing the widget value.
+
+
+# Simple flow
+
+```text
+Widget created
+   ↓
+User passes value at runtime
+   ↓
+dbutils.widgets.get reads it
+   ↓
+Value stored in variable
+   ↓
+lit() converts it to Spark column
+   ↓
+Added to DataFrame
+   ↓
+Written to Parquet
+```
+
+
+# Difference from `%run`
+
+This is the part that usually confuses people:
+
+* `%run` brings in **other notebook code**
+* widgets pass in **runtime input values**
+
+They solve different problems.
+
+# 3. Notebook Orchestration
+
+# Azure Databricks – Notebook Workflow (dbutils.notebook.run)
+
+
+## 🧠 Big Picture (What are we doing?)
+
+In this step, we are moving from **manual execution of notebooks** to building a **workflow (pipeline)**.
+
+Instead of running notebooks one by one:
+
+👉 We create a **master notebook**
+👉 That notebook will **call other notebooks**
+👉 Pass parameters to them
+👉 Capture their result (success/failure)
+👉 Decide next execution based on result
+
+
+## ❌ Problem (Before)
+
+* Notebooks executed manually
+* No control over execution order
+* No dependency handling
+* No success/failure tracking
+
+
+## ✅ Solution (Notebook Workflow)
+
+Use Databricks utility:
+
+![alt text](nbhp.png)
+
+- To Execute Notebook use `notebook.run()`
+
+```python
+dbutils.notebook.run()
+```
+
+and to get notebook execution result `Success` or `Failed` use `notebook.exit()`
+
+```python
+dbutils.notebook.exit()
+```
+
+
+## 🧱 Architecture
+
+```
+Master Notebook (0.ingest_all_files)
+        ↓
+   Runs child notebooks
+        ↓
+circuits → races → drivers → results → ...
+```
+
+
+## 🚀 Step 1: Create Master Notebook
+
+Example:
+
+```python
+0.ingest_all_files
+```
+
+👉 This notebook controls the entire workflow
+
+
+## ⚙️ Step 2: Run Another Notebook
+
+```python
+v_result = dbutils.notebook.run(
+    "/ingestion/1.ingest_circuits",
+    0,
+    {"p_data_source": "Ergast API"}
+)
+```
+
+![alt text](nbrun1.png)
+
+**1.ingest_circuits** `has runned and executed all cells`.
+
+![alt text](execnb.png)
+
+### 🔍 Explanation
+
+| Parameter     | Meaning               |
+| ------------- | --------------------- |
+| notebook path | which notebook to run |
+| timeout = 0   | no timeout            |
+| dictionary    | parameters to pass    |
+
+
+## 🔁 Parameter Passing
+
+```python
+{"p_data_source": "Ergast API"}
+```
+
+👉 Passed into child notebook widget
+
+Child notebook receives using:
+
+```python
+v_data_source = dbutils.widgets.get("p_data_source")
+```
+
+
+## 📤 Step 3: Return Status from Child Notebook
+
+Inside child notebook:
+
+```python
+dbutils.notebook.exit("success")
+```
+
+
+### 🧠 What this does
+
+* Sends result back to parent notebook
+* Helps track execution status
+
+
+## 📥 Step 4: Capture Result in Parent Notebook
+
+```python
+v_result = dbutils.notebook.run(...)
+```
+
+```python
+print(v_result)
+# output: success
+```
+
+![alt text](runallnb.png)
+
+- Its Result
+
+![alt text](runallnbrs.png)
+
+## 🔗 Step 5: Create Dependency Logic
+
+```python
+if v_result == "success":
+    # run next notebook
+else:
+    # stop execution
+```
+
+
+## 🧠 Workflow Execution Flow
+
+```
+Run Notebook A
+   ↓
+Return "success"
+   ↓
+If success → Run Notebook B
+   ↓
+Return "success"
+   ↓
+Continue...
+```
+
+---
+
+## ⚠️ Important Behavior
+
+* Execution is **sequential**
+* Next notebook waits for previous to finish
+
+---
+
+## ⚡ Parallel Execution (Advanced)
+
+* Possible using Python threading
+* Not recommended in Databricks
+
+👉 Better to use Azure Data Factory for:
+
+* parallel execution
+* retries
+* monitoring
+
+---
+
+## 🧠 Key Concepts Summary
+
+| Concept               | Purpose              |
+| --------------------- | -------------------- |
+| dbutils.notebook.run  | run another notebook |
+| dbutils.notebook.exit | return result        |
+| parameters            | pass runtime values  |
+| if condition          | control flow         |
+
+
+
+# Databrick Jobs
+
+- Databricks Job lets you schedule or manually run a notebook on a cluster at a chosen time or interval, and you can pass parameters into the notebook when the job runs.
+
+### Step 1 - Create Job
+
+- Create Job, Select Schedule Type as Manual, Choose Notebook Path, Create Cluster for this Job
+
+![alt text](setupjob.png)
+
+- You can pass the Parameter during creating job to pass this in selected notebooks.
+
+- **p_data_source** - Value `E_API`.
+
+
+
+- Create required cluster.
+
+################################
+
+
+# Spark Filter Transformation – README
+
+The **Filter Transformation** in Apache Spark is used to **select rows from a DataFrame based on a condition**.
+
+It is equivalent to the **`WHERE` clause in SQL**.
+
+![alt text](dc.png)
+
+## 🔑 Key Concept
+
+```text
+filter() = keep only rows that satisfy a condition
+```
+
+
+## 🧠 Syntax Options
+
+Spark provides **two ways** to use filter:
+
+### 1. SQL Style
+
+```python
+filtered_df = df.filter("column = value")
+```
+
+### 2. Python (DataFrame) Style
+
+```python
+filtered_df = df.filter(df.column == value)
+```
+
+
+## 📊 Example Dataset
+
+Assume a DataFrame `races_df` with columns:
+
+* `year`
+* `round`
+
+
+## 🔍 Single Condition Filter
+
+### SQL Style
+
+```python
+%run "../includes/configuration"
+```
+
+
+```python
+races_df = spark.read.parquet(f"{processed_folder_path}/races")
+```
+
+```python
+races_filtered_df = races_df.filter("race_year = 2019")
+```
+
+- Display filter
+
+![alt text](filt1.png)
+
+- **You can see that column of `race_year` has printed for `2019` only**.
+
+### Python Style
+
+```python
+races_filtered_df = races_df.filter(races_df.year == 2019)
+```
+
+📌 Note:
+
+* Use `==` in Python (NOT `=`)
+
+
+## 🔗 Multiple Conditions
+
+### SQL Style
+
+**Use and**
+
+```python
+races_filtered_df = races_df.filter("year = 2019 AND round <= 5")
+```
+
+![alt text](multifilt.png)
+
+### Python Style
+
+**Use &**  and **Use ()** for Multi Conditions
+
+```python
+races_filtered_df = races_df.filter(
+    (races_df.year == 2019) & (races_df.round <= 5)
+)
+```
+
+📌 Important Rules:
+
+* Use `&` instead of `AND`
+* Use `|` instead of `OR`
+* Wrap each condition in parentheses
+
+
+## 🔄 filter() vs where()
+
+```python
+df.filter("year = 2019")
+df.where("year = 2019")
+```
+
+✅ Both are **identical**
+
+
+
+# Join Transformations
+
+- This is Join Transformations Formula
+
+![alt text](jointf.png)
+
+We have 2 diff datasets like `circuits_df` has circuits details & `races_df` has race details.
+
+![alt text](cdf.png)
+
+
+![alt text](cdfd.png)
+
+
+- This is races datasets
+
+![alt text](racd.png)
+
+- Write Join transformations
+
+**Join Transformations** - Will match `circuits_id` should exists in both df.
+
+- Also circuits_id's each raw's key should always match with right side df's circuits_id's key.
+
+- If not match, it will not print that raw.
+
+- `As you can see , circuit_id 1st key is 1 = circuits_id in right side df key is 1.
+
+
+```python
+race_circuits_df = circuits_df.join(races_df, circuits_df.circuits_id == races_df.circuits_id, "inner")
+```
+
+- Display it.
+
+![alt text](displayj.png)
+
+- **To print only selected columns after join**, `Use .select`.
+
+![alt text](selectj.png)
+
+## 2. left = left outer
+
+LEFT JOIN =
+
+- Keep ALL rows from LEFT table
++
+- Attach matching rows from RIGHT
++
+- If no match → NULL
+
+![alt text](lo.png)
+
+
+## 3. right = right outer
+
+RIGHT JOIN =
+
+- Keep all rows from RIGHT table
+
+- Attach matchig rows from LEFT 
+
+- If no match - NULL
+
+![alt text](ro.png)
+
+## 4. Full Outer
+
+- Keep all rows from both table
+
+- column name matchs - `circuits_id` exists in both table and if left side df has not match with key with right df - left side df key will `NULL`.
+
+- If right side df has not match with key with left df - right side df key will `NULL`.
+
+![alt text](fo.png)
+
+## 5. Left Anti Joins
+
+- Keep ONLY rows from LEFT
+
+- WHERE **NO match** exists in RIGHT
+
+**LEFT ANTI = FIND NON-MATCHING ROWS**
+
+## 6. LEFT Semi Joins
+
+- Keep ONLY rows from LEFT
+
+- `WHERE match exists in RIGHT`
+
+👉 Important:
+
+- Returns ONLY LEFT columns
+
+- RIGHT columns are NOT included
+
+## 7. CROSS JOINS
+
+`Combine EVERY row of LEFT with EVERY row of RIGHT`
+
+```python
+df1.crossJoin(df2).show()
+```
+
+| Left_id | name |------------- | code | city |
+| -- | ---- | ----------------- | ---- | ---- |
+| 1  | A    | ----------------- | 10 | X |
+| 2  | B    | ----------------- | 20 | Y |
+
+
+`OutPut`
+
+| id | name | code | city |
+| -- | ---- | ---- | ---- |
+| 1  | A    | 10   | X    |
+| 1  | A    | 20   | Y    |
+| 2  | B    | 10   | X    |
+| 2  | B    | 20   | Y    |
+
+
+![alt text](cj.png)
+
+# Spark Aggregations
+
+## 📌 Overview
+
+This section focuses on **Aggregate Functions in Apache Spark (Databricks)**, which are used to **summarize and analyze data**.
+
+Aggregation is a core concept in data engineering and analytics, helping transform raw data into meaningful insights.
+
+
+## 🔑 Key Concept
+
+```text
+Aggregation = converting multiple rows into summarized results
+```
+
+
+## 🧠 What You Will Learn
+
+### 1. Simple Aggregate Functions
+
+Spark provides built-in functions such as:
+
+* `sum()` → total value
+* `avg()` → average value
+* `min()` → smallest value
+* `max()` → largest value
+* `count()` → number of records
+
+📌 Example Use Cases:
+
+* Total points scored by drivers
+* Average lap time
+* Maximum speed in races
+
+
+### 2. Grouped Aggregations (`groupBy`)
+
+Used to calculate aggregates **per group**.
+
+```python
+df.groupBy("column").agg(...)
+```
+
+📌 Example Use Cases:
+
+* Total points per driver
+* Average performance per constructor
+* Race count per season
+
+
+## 🔍 SQL Equivalent
+
+```sql
+SELECT column, SUM(value)
+FROM table
+GROUP BY column
+```
+
+
+### 3. Window Functions
+
+Used to perform calculations across a **set of rows related to the current row**.
+
+Common functions:
+
+* `rank()` → ranking rows
+* `lead()` → next row value
+* `lag()` → previous row value
+
+📌 Example Use Cases:
+
+* Rank drivers by points
+* Compare current race with previous race
+* Track performance trends
+
+
+## 🏎️ Real Use Case (F1 Project)
+
+Using aggregation to build:
+
+### Driver Standings
+
+* Total points per driver
+* Rank drivers within a season
+
+### Constructor Standings
+
+* Total points per team
+* Compare team performance
+
+
+## 🔄 Data Flow
+
+```text
+Raw Data → Aggregation → Insights → Reports / Dashboards
+```
+
+# Grouped Aggregations in Azure Databricks (PySpark)
+
+## 📌 Overview
+
+Grouped aggregations allow you to:
+
+* Group data based on one or more columns
+* Apply aggregation functions (sum, count, avg, etc.)
+* Produce summarized results (one row per group)
+
+
+## 🧠 Concept in Simple Terms
+
+Imagine you have race data where each row represents a driver's performance in a race.
+
+### Before Grouping
+
+Multiple rows per driver:
+
+| driver         | race  | points |
+| -------------- | ----- | ------ |
+| Lewis Hamilton | Race1 | 25     |
+| Lewis Hamilton | Race2 | 18     |
+| Alex Albon     | Race1 | 10     |
+
+### After Grouping
+
+One row per driver:
+
+| driver         | total_points | number_of_races |
+| -------------- | ------------ | --------------- |
+| Lewis Hamilton | 347          | 16              |
+| Alex Albon     | 105          | 17              |
+
+
+## 🔧 Key Functions
+
+### 1. groupBy()
+
+Groups the DataFrame based on column(s).
+
+```python
+df.groupBy("driver")
+```
+
+👉 Returns a **GroupedData object** (not final data yet)
+
+### 2. Aggregation Functions
+
+Common functions:
+
+* `sum()` → total
+* `count()` → number of rows
+* `countDistinct()` → unique count
+* `avg()` → average
+* `min()` / `max()` → minimum / maximum
+
+
+### 3. agg()
+
+Used to apply **multiple aggregations at once**.
+
+```python
+from pyspark.sql.functions import sum, countDistinct
+
+result_df = df.groupBy("driver").agg(
+    sum("points"),
+    countDistinct("race_name")
+)
+```
+
+
+## ⚠️ Important Behavior
+
+### ❌ This will NOT work for multiple aggregations
+
+```python
+df.groupBy("driver").sum("points").countDistinct("race_name")
+```
+
+Reason:
+
+* `.sum()` returns a **DataFrame**
+* You lose the grouped context
+
+
+### ✅ Correct Approach
+
+Use `agg()` for multiple calculations:
+
+```python
+from pyspark.sql.functions import sum, countDistinct
+
+result_df = df.groupBy("driver").agg(
+    sum("points").alias("total_points"),
+    countDistinct("race_name").alias("number_of_races")
+)
+
+result_df.show()
+```
+
+
+## 🏷️ Column Renaming
+
+Use `alias()` to give meaningful column names:
+
+```python
+sum("points").alias("total_points")
+```
+
+## 📊 Output Example
+
+| driver         | total_points | number_of_races |
+| -------------- | ------------ | --------------- |
+| Lewis Hamilton | 347          | 16              |
+| Max Verstappen | 214          | 17              |
+| Alex Albon     | 105          | 17              |
+
+
+## 🛠️ Quick Test Snippet
+
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import sum, countDistinct
+
+spark = SparkSession.builder.getOrCreate()
+
+# Sample Data
+sample_data = [
+    ("Lewis Hamilton", "Race1", 25),
+    ("Lewis Hamilton", "Race2", 18),
+    ("Alex Albon", "Race1", 10),
+    ("Alex Albon", "Race2", 12)
+]
+
+columns = ["driver", "race_name", "points"]
+
+df = spark.createDataFrame(sample_data, columns)
+
+result_df = df.groupBy("driver").agg(
+    sum("points").alias("total_points"),
+    countDistinct("race_name").alias("number_of_races")
+)
+
+result_df.show()
+```
+
+
+#############################################
+
+
+
+# Access DataFrame using SQL in Azure Databricks (Temp Views)
+
+## 📌 Overview
+
+how to access a **PySpark DataFrame using SQL** in Azure Databricks by creating a **temporary view**.
+
+This allows you to combine:
+
+* SQL queries (easy and readable)
+* PySpark DataFrame API (flexible and powerful)
+
+
+## 🧠 Concept in Simple Terms
+
+Think of it like this:
+
+* DataFrame → actual data in Spark
+* Temporary View → SQL table name for that DataFrame
+* SQL → used to query the DataFrame
+
+
+## 🔄 Workflow
+
+1. Load data into a DataFrame
+2. Create a temporary view
+3. Query using SQL
+4. (Optional) Use SQL inside Python
+
+
+## 🔧 Step 1: Read Data into DataFrame
+
+```python
+results_df = spark.read.parquet("/mnt/processed/race_results")
+```
+
+
+## 🔧 Step 2: Create Temporary View
+
+```python
+results_df.createOrReplaceTempView("v_race_results")
+```
+
+- `"v_race_results"` - is just a **name of table in SQL** we created temporary.
+
+👉 This creates a SQL-accessible view
+
+
+## 🔍 Step 3: Query using SQL Cell
+
+```sql
+%sql
+SELECT * FROM v_race_results
+```
+
+### Filter Example
+
+```sql
+%sql
+SELECT * FROM v_race_results WHERE race_year = 2020
+```
+
+![alt text](rpqbsql.png)
+
+- Create vars and use in SQL Query
+
+```python
+p_race_year = 2020
+```
+
+```python
+race_results_2020_df = spark.sql(f"SELECT * FROM v_race_results WHERE race_year = {p_race_year}")
+```
+
+![alt text](usevarsisql.png)
+
+### Aggregation Example
+
+```sql
+%sql
+SELECT COUNT(*) FROM v_race_results
+```
+
+
+## 🔁 Step 4: Run SQL from Python
+
+```python
+df_2019 = spark.sql("SELECT * FROM v_race_results WHERE race_year = 2019")
+
+display(df_2019)
+```
+
+👉 Output will be a DataFrame
+
+
+## 🔄 Dynamic SQL using Variables
+
+```python
+race_year = 2019
+
+query = f"SELECT * FROM v_race_results WHERE race_year = {race_year}"
+
+df = spark.sql(query)
+```
+
+👉 Useful for parameterized queries and loops
+
+
+## ⚠️ Important Behavior (Temporary View Limitations)
+
+Temporary views are:
+
+* Available only in the current notebook/session
+* Not accessible from other notebooks
+* Lost after cluster restart or detach/attach
+
+
+## ❌ Common Issue
+
+Using this repeatedly may fail:
+
+```python
+results_df.createTempView("v_race_results")
+```
+
+Error: View already exists
+
+
+## ✅ Recommended Approach
+
+```python
+results_df.createOrReplaceTempView("v_race_results")
+```
+
+👉 Safe for re-running notebooks
+
+
+## 🔁 When to Use What
+
+| Approach      | Use Case                         |
+| ------------- | -------------------------------- |
+| `%sql` cell   | Quick analysis / exploration     |
+| `spark.sql()` | When working inside Python logic |
+
+
+## 🚀 DevOps Perspective
+
+Think of this like:
+
+* DataFrame = logs/metrics dataset
+* Temp View = logical table
+* SQL = querying logs (similar to Kibana / KQL / Splunk)
+
+Use cases:
+
+* Filter logs by time
+* Count errors
+* Aggregate metrics
+
+
+## 🧠 One-Line Memory Trick
+
+> Temp View = DataFrame exposed as SQL table
+
+
+## 📌 Summary
+
+* Use `createOrReplaceTempView()` to expose DataFrame as SQL table
+* Query using `%sql` or `spark.sql()`
+* Temporary views exist only within the session
+* Best for mixing SQL + PySpark workflows
+
+
+## 🛠️ Quick Test Snippet
+
+```python
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.getOrCreate()
+
+# Sample Data
+sample_data = [
+    (2020, "Race1"),
+    (2019, "Race2")
+]
+
+columns = ["race_year", "race_name"]
+
+df = spark.createDataFrame(sample_data, columns)
+
+# Create Temp View
+df.createOrReplaceTempView("v_race_results")
+
+# Query
+df_result = spark.sql("SELECT * FROM v_race_results WHERE race_year = 2020")
+
+df_result.show()
+```
+
+# Global Temporary Views in Azure Databricks (PySpark)
+
+## 📌 Overview
+
+how to use **Global Temporary Views** in Azure Databricks.
+
+Global temp views allow you to:
+
+* Share DataFrames across multiple notebooks
+* Run SQL queries on shared data
+* Avoid reloading data multiple times
+
+
+## 🧠 Concept in Simple Terms
+
+Think of it like this:
+
+* DataFrame → actual data in Spark
+* Global Temp View → shared SQL table (within same cluster)
+* SQL → used to query the data
+
+* Local Temp View - Is only aviable till Sessions/Specific Notebook only.
+
+
+
+## 🔄 Workflow
+
+1. Load data into a DataFrame
+2. Create a global temp view
+3. Query using SQL or Python
+4. Access from other notebooks (same cluster)
+
+
+## 🔧 Step 1: Read Data into DataFrame
+
+```python
+results_df = spark.read.parquet("/mnt/processed/race_results")
+```
+
+
+## 🔧 Step 2: Create Global Temporary View
+
+```python
+results_df.createOrReplaceGlobalTempView("gv_race_results")
+```
+
+👉 This creates a shared SQL-accessible view
+
+
+## ⚠️ Important: global_temp Database
+
+Global temp views are stored in a special database:
+
+```sql
+global_temp
+```
+
+So you must always use:
+
+```sql
+SELECT * FROM global_temp.gv_race_results
+```
+
+
+## 🔍 Step 3: Query using SQL Cell
+
+```sql
+%sql
+SELECT * FROM global_temp.gv_race_results
+```
+
+
+## 🔁 Step 4: Run SQL from Python
+
+```python
+df = spark.sql("SELECT * FROM global_temp.gv_race_results")
+
+df.show()
+```
+
+
+## 🔄 Access from Another Notebook
+
+👉 Any notebook attached to the **same cluster** can access the view:
+
+```sql
+SELECT * FROM global_temp.gv_race_results
+```
+
+
+## ⚠️ Limitations
+
+Global temp views:
+
+* Available across notebooks (same cluster only)
+* Not available across different clusters
+* Removed when cluster restarts
+
+
+## 🔁 Temp View vs Global Temp View
+
+| Feature  | Temp View               | Global Temp View             |
+| -------- | ----------------------- | ---------------------------- |
+| Scope    | Single notebook/session | All notebooks (same cluster) |
+| Access   | `table_name`            | `global_temp.table_name`     |
+| Lifetime | Session                 | Until cluster restart        |
+| Sharing  | ❌ No                    | ✅ Yes                        |
+
+
+## 🚀 DevOps Perspective
+
+Think of this like:
+
+* Temp View → local debugging data
+* Global Temp View → shared dataset across pipelines/notebooks
+
+Use cases:
+
+* Shared intermediate datasets
+* Multi-notebook workflows
+* Data reuse without re-reading storage
+
+
+## 🧠 One-Line Memory Trick
+
+> Global Temp View = Shared SQL table across notebooks (same cluster)
+
+
+## 📌 When to Use
+
+Use **Temp View** when:
+
+* Working in a single notebook
+
+Use **Global Temp View** when:
+
+* Multiple notebooks need the same data
+
+
+## 🛠️ Quick Test Snippet
+
+```python
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.getOrCreate()
+
+# Sample Data
+sample_data = [
+    ("Lewis", 25),
+    ("Max", 20)
+]
+
+columns = ["drive
+```
