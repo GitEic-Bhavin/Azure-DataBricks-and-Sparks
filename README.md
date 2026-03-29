@@ -7985,3 +7985,225 @@ Compared to legacy methods (Access Keys, SAS, Service Principals directly):
 
 Unity Catalog ensures secure, governed, and scalable data access.
 
+## Unity Catalog Benefits
+
+**1. Data Discovery**
+
+- Serach for notebook, tables, schemas, catalogs, data from search bar.
+
+**2. Audit**
+
+- Go to Databricks > Diagnostics > `Databrick Unity Catalog`
+
+- Select `Databrick unity catalog` as **Source**.
+
+- Select `Send to Log analytics workspace`, `Archieve to a storage account`, `Stream to an event hub`, `Send to partner solutions` as **Destinations**.
+
+**3. Data Lineage**
+
+- Data Lineage is the process of following / tracking the journey of data within a pipelines.
+
+We want to know:
+  
+  - What is the origin of data - From where data came ?
+
+  - How has it changed/transformed ?
+
+  - What is the destinations of data ?
+
+  - Track **Upstream Table** and **DownStream Table**
+
+  - **Upstream Table** - We modify/transform data from raw table/containers to processed table/containers. Here, **Upstream Table** is **Raw table** and **Downstream Table** is **Processed table**.
+
+  - You can track, `Notebook`, `Tables`, `Workflows`, `Pipelines`, `Dashborads`, `Paths`, `Queries`.
+
+- Go to Catalog > Schema > Tables > look for `Lineage`.
+
+**NOTE**
+
+  - `Data Lineage is only available for Tables registered in Unity Catalog Metastores`.
+
+  - It is not availabel for `Hive metastores`.
+
+  - Available only for **last 30 days**.
+
+  - Limited column level lineage Not For All Columns.
+
+**4. Data Access Control**
+
+Unity Catalog is a **security system** in Databricks.
+
+👉 Its job is simple:
+
+* Decide **who** can access data
+* Decide **what** they can do
+* Protect all data in a structured way
+
+## 🏗️ Architecture (Hierarchy of Objects)
+
+Unity Catalog follows a **top → down structure**:
+
+```
+Metastore
+ └── Catalog
+      └── Schema
+           └── Table / View / Function
+```
+
+### 📌 Easy Understanding
+
+* **Metastore** → Entire system (like a building)
+* **Catalog** → Floor in the building
+* **Schema** → Room
+* **Table/View/Function** → Files inside the room
+
+👉 To reach a table, you must go through catalog → schema → table
+
+## 👥 Identities (Who can access?)
+
+Unity Catalog controls access for:
+
+### 1. Users
+
+* Real people (login using email)
+
+### 2. Service Principals
+
+* Used for automation (pipelines, jobs)
+* Not a human
+
+### 3. Groups ✅ (Best Practice)
+
+* Collection of users/service principals
+
+👉 Instead of giving access to 10 users, give it once to a group
+
+## 👑 Roles (Levels of Power)
+
+### Account Admin
+
+* Full control of everything
+* Can create metastores
+
+### Metastore Admin
+
+* Controls one metastore
+
+### Owner
+
+* Creator of object
+* Has full control automatically
+
+### Standard User
+
+* Normal user
+* ❌ No access by default
+* ✅ Must be given permissions
+
+## 🔐 Access Control Model (ACL)
+
+Unity Catalog uses **ACL (Access Control List)**.
+
+👉 Simple meaning:
+
+* You must **explicitly give permission**
+* If not given → ❌ No access
+
+## 🧱 Why Hierarchy is Important
+
+To read a table, this is required:
+
+* `USE CATALOG`
+* `USE SCHEMA`
+* `SELECT` on table
+
+👉 If any one is missing → access fails
+
+### 📁 Simple Analogy
+
+* Catalog = Folder
+* Schema = Sub-folder
+* Table = File
+
+👉 To open file, you must open folders first
+
+## 🔑 Types of Permissions (Simple)
+
+### Read
+
+* `SELECT` → Read table
+* `EXECUTE` → Run function
+
+### Modify
+
+* `MODIFY` → Update/Delete data
+
+### Create
+
+* `CREATE TABLE`
+* `CREATE SCHEMA`
+* `CREATE FUNCTION`
+* `CREATE CATALOG`
+
+## 🔁 Inheritance (Very Important)
+
+### ❌ Without Inheritance
+
+You must give permission to:
+
+* Each schema
+* Each table
+* Every time a new table is created
+
+👉 Hard and messy
+
+### ✅ With Inheritance
+
+Give permission once at higher level
+
+Example:
+
+* `SELECT` on schema → all tables get access
+* `SELECT` on catalog → all schemas + tables get access
+
+👉 Also works for future tables
+
+## ⚡ All Privileges
+
+👉 Shortcut for everything
+
+Instead of writing many permissions, just use:
+
+`ALL PRIVILEGES`
+
+Example (Schema level):
+
+* USE SCHEMA
+* CREATE TABLE
+* SELECT
+* MODIFY
+* EXECUTE
+
+---
+
+## 🌐 External Data Access (Simple)
+
+Used when data is outside default storage
+
+### Storage Credential
+
+👉 “How to login to storage”
+
+### External Location
+
+👉 “Where is data + which credential to use”
+
+👉 These are separate from normal hierarchy
+
+## 🧠 Final Understanding
+
+* **Users/Groups** = Who
+* **Catalog/Schema/Table** = Where
+* **Permissions** = What they can do
+* **ACL** = Explicit access
+* **Inheritance** = Permission flows downward
