@@ -5098,7 +5098,7 @@ Think of it like this:
 * Global Temp View → shared SQL table (within same cluster)
 * SQL → used to query the data
 
-* Local Temp View - Is only aviable till Sessions/Specific Notebook only.
+* `Local Temp View` - Is only aviable till **Sessions/Specific Notebook** only.
 
 
 
@@ -5122,6 +5122,14 @@ results_df = spark.read.parquet("/mnt/processed/race_results")
 ```python
 results_df.createOrReplaceGlobalTempView("gv_race_results")
 ```
+
+- `WE ARE CREATING GLOBAL TEMP VIEW OF **result_df** dataframe`.
+
+- AND STORES IN A VARS/TABLE SQL AS **gv_race_results**
+
+- NOW WE CAN QUERY ON TABLE `gv_race_results` by SQL.
+
+- THIS `gv_race_results` for GLOBAL TEMP VIEW IS ALWAYS STORES IN `global_temp` Database.
 
 👉 This creates a shared SQL-accessible view
 
@@ -5231,3 +5239,2749 @@ sample_data = [
 
 columns = ["drive
 ```
+
+
+# Spark SQL and Hive MetaStore
+
+Earlier “We create temp/global views from DataFrames and run SQL on them”
+
+Then query using Spark SQL
+
+👉 This is temporary, session-level SQL usage
+
+But `We run SQL Query on Python Datafram` , NOTE run SQL Query on DATASTORES like ADSL Gen2 Containers/multiple files.
+
+- Spark `CANNOT` directly treat `files as tables without metadata` like each files each columns names like `id`, `ref` etc.
+
+This is **where Apache Hive MetaStore** comes in.
+
+![alt text](wfsqms.png)
+
+First we will register data in SQL's Hive Metadata Stores.
+
+It is storing metadata about the files. 
+
+- Metadata like Location, Formate, Table Name, Files Each Columns.
+
+- `There is options to Stores data in Hive Metadata Store`.
+
+  1. Detabricks Default Storage
+  2. External Meta Stores (Azure SQL, MySQL etc)
+
+- **This Hive Metadata Stores are Persistance Storage** 
+
+- While **Local and Global View** Stores are **Session Persisted and Cluster Persisted** Only.
+
+- Once, We stored data in Hive Metadata Stores we can make SQL Query on it.
+
+
+# Databricks Databases, Tables, and Views
+
+Databricks follows a structure similar to a relational database system:
+
+```
+Workspace → Database → Tables → Views
+```
+
+* Workspace = Environment
+* Database = Logical container (schema)
+* Tables = Structured data
+* Views = Logical queries
+
+![alt text](sqlarch.png)
+
+## 🏗️ Databricks Workspace
+
+* Top-level container
+* Contains databases, notebooks, and jobs
+
+
+## 🗂️ Database (Schema)
+
+* Logical grouping of tables and views
+
+### Example:
+
+```sql
+CREATE DATABASE sales_db;
+```
+
+
+## 📦 Tables in Databricks
+
+Tables provide structure to data stored in ADLS.
+
+Tables = structured representation of files stored in ADLS
+
+### Data Source:
+
+* Azure Data Lake Storage Gen2 (ADLS)
+* Formats: CSV, JSON, Parquet
+
+## 🔥 Types of Tables
+
+### 1. Managed Table
+
+* **Spark manages** `metadata` and `data`
+* Data stored in default location
+
+#### Behavior:
+
+```sql
+DROP TABLE sales;
+```
+
+* Deletes both metadata and data, files
+
+👉 Risky in production
+
+#### Use Case:
+
+* Testing / development
+
+### 2. External Table
+
+* **User manages** `data`, `files`, `location`
+* **Spark manages** `only metadata`
+
+#### Example:
+
+```sql
+CREATE TABLE sales
+USING PARQUET
+LOCATION 'abfss://container@storage/sales'
+```
+
+#### Behavior:
+
+```sql
+DROP TABLE sales;
+```
+
+* Deletes only metadata
+* Data remains in ADLS
+
+#### Use Case:
+
+* Production workloads
+
+
+## 👁️ Views
+
+* Logical representation of data
+* Stores SQL query, not data
+
+### Example:
+
+```sql
+CREATE VIEW high_sales AS
+SELECT * FROM sales WHERE amount > 1000;
+```
+
+## 🔄 Relationships
+
+```
+Workspace
+   ↓
+Database
+   ↓
+Table → View
+   ↓
+Managed / External
+```
+
+
+# Databricks Default Catalog Setup - README
+
+## 📌 Overview
+
+how to configure the default catalog in a Databricks workspace and understand the difference between Hive Metastore and Unity Catalog.
+
+## 🧠 Key Concept
+
+Databricks uses a **catalog** as the top-level container for managing data objects like:
+
+* Databases (schemas)
+* Tables
+* Views
+
+```
+Catalog → Database → Tables / Views
+```
+
+---
+
+## 🔄 Types of Metastore in Databricks
+
+Databricks supports two main metastores:
+
+### 1. Hive Metastore
+
+* Traditional metadata store
+* Simpler to use
+* Common in learning and legacy systems
+
+### 2. Unity Catalog (Bydefault)
+
+* Modern governance solution
+* Supports fine-grained access control
+* Default in newer Databricks workspaces
+
+
+## 🎯 Why Change Default Catalog?
+
+* New workspaces use **Unity Catalog** by default
+* For learning or compatibility, we switch to **Hive Metastore**
+* Helps in understanding core Spark SQL concepts first
+
+
+## ⚙️ Steps to Set Default Catalog to Hive Metastore
+
+1. Go to **Databricks Workspace**
+2. Click on **Top Right Menu (User Profile)**
+3. Select **Settings**
+4. Navigate to **Advanced Settings**
+5. Scroll to **Default Catalog**
+
+- This is set to default as `unity catelog`.
+
+![alt text](ducs.png)
+
+6. Change value to:
+
+   ```
+   hive_metastore
+   ```
+
+7. Click **Save**
+8. Confirm the change
+
+
+## ✅ Verification
+
+* After saving, the default catalog should display:
+
+  ```
+  hive_metastore
+  ```
+
+![alt text](smss.png)
+
+## 🔍 Important Notes
+
+* Catalog determines where your databases and tables are created by default
+* If not set correctly, objects may be created under Unity Catalog unintentionally
+* You can still explicitly specify catalog in queries if needed
+
+## 🚀 Learning Strategy
+
+* Start with **Hive Metastore** for simplicity
+* Move to **Unity Catalog** for advanced governance and production setups
+
+## 🔄 Summary
+
+* Databricks uses catalogs to organize data objects
+* Default catalog can be changed from workspace settings
+* Hive Metastore is used for foundational learning
+* Unity Catalog is the modern standard for production
+
+
+# Spark DataFrame (`df`)
+
+###
+
+```python
+df = spark.read.parquet("abfss://container@storage/path")
+```
+
+```python
+df = spark.read.csv("/path/file.csv", header=True, inferSchema=True)
+```
+
+## ⚙️ Writing Data
+
+### Example:
+
+```python
+df.write.format("parquet").saveAsTable("demo.race_results_python")
+```
+
+![alt text](ctbl.png)
+
+### Step-by-Step:
+
+1. `.saveAsTable(...)` →
+
+   * Creates a table in Hive MetaStore
+   * Stores data in default location
+
+---
+
+## 🆚 DataFrame vs Table
+
+| Feature     | DataFrame (`df`) | Table               |
+| ----------- | ---------------- | ------------------- |
+| Storage     | In-memory        | Stored in ADLS/DBFS |
+| Persistence | Temporary        | Persistent          |
+| Usage       | Transformations  | Querying via SQL    |
+
+- Show Data
+
+
+![alt text](sd.png)
+
+- Filter Data
+
+![alt text](fd.png)
+
+
+# External Tables in Databricks
+## 🧠 Core Concept
+
+An **External Table** is a table where:
+
+* Metadata is stored in Hive MetaStore
+* Data is stored in a user-defined location (e.g., ADLS)
+
+## 🔥 Key Difference from Managed Table
+
+| Feature       | Managed Table  | External Table |
+| ------------- | -------------- | -------------- |
+| Data Location | Spark managed  | User defined   |
+| Metadata      | Spark managed  | Spark managed  |
+| Drop Table    | Deletes data ❌ | Keeps data ✅   |
+
+## 🏗️ Creating External Table using Python
+
+### Example:
+
+```python
+df.write \
+  .format("parquet") \
+  .option("path", "/mnt/.../race_results_ext_py") \
+  .saveAsTable("demo.race_results_ext_py")
+```
+
+### Key Point:
+
+* Specifying `.option("path")` makes it an **External Table**
+
+## 🔍 Verification
+
+```sql
+DESCRIBE EXTENDED demo.race_results_ext_py;
+```
+
+Check:
+
+* Type = EXTERNAL
+* Location = user-defined path
+
+## 🏗️ Creating External Table using SQL
+
+### Step 1: Create Table (Metadata Only)
+
+```sql
+CREATE TABLE demo.race_results_ext_sql (
+  race_year INT,
+  race_name STRING
+)
+USING PARQUET
+LOCATION '/mnt/.../race_results_ext_sql';
+```
+
+### Key Point:
+
+* Only metadata is created
+* No data is written yet
+## 📥 Step 2: Insert Data
+
+```sql
+INSERT INTO demo.race_results_ext_sql
+SELECT * FROM demo.race_results_ext_py
+WHERE race_year = 2020;
+```
+
+### Key Point:
+
+* Data is written to ADLS during INSERT
+
+## 📁 Storage Behavior
+
+| Action       | Result             |
+| ------------ | ------------------ |
+| CREATE TABLE | Metadata only      |
+| INSERT INTO  | Data files created |
+
+## 💥 Dropping External Table
+
+```sql
+DROP TABLE demo.race_results_ext_sql;
+```
+
+### Result:
+
+* Metadata deleted ❌
+* Data remains in storage ✅
+
+## 🔄 Recreating External Table
+
+```sql
+CREATE TABLE demo.race_results_ext_sql
+USING PARQUET
+LOCATION '/mnt/.../race_results_ext_sql';
+```
+
+* Table can be recreated using existing data
+* No need to reload data
+
+
+# Views in Databricks SQL - README
+
+## What is a View?
+
+A **View** is a logical representation of data based on a SQL query.
+
+* A **Table** stores actual data
+* A **View** does NOT store data
+* A View executes a query on underlying tables when accessed
+
+
+## Table vs View
+
+| Feature      | Table        | View                |
+| ------------ | ------------ | ------------------- |
+| Data Storage | Stores data  | Does not store data |
+| Type         | Physical     | Logical             |
+| Usage        | Data storage | Query abstraction   |
+
+
+## Types of Views in Databricks
+
+### 1. Temporary View
+
+* Scope: Current Spark session (notebook)
+* Not persisted in MetaStore
+* Deleted when session ends
+
+### Example:
+
+```sql
+CREATE OR REPLACE TEMP VIEW v_race_results AS
+SELECT *
+FROM demo.race_results_python
+WHERE race_year = 2018;
+```
+
+
+### 2. Global Temporary View
+
+* Scope: Across notebooks within same cluster
+* Stored in special database: `global_temp`
+* Still temporary (removed when cluster stops)
+
+### Example:
+
+```sql
+CREATE OR REPLACE GLOBAL TEMP VIEW gv_race_results AS
+SELECT *
+FROM demo.race_results_python
+WHERE race_year = 2012;
+```
+
+### Accessing:
+
+```sql
+SELECT * FROM global_temp.gv_race_results;
+```
+
+
+### 3. Permanent View
+
+* Stored in Hive MetaStore
+* Persistent across sessions and clusters
+* Used in production
+
+### Example:
+
+```sql
+CREATE OR REPLACE VIEW demo.pv_race_results AS
+SELECT *
+FROM demo.race_results_python
+WHERE race_year = 2000;
+```
+
+
+## Important Concepts
+
+### Current Database
+
+If database is not specified, Spark uses the current database:
+
+```sql
+SELECT current_database();
+```
+
+### Best Practice:
+
+Always qualify table names:
+
+```sql
+SELECT * FROM demo.race_results_python;
+```
+
+
+## CREATE OR REPLACE
+
+* Prevents failure if view already exists
+* Makes notebooks rerunnable
+
+## View Scope Comparison
+
+| Type             | Scope     | Persistence | Storage    |
+| ---------------- | --------- | ----------- | ---------- |
+| Temp View        | Session   | No          | Not stored |
+| Global Temp View | Cluster   | No          | Not stored |
+| Permanent View   | Workspace | Yes         | MetaStore  |
+
+
+## 🚀 Real-World Usage
+
+* Temporary View → Notebook-level transformations
+* Global Temp View → Multi-notebook workflows
+* Permanent View → Dashboards, reporting, reusable logic
+
+# Creating Processed Database & Managed Tables in Databricks
+
+## 📌 Overview
+
+how to create a **processed layer database** and **managed tables** in Databricks using PySpark.
+
+The goal is to:
+
+* Store cleaned/processed data in a structured format
+* Enable both **SQL queries** and **Spark processing**
+* Ensure data is stored in a **custom Data Lake location**
+
+
+## Architecture Context
+
+```text
+Raw Layer → Processed Layer → Analytics / Reporting
+```
+
+* **Raw Layer** → Ingested source data
+* **Processed Layer** → Cleaned, structured tables (this lesson)
+
+
+## 🏗️ Step 1: Create Processed Database
+
+```sql
+CREATE DATABASE IF NOT EXISTS f1_processed
+LOCATION '/mnt/formula1dl/processed'
+```
+
+### 🔑 Why this is important
+
+* Defines logical database: `f1_processed`
+* Sets **physical storage location** in Data Lake
+* Ensures all managed tables are stored in:
+
+```text
+/mnt/formula1dl/processed
+```
+
+## ⚠️ What if you don’t create a database?
+
+* Tables go to **default database**
+* Data stored in **Databricks default warehouse location**
+* Harder to manage and not aligned with project structure
+=
+
+## 🧾 Step 2: Create Managed Tables using PySpark
+
+### Example: Creating Circuits Table
+
+```python
+circuits_df.write \
+    .mode("overwrite") \
+    .format("parquet") \
+    .saveAsTable("f1_processed.circuits")
+```
+
+
+## 🔍 What `saveAsTable()` Does
+
+* Writes data as **Parquet files**
+* Registers table in **Hive Metastore**
+* Stores data in database location
+
+
+## 📂 Data Storage Behavior
+
+```text
+f1_processed database
+    ↓
+/mnt/formula1dl/processed/
+    ↓
+circuits (table data stored here)
+```
+
+
+## ⚠️ Common Issue & Fix
+
+### ❌ Issue
+
+* Data already exists in folder
+* Table not registered in metastore
+
+### ✅ Fix
+
+* Delete existing folder
+* Re-run `saveAsTable()`
+
+
+## 🔄 Re-run Behavior
+
+Once table is created via `saveAsTable()`:
+
+* Spark manages metadata + data together
+* `mode("overwrite")` works correctly
+* No manual cleanup needed
+
+
+## 🔍 Querying Data
+
+### Using SQL
+
+```sql
+SELECT * FROM f1_processed.circuits;
+```
+
+### Using Spark
+
+```python
+spark.read.table("f1_processed.circuits")
+```
+
+
+## 🎯 Benefits
+
+* ✅ Centralized data storage
+* ✅ SQL + Spark compatibility
+* ✅ Cleaner data architecture
+* ✅ Easy for analysts and engineers
+
+
+## 🔁 End-to-End Flow
+
+```text
+Raw Files → Ingestion Notebook → saveAsTable() → Managed Table → Query via SQL/Spark
+```
+
+## 📌 Best Practices
+
+* ✅ Always define database location
+* ✅ Use `saveAsTable()` for managed tables
+* ✅ Use `overwrite` mode for reprocessing
+* ✅ Keep raw and processed layers separate
+
+
+# Spark SQL - Join, Filters, Aggregations
+
+## SQL DML Basics
+
+# SQL Fundamentals in Databricks (Beginner Guide)
+
+## 📌 Overview
+
+This guide explains the **basic SQL operations in Databricks** that every data analyst or data engineer should know.
+
+You will learn how to:
+
+* Explore databases and tables
+* Query data using SELECT
+* Filter data using WHERE
+* Sort data using ORDER BY
+* Limit output
+
+---
+
+## 🧠 When to Use SQL in Databricks
+
+SQL is mainly used by:
+
+* Data Analysts
+* Business Users
+* Reporting & Dashboard tools
+
+---
+
+## 🏗️ Step 1: List All Databases
+
+```sql
+SHOW DATABASES;
+```
+
+### Output
+
+* raw
+* processed
+* presentation
+
+---
+
+## 🔄 Step 2: Switch Database
+
+```sql
+USE f1_processed;
+```
+
+### Why?
+
+* Sets current working database
+* Avoids writing full database.table every time
+
+---
+
+## 📋 Step 3: List Tables
+
+```sql
+SHOW TABLES;
+```
+
+---
+
+## 🔍 Step 4: View Table Data
+
+```sql
+SELECT * FROM drivers;
+```
+
+### Best Practice
+
+```sql
+SELECT * FROM f1_processed.drivers;
+```
+
+---
+
+## 🧾 Step 5: Describe Table
+
+```sql
+DESC drivers;
+```
+
+### Output
+
+* Column names
+* Data types
+
+---
+
+## 🔢 Step 6: Limit Records
+
+```sql
+SELECT * FROM drivers LIMIT 10;
+```
+
+---
+
+## 🔍 Step 7: Filter Data (WHERE)
+
+### Example 1: Simple Filter
+
+```sql
+SELECT * FROM drivers
+WHERE nationality = 'British';
+```
+
+---
+
+### Example 2: Multiple Conditions (AND)
+
+```sql
+SELECT * FROM drivers
+WHERE nationality = 'British'
+AND dob >= '1990-01-01';
+```
+
+---
+
+### Example 3: Complex Conditions (AND + OR)
+
+```sql
+SELECT * FROM drivers
+WHERE (nationality = 'British' AND dob >= '1990-01-01')
+OR nationality = 'Indian';
+```
+
+---
+
+## 🎯 Step 8: Select Specific Columns
+
+```sql
+SELECT name, dob FROM drivers;
+```
+
+---
+
+## ✏️ Step 9: Rename Columns
+
+```sql
+SELECT name, dob AS date_of_birth FROM drivers;
+```
+
+---
+
+## 🔃 Step 10: Sort Data (ORDER BY)
+
+### Ascending (default)
+
+```sql
+SELECT * FROM drivers
+ORDER BY dob;
+```
+
+### Descending
+
+```sql
+SELECT * FROM drivers
+ORDER BY dob DESC;
+```
+
+---
+
+### Multiple Columns Sorting
+
+```sql
+SELECT * FROM drivers
+ORDER BY nationality ASC, dob DESC;
+```
+
+---
+
+## ⚠️ Important Notes
+
+* Databricks limits output to ~1000 rows by default
+* Use LIMIT to control data
+* Always use WHERE to filter large datasets
+
+---
+
+## 🚀 Best Practices
+
+* ✅ Use database.table format in production
+* ✅ Avoid SELECT * in large datasets
+* ✅ Use LIMIT for exploration
+* ✅ Use meaningful aliases
+* ✅ Apply filters early for performance
+
+---
+
+## 📌 Summary
+
+* SHOW DATABASES → Explore databases
+* USE → Switch database
+* SHOW TABLES → List tables
+* SELECT → Fetch data
+* WHERE → Filter data
+* ORDER BY → Sort data
+* LIMIT → Control output
+
+#####################
+
+Good — this is a very important lesson because **SQL functions = how you actually transform data in SQL** (just like transformations in PySpark).
+
+Let me break this in a **clear + practical + real understanding way** 👇
+
+---
+
+# 🧠 1. What are SQL Functions (in Databricks / Spark)?
+
+Think like this:
+
+👉 A **function = a ready-made operation** that helps you:
+
+* modify data
+* calculate values
+* transform columns
+
+---
+
+## 🔁 Simple analogy
+
+| Without function | With function     |
+| ---------------- | ----------------- |
+| manual work      | automated logic   |
+| complex code     | one-line function |
+
+---
+
+# 🧩 2. Types of SQL Functions (IMPORTANT)
+
+They mentioned 3 types:
+
+## 1️⃣ Scalar Functions
+
+👉 Work **row by row**
+
+* Input → one row
+* Output → one row
+
+✅ Example:
+
+* `CONCAT`
+* `SPLIT`
+* `DATE_FORMAT`
+
+📌 Same number of rows stays
+
+---
+
+## 2️⃣ Aggregate Functions
+
+👉 Work on **entire dataset**
+
+* Input → many rows
+* Output → one result (or grouped)
+
+✅ Example:
+
+* `SUM`
+* `COUNT`
+* `AVG`
+
+📌 Rows reduce
+
+---
+
+## 3️⃣ Window Functions
+
+👉 Work on **group of rows but keep all rows**
+
+* Used for ranking, lag, lead
+
+---
+
+# 🚀 3. Now Let’s Understand Each Example
+
+---
+
+# 🔹 A. CONCAT → Combine Columns
+
+```sql
+SELECT 
+  CONCAT(driverRef, '-', code) AS new_driver_ref
+FROM drivers;
+```
+
+## 💡 What happens?
+
+For each row:
+
+```
+Hamilton + "-" + HAM = Hamilton-HAM
+```
+
+![alt text](ccat.png)
+
+## 📌 Output:
+
+| driverRef | code | new_driver_ref |
+| --------- | ---- | -------------- |
+| Hamilton  | HAM  | Hamilton-HAM   |
+
+👉 Rows count stays same (important!)
+
+---
+
+# 🔹 B. SPLIT → Break String
+
+```sql
+SELECT SPLIT(name, ' ') FROM drivers;
+```
+
+## 💡 What happens?
+
+```
+"Lewis Hamilton" → ["Lewis", "Hamilton"]
+```
+
+👉 Output is ARRAY
+
+![alt text](split.png)
+
+---
+
+## Extract values from array
+
+```sql
+SELECT 
+  SPLIT(name, ' ')[0] AS forename,
+  SPLIT(name, ' ')[1] AS surname
+FROM drivers;
+```
+
+## 📌 Output:
+
+| name           | forename | surname  |
+| -------------- | -------- | -------- |
+| Lewis Hamilton | Lewis    | Hamilton |
+
+![alt text](splita.png)
+
+## ⚠️ Important
+
+* `[0]` = first value
+* `[1]` = second value
+
+# 🔹 C. CURRENT_TIMESTAMP → System Time
+
+```sql
+SELECT current_timestamp();
+```
+
+## 💡 Output:
+
+* current system date + time
+
+📌 Example:
+
+```
+2021-06-10 10:20:30
+```
+
+---
+
+## With alias
+
+```sql
+SELECT current_timestamp() AS ingestion_time;
+```
+
+---
+
+# 🔹 D. DATE_FORMAT → Change Date Format
+
+```sql
+SELECT date_format(dob, 'dd-MM-yyyy') FROM drivers;
+```
+
+## 💡 What happens?
+
+```
+1985-01-07 → 07-01-1985
+```
+
+![alt text](df.png)
+
+---
+
+## 📌 Use case:
+
+* dashboards
+* reporting
+* user-friendly format
+
+---
+
+# 🔹 E. DATE_ADD → Add Days
+
+```sql
+SELECT date_add(dob, 1) FROM drivers;
+```
+
+## 💡 What happens?
+
+```
+1985-01-07 → 1985-01-08
+```
+
+---
+
+## 📌 Use case:
+
+* forecasting
+* date calculations
+
+---
+
+# 🧠 4. VERY IMPORTANT UNDERSTANDING
+
+## 👉 All these are **Scalar Functions**
+
+That means:
+
+```
+Input rows = 853
+Output rows = 853
+```
+
+✔ Only column values change
+❌ Row count does NOT change
+
+---
+
+# 🔥 5. SQL vs PySpark Mapping (VERY IMPORTANT FOR YOU)
+
+| SQL               | PySpark             |
+| ----------------- | ------------------- |
+| CONCAT            | concat()            |
+| SPLIT             | split()             |
+| DATE_FORMAT       | date_format()       |
+| DATE_ADD          | date_add()          |
+| CURRENT_TIMESTAMP | current_timestamp() |
+
+👉 Same logic, different syntax
+
+
+# 🎯 6. Why This Matters in Real Projects
+
+In your Databricks pipeline:
+
+You will use functions for:
+
+* cleaning data
+* formatting columns
+* deriving new columns
+* preparing presentation layer
+
+
+# 🚀 7. Real Project Example
+
+```sql
+SELECT 
+  name,
+  SPLIT(name, ' ')[0] AS first_name,
+  SPLIT(name, ' ')[1] AS last_name,
+  CONCAT(driverRef, '-', code) AS driver_code,
+  date_format(dob, 'dd-MM-yyyy') AS formatted_dob
+FROM drivers;
+```
+
+👉 This is **real transformation logic**
+
+
+# 🧾 Final Summary (Very Important)
+
+👉 SQL functions help you:
+
+* transform data
+* create new columns
+* format values
+* avoid complex logic
+
+
+## 🔑 Golden Rule
+
+```text
+Scalar functions → row-level transformation (rows same)
+Aggregate functions → reduce rows
+Window functions → advanced analytics
+```
+
+# Aggregations & Window Functions in Databricks SQL
+
+## 📌 Overview
+
+* Aggregate functions (COUNT, MAX, SUM, etc.)
+* GROUP BY and HAVING
+* Window functions (RANK, ROW_NUMBER, etc.)
+
+These are essential for **data analysis, reporting, and building business metrics**.
+
+## 🧠 1. Aggregate Functions
+
+Aggregate functions summarize multiple rows into a single value.
+
+### Examples
+
+```sql
+SELECT COUNT(*) FROM drivers;
+   WHERE nationality = 'British';
+```
+
+![alt text](counts.png)
+
+```sql
+SELECT MAX(dob) FROM drivers;
+```
+
+### Key Point
+
+* Without GROUP BY → returns **single row**
+
+## 🚫 Problem Without GROUP BY
+
+```sql
+SELECT COUNT(*) FROM drivers WHERE nationality = 'British';
+```
+
+* Works for one case
+* Not scalable for all categories
+
+---
+
+## 🚀 2. GROUP BY
+
+Used to perform aggregation per group.
+
+```sql
+SELECT nationality, COUNT(*)
+FROM drivers
+GROUP BY nationality;
+```
+
+### Output
+
+| nationality | count |
+| ----------- | ----- |
+| British     | 165   |
+| American    | 157   |
+
+![alt text](gps.png)
+
+
+## 🔃 Sorting Results
+
+```sql
+SELECT nationality, COUNT(*)
+FROM drivers
+GROUP BY nationality
+ORDER BY COUNT(*) DESC;
+```
+
+
+## 🧩 GROUP BY Multiple Columns
+
+```sql
+SELECT nationality, dob, COUNT(*)
+FROM drivers
+GROUP BY nationality, dob;
+```
+
+---
+
+## 🔥 3. HAVING Clause
+
+Filters aggregated results.
+
+```sql
+SELECT nationality, COUNT(*)
+FROM drivers
+GROUP BY nationality
+HAVING COUNT(*) > 100;
+```
+
+### Difference
+
+| Clause | Purpose                        |
+| ------ | ------------------------------ |
+| WHERE  | Filter rows before aggregation |
+| HAVING | Filter after aggregation       |
+
+---
+
+## 🔄 Execution Order
+
+```text
+FROM → WHERE → GROUP BY → HAVING → ORDER BY
+```
+
+---
+
+## 🚀 4. Window Functions
+
+Window functions perform calculations **without reducing rows**.
+
+---
+
+## 🔹 RANK Example
+
+```sql
+SELECT
+  nationality,
+  name,
+  dob,
+  RANK() OVER (
+    PARTITION BY nationality
+    ORDER BY dob DESC
+  ) AS age_rank
+FROM drivers;
+```
+
+![alt text](rankover.png)
+
+---
+
+## 🧠 How It Works
+
+### PARTITION BY
+
+* Splits data into groups (e.g., nationality)
+
+### ORDER BY
+
+* Sorts within each group
+
+### RANK()
+
+* Assigns rank within each group
+
+---
+
+## 📊 Example Output
+
+| nationality | name           | dob  | rank |
+| ----------- | -------------- | ---- | ---- |
+| British     | Lando Norris   | 1999 | 1    |
+| British     | George Russell | 1998 | 2    |
+
+---
+
+## 🔁 Rank Reset Behavior
+
+* Ranking restarts for each partition
+
+---
+
+## 🔥 Other Window Functions
+
+| Function     | Description          |
+| ------------ | -------------------- |
+| RANK()       | Ranking with gaps    |
+| DENSE_RANK() | Ranking without gaps |
+| ROW_NUMBER() | Unique sequence      |
+| LEAD()       | Next row value       |
+| LAG()        | Previous row value   |
+
+---
+
+## ⚖️ GROUP BY vs Window Functions
+
+| Feature        | GROUP BY | Window    |
+| -------------- | -------- | --------- |
+| Reduces rows   | Yes      | No        |
+| Shows all data | No       | Yes       |
+| Use case       | Summary  | Analytics |
+
+---
+
+## 🎯 Use Cases
+
+### Aggregations
+
+* Total drivers per nationality
+* Total points per driver
+
+### Window Functions
+
+* Rank drivers by age
+* Top performers per country
+* Compare previous records
+
+---
+
+## 🚀 Best Practices
+
+* ✅ Use GROUP BY for summaries
+* ✅ Use HAVING for aggregated filtering
+* ✅ Use Window functions for ranking/analytics
+* ✅ Always alias calculated columns
+
+# SQL Joins in Databricks (Complete Guide)
+
+## 📌 Overview
+
+You will learn:
+
+* Inner Join
+* Left Join
+* Right Join
+* Full Outer Join
+* Left Semi Join
+* Left Anti Join
+* Cross Join
+
+---
+
+## 🧠 Dataset Understanding
+
+We use the `driver_standings` table from the **f1_presentation** database.
+
+### Columns:
+
+* race_year
+* driver_name
+* nationality
+* team
+* total_points
+* wins
+* rank
+
+---
+
+## 🧪 Setup
+
+We create two temporary views:
+
+```sql
+CREATE OR REPLACE TEMP VIEW d_2018 AS
+SELECT * FROM f1_presentation.driver_standings WHERE race_year = 2018;
+
+CREATE OR REPLACE TEMP VIEW d_2020 AS
+SELECT * FROM f1_presentation.driver_standings WHERE race_year = 2020;
+```
+
+### Data:
+
+* 2018 → 20 drivers
+* 2020 → 24 drivers
+* Some drivers overlap, some don’t
+
+---
+
+## 🔗 1. INNER JOIN
+
+```sql
+SELECT *
+FROM d_2018 d18
+INNER JOIN d_2020 d20
+ON d18.driver_name = d20.driver_name;
+```
+
+### ✅ Result:
+
+* Only matching drivers
+* Output: **15 rows**
+
+### 💡 Use Case:
+
+* Common records between datasets
+
+---
+
+## ⬅️ 2. LEFT JOIN
+
+```sql
+SELECT *
+FROM d_2018 d18
+LEFT JOIN d_2020 d20
+ON d18.driver_name = d20.driver_name;
+```
+
+### ✅ Result:
+
+* All 2018 drivers
+* Missing 2020 → NULL
+* Output: **20 rows**
+
+### 💡 Use Case:
+
+* Preserve base dataset (left side)
+
+---
+
+## ➡️ 3. RIGHT JOIN
+
+```sql
+SELECT *
+FROM d_2018 d18
+RIGHT JOIN d_2020 d20
+ON d18.driver_name = d20.driver_name;
+```
+
+### ✅ Result:
+
+* All 2020 drivers
+* Missing 2018 → NULL
+* Output: **24 rows**
+
+---
+
+## 🔁 4. FULL OUTER JOIN
+
+```sql
+SELECT *
+FROM d_2018 d18
+FULL OUTER JOIN d_2020 d20
+ON d18.driver_name = d20.driver_name;
+```
+
+### ✅ Result:
+
+* All drivers from both years
+* Output: **29 rows**
+
+---
+
+## ⚡ 5. LEFT SEMI JOIN
+
+```sql
+SELECT *
+FROM d_2018 d18
+LEFT SEMI JOIN d_2020 d20
+ON d18.driver_name = d20.driver_name;
+```
+
+### ✅ Result:
+
+* Only drivers from 2018 that exist in 2020
+* Output: **15 rows**
+* Only left table columns
+
+### 💡 Use Case:
+
+* Filter existence
+
+---
+
+## 🚫 6. LEFT ANTI JOIN
+
+```sql
+SELECT *
+FROM d_2018 d18
+LEFT ANTI JOIN d_2020 d20
+ON d18.driver_name = d20.driver_name;
+```
+
+### ✅ Result:
+
+* Drivers in 2018 NOT in 2020
+* Output: **5 rows**
+
+### 💡 Use Case:
+
+* Find missing data
+
+---
+
+## ⚠️ 7. CROSS JOIN
+
+```sql
+SELECT *
+FROM d_2018 d18
+CROSS JOIN d_2020 d20;
+```
+
+### ✅ Result:
+
+* Cartesian product
+* Output: **480 rows (20 × 24)**
+
+### ⚠️ Warning:
+
+* Can explode data size
+
+---
+
+## 📊 Join Summary
+
+| Join Type | Output | Description         |
+| --------- | ------ | ------------------- |
+| INNER     | 15     | Matching records    |
+| LEFT      | 20     | All left + matches  |
+| RIGHT     | 24     | All right + matches |
+| FULL      | 29     | All records         |
+| SEMI      | 15     | Left filtered       |
+| ANTI      | 5      | Missing in right    |
+| CROSS     | 480    | All combinations    |
+
+---
+
+## 🚀 Real-World Use Cases
+
+* INNER → combine datasets
+* LEFT → enrich data pipelines
+* ANTI → detect missing records
+* SEMI → existence checks
+
+
+
+# SQL Spark - Analysis
+
+- Calculated_race_results
+
+![alt text](createracetable1.png)
+
+![alt text](createracetable2.png)
+
+## Find Dominant Drivers
+
+![alt text](finddominantdriver1.png)
+
+
+- Order by avg_points of driver_name
+
+![alt text](finddominantdriver2.png)
+
+
+
+# 🚀 Dominant Drivers Visualization (Databricks)
+
+
+## Step 1: Base Aggregation (Driver Performance)
+
+Aggregate driver-level performance using calculated points.
+
+```sql
+SELECT
+  driver_name,
+  COUNT(1) AS total_races,
+  SUM(calculated_points) AS total_points,
+  AVG(calculated_points) AS avg_points
+FROM f1_presentation.calculated_race_results
+GROUP BY driver_name
+```
+
+---
+
+## Step 2: Rank Drivers (All-Time)
+
+Use a **window function** to rank drivers based on average performance.
+
+```sql
+SELECT
+  driver_name,
+  COUNT(1) AS total_races,
+  SUM(calculated_points) AS total_points,
+  AVG(calculated_points) AS avg_points,
+  RANK() OVER (ORDER BY AVG(calculated_points) DESC) AS driver_rank
+FROM f1_presentation.calculated_race_results
+GROUP BY driver_name
+```
+
+### 🔑 Key Points
+
+* No `PARTITION BY` → ranking across all drivers
+* Ranking metric = `AVG(calculated_points)`
+* Output used for filtering top drivers
+
+---
+
+## 🧾 Step 3: Create Temporary View
+
+Store ranked drivers for reuse.
+
+```sql
+CREATE OR REPLACE TEMP VIEW v_dominant_drivers AS
+SELECT
+  driver_name,
+  RANK() OVER (ORDER BY AVG(calculated_points) DESC) AS driver_rank
+FROM f1_presentation.calculated_race_results
+GROUP BY driver_name
+```
+
+---
+
+## 📊 Step 4: Year-wise Performance
+
+Prepare data for visualization.
+
+```sql
+SELECT
+  race_year,
+  driver_name,
+  COUNT(1) AS total_races,
+  SUM(calculated_points) AS total_points,
+  AVG(calculated_points) AS avg_points
+FROM f1_presentation.calculated_race_results
+WHERE driver_name IN (
+    SELECT driver_name
+    FROM v_dominant_drivers
+    WHERE driver_rank <= 10
+)
+GROUP BY race_year, driver_name
+ORDER BY race_year
+```
+
+### ⚠️ Important Fix
+
+* Removed condition like `COUNT(1) > 50`
+* Reason: Each year has limited races (~20), so filter fails
+
+---
+
+## 📈 Step 5: Visualization in Databricks
+
+### 1️⃣ Line Chart
+
+* **X-axis**: `race_year`
+* **Group By**: `driver_name`
+* **Value**: `avg_points`
+
+👉 Shows **performance trend over time**
+
+---
+
+### 2️⃣ Bar Chart
+
+* **Keys**: `driver_name`
+* **Values**: `total_races`, `total_points`
+
+👉 Shows **comparison between drivers**
+
+---
+
+### 3️⃣ Area Chart (Recommended)
+
+* **X-axis**: `race_year`
+* **Group By**: `driver_name`
+* **Value**: `avg_points`
+
+👉 Best for visualizing **dominance eras**
+
+---
+
+## 🧠 Key Concepts Covered
+
+### ✅ Window Functions
+
+* `RANK()` for ranking drivers
+
+### ✅ Aggregations
+
+* `COUNT`, `SUM`, `AVG`
+
+### ✅ Filtering
+
+* `IN` clause with subquery
+
+### ✅ Temporary Views
+
+* Reusable intermediate datasets
+
+### ✅ Visualization
+
+* Line, Bar, Area charts in Databricks
+
+# Incremental Load
+
+## Objective
+
+Understand and implement **industry-standard data loading strategies** to build scalable, efficient data pipelines.
+
+---
+
+## Why This Matters
+
+So far, we reloaded the **entire dataset on every run** (full overwrite). This works for small data, but fails at scale.
+
+### Problems with Full Overwrite
+
+* Slow for large datasets
+* Expensive compute cost
+* Not scalable for frequent pipelines
+
+👉 Real-world systems require smarter loading strategies.
+
+## Core Design Patterns
+
+### 1. Full Refresh (Full Load)
+
+Reload the entire dataset every time.
+
+```text
+Day 1 → Load 100 records
+Day 2 → Reload all 110 records
+```
+
+#### ✅ When to Use
+
+* Small datasets
+* Simple pipelines
+* Initial load
+
+#### ❌ Limitations
+
+* Inefficient for large data
+* High compute cost
+
+---
+
+### 2. Incremental Load (Most Important 🔥)
+
+Load only **new or changed data**.
+
+```text
+Day 1 → Load 100 records
+Day 2 → Load only new 10 records
+```
+
+#### ✅ Benefits
+
+* Faster ⚡
+* Cost-efficient 💰
+* Scalable 📈
+
+#### 🔧 Common Techniques
+
+* Filter using timestamp:
+
+```sql
+WHERE updated_date > last_loaded_date
+```
+
+* Use unique IDs to detect new records
+
+---
+
+### 3. Hybrid Approach (Real-World Standard 🔥🔥)
+
+Combination of:
+
+* Full load (historical data)
+* Incremental load (new data)
+
+* Full dataset received, but data loaded & transformed incremental.
+* Incremental dataset received, but data loaded & transformed full.
+* Data received contains both full and incremental files
+* Incremental data received. Ingested incrementally & transformed full.
+
+#### Example
+
+* Historical data → One-time full load
+* Daily ingestion → Incremental updates
+
+#### ✅ Why Use Hybrid?
+
+* Flexible
+* Handles different data scenarios
+* Industry best practice
+
+
+
+
+# Incremental Load Methods
+
+## Goal
+
+Load only **new data** without:
+
+* ❌ Losing old data
+* ❌ Creating duplicates
+
+---
+
+# Problem
+
+If we rerun same file:
+
+* Append → duplicates ❌
+* Overwrite → data loss ❌
+
+👉 Need smarter way ✅
+
+---
+
+# Method 1: Partition Replace (Manual)
+
+## Idea
+
+👉 Delete old data for that partition → Insert new data
+
+---
+
+## Flow
+
+1. Read new file
+2. Get raceId
+3. Delete that partition
+4. Insert new data
+
+---
+
+## Example
+
+Before:
+
+```
+1052 → 20 rows
+1053 → 20 rows
+```
+
+Rerun 1053:
+
+* Delete 1053
+* Insert 1053
+
+After:
+
+```
+1052 → 20 ✅
+1053 → 20 ✅
+```
+
+---
+
+## How to do
+
+### Ste 1: Get raceIds
+
+```python
+race_ids = [row.raceId for row in df.select("raceId").distinct().collect()]
+```
+
+### Step 2: Drop partition
+
+```python
+for race_id in race_ids:
+    spark.sql(f"""
+    ALTER TABLE table_name
+    DROP IF EXISTS PARTITION (raceId = {race_id})
+    """)
+```
+
+### Step 3: Append data
+
+```python
+df.write.mode("append").partitionBy("raceId").saveAsTable("table_name")
+```
+
+---
+
+## 👍 Pros 
+
+* Simple logic
+* Easy to understand
+
+## 👎 Cons
+
+* Manual loop (slow for large data)
+
+---
+
+# Method 2: Dynamic Partition Overwrite (Auto)
+
+## Idea
+
+👉 Let Spark automatically replace only changed partitions
+
+---
+
+## Flow
+
+1. Read new file
+2. Enable dynamic overwrite
+3. Insert into table
+4. Spark replaces only that partition
+
+---
+
+## 🧪 Example
+
+Before:
+
+```
+1052 → 20 rows
+1053 → 20 rows
+```
+
+Rerun 1053:
+
+* Spark replaces only 1053
+
+After:
+
+```
+1052 → 20 ✅
+1053 → 20 ✅
+```
+
+---
+
+## How to do
+
+### Step 1: Enable dynamic mode
+
+```python
+spark.conf.set("spark.sql.sources.partitionOverwriteMode", "dynamic")
+```
+
+### Step 2: Make sure partition column is last
+
+```python
+df = df.select("col1", "col2", ..., "raceId")
+```
+
+### Step 3: Insert into table
+
+```python
+df.write.mode("overwrite").insertInto("table_name")
+```
+
+Unity Catlog - Introductions
+---
+
+## Objective
+
+Understand **Unity Catalog in Databricks** for:
+
+* Data governance
+* Access control
+* Better data organization
+
+# What is Unity Catalog?
+
+👉 Unity Catalog is a **central place to manage data + permissions** in Databricks.
+
+### Simple Meaning:
+
+> Control **who can access what data** and organize data properly
+
+**Data Governance** - is the process of managing the availability, usability, integrity and security of the data present in an enterprise
+
+  * control access to the data for users
+  * Ensures that data is trust worthy and not misused
+  * Helps implement privacy regulations such as GDPR, CCPA etc
+  
+
+
+# Why do we need it?
+
+Without Unity Catalog:
+
+* No proper access control
+* Data scattered everywhere
+* Hard to manage security
+
+With Unity Catalog:
+
+* ✅ Centralized control
+* ✅ Secure data access
+* ✅ Organized structure
+
+
+
+# Core Concepts
+
+## 🔹 1. Metastore
+
+👉 Top-level container (like main system)
+
+* Stores metadata
+* Controls catalogs
+
+### Think:
+
+> Metastore = Main cupboard
+
+## 🔹 2. 3-Level Namespace
+
+```
+Catalog → Schema → Table
+```
+
+### Example:
+
+```
+f1_catalog.raw.results
+```
+
+### Meaning:
+
+* Catalog → Project / Domain
+* Schema → Layer (raw, processed, presentation)
+* Table → Actual data
+
+## 🔹 3. Catalog
+
+👉 Top-level grouping of data
+
+Example:
+
+* f1_catalog
+
+## 🔹 4. Schema (Database)
+
+👉 Sub-folder inside catalog
+
+Example:
+
+* raw
+* processed
+* presentation
+
+## 🔹 5. Table / View
+
+👉 Actual data stored or queried
+
+# Governance
+
+Unity Catalog helps:
+
+* Control access (who can read/write)
+* Secure sensitive data
+* Manage permissions centrally
+
+# What You Will Do Practically
+
+## Step 1: Create Metastore
+
+👉 Create Unity Catalog metastore
+
+## Step 2: Assign Workspace
+
+👉 Connect Databricks workspace to metastore
+
+## Step 3: Configure Cluster
+
+👉 Enable cluster to use Unity Catalog
+
+## Step 4: Understand Object Model
+
+Learn:
+
+* Catalog
+* Schema
+* Table
+
+## Step 5: Connect External Data
+
+👉 Access Azure Data Lake securely
+
+Using:
+
+* Storage credentials
+* External locations
+
+# Object Hierarchy
+
+```
+Metastore
+   ↓
+Catalog
+   ↓
+Schema
+   ↓
+Table / View / Volume
+```
+
+# How it fits in YOUR project
+
+```
+CMemory Trick
+```
+
+👉 Think like folder structure:atalog: f1_catalog
+
+Schemas:
+- raw
+- processed
+- presentation
+
+Tables:
+- results
+- drivers
+- races
+
+# Data Governance
+
+Unity Catalog solves 4 key areas:
+
+## 1. Access Control
+
+* Who can read/write data
+* Works for tables, files, notebooks, dashboards
+
+## 2. Audit Logs
+
+* Track who accessed data
+* When and how often
+
+## 3. Data Lineage
+
+* Track data flow (source → transformation → output)
+* Helps debugging & trust
+
+## 4. Data Discovery
+
+* Searchable data catalog (Data Explorer)
+
+
+
+# 🆚 Before vs After Unity Catalog
+
+## ❌ Before
+
+* Each workspace separate
+* Separate user management
+* Hive Metastore per workspace
+* Duplicate metadata
+* Complex security setup
+
+## After
+
+* One centralized metastore
+* One user management system
+* One place for access control
+* Shared across all workspaces
+
+---
+
+# Multi-Workspace Problem (IMPORTANT)
+
+Real companies have:
+
+* Dev
+* Test
+* UAT
+* Prod
+
+👉 Without Unity Catalog:
+
+* Same users configured again
+* Same tables registered again
+
+👉 With Unity Catalog:
+
+* Everything centralized
+* Workspaces only handle compute
+
+
+# ⚠️ Hive Metastore vs Unity Catalog
+
+## Hive Metastore
+
+* Old system
+* Workspace-level
+* Limited features
+
+## Unity Catalog Metastore
+
+* New system
+* Account-level
+* Supports:
+
+  * Lineage
+  * Audit logs
+  * Centralized access
+
+👉 Recommendation: Use Unity Catalog only
+
+
+![alt text](wwuc.png)
+
+- `We can have account level Unity Catelog that contains user management and the metadata management` across `multiple workspace`.
+
+
+**User Management** and **Metastores** are centralized.
+
+- The workspace will have compute resources and they will have access the unity catelog for user management and metadata management.
+
+## One Metastore per Region
+
+👉 For large companies:
+
+- Use 1 metastore per region for:
+
+- Better performance
+
+- Lower cost
+
+- Avoid cross-region data transfer
+
+![alt text](uc.png)
+
+**Unity Catelog** offer **Additional Features** like
+
+### 3. Data Explorer (Data Discovery)
+
+👉 Searchable data catalog
+
+Find tables easily
+
+Explore schemas and data
+
+🧠 Problem solved:
+
+No need to search manually in large data lake
+
+### 4. Data Lineage
+
+👉 Track data flow
+
+Upstream → where data comes from
+
+Downstream → where data is used
+
+Example:
+
+Raw → Processed → Presentation
+
+✅ Helps in:
+
+Debugging issues
+
+Understanding transformations
+
+Trusting data
+
+**Also allow to Integrate to External Storage Services with Access management and permissions**.
+
+### 5. Audit Logs
+
+👉 Track data usage
+
+Who accessed data
+
+When accessed
+
+How often
+
+✅ Helps in:
+
+Monitoring usage
+
+Security compliance
+
+# Unity Catalog Set-Up
+
+**Matastore** is stored within Databricks.
+
+  1. `ADLS Gen2 Container` - To store data of managed table that you will create.
+  
+  2. `Managed Identity/Service Principal` - Requires **Storage Blob Data Contributor Role** on the storage account. So it can Read, Write data to the storage account.
+
+  - This is done by Managed Identity and Service Principal.
+
+  - Databrick Recommended **Managed Identity**.
+
+![alt text](ucst.png)
+
+**Azure Connector** - Is a first party service for databricks. 
+
+**Azure Connector** will automatically creates **Managed Identity** and Assigns the Managed identity to the databricks account.
+
+Once we have ADSL Gen2 Storage and Managed Identity , we can create Metastores.
+
+Then we will link `Databrick workspace` to `Metastore`.
+
+- Now this databrick workspace now start to use Unity Catalog.
+
+## We have created SA, Databrick WS, Access Accelerator
+
+## Assign Storage Blob Data Conrtributor Role to Access Accelerator
+
+- Go to SA > IAM > Add role assignment > Select role "Storage Blob Data Contributor.
+
+- Choose Managed Identity > Access Accelerator
+
+![alt text](sbdcaa.png)
+
+## Create Unit Catalog Metastore
+
+- Launch Databrick > Go to Profile > Manage Account > catelog
+
+![alt text](cm.png)
+
+- Choose your workspace and create it.
+
+Unity Catalog Object Model
+---
+
+
+![alt text](ucom.png)
+
+# 📘 Unity Catalog – Object Model & Data Organization (Azure Databricks)
+
+---
+
+## 🧠 Overview
+
+Unity Catalog is a centralized governance layer in Databricks that provides:
+
+* Unified data governance
+* Fine-grained access control
+* Centralized metadata management
+* Secure access to data across workspaces
+
+It operates at the **account level** and supports **one metastore per region**.
+
+---
+
+## 🏗️ Unity Catalog Object Hierarchy
+
+Unity Catalog follows a structured hierarchy:
+
+```
+Metastore
+   ↓
+Catalog
+   ↓
+Schema (Database)
+   ↓
+Tables / Views / Functions
+```
+
+---
+
+## 🔝 1. Metastore
+
+* Top-level container for all metadata
+* Created at **account level**
+* **One per region**
+* Connected to a default storage (ADLS Gen2)
+* Multiple workspaces can be attached
+
+✅ Acts as the **root of all data objects**
+
+---
+
+## 📂 2. Catalog
+
+* Logical container inside a metastore
+* Used to organize data by:
+
+  * Business unit (finance, sales, etc.)
+  * Environment (dev, test, prod)
+
+### Example:
+
+```
+dev
+test
+prod
+finance
+sales
+```
+
+---
+
+## 📁 3. Schema (Database)
+
+* Exists inside a catalog
+* Schema = Database (same meaning)
+* Recommended term: **Schema**
+
+### Example:
+
+```
+bronze
+silver
+gold
+```
+
+---
+
+## 📊 4. Tables / Views / Functions
+
+* Final level objects
+
+| Object   | Description    |
+| -------- | -------------- |
+| Table    | Stores data    |
+| View     | Logical query  |
+| Function | Reusable logic |
+
+---
+
+## 🔥 Namespace (Important Change)
+
+### Legacy (Hive Metastore)
+
+```
+schema.table
+```
+
+### Unity Catalog
+
+```
+catalog.schema.table
+```
+
+### Example:
+
+```
+f1_dev.bronze.drivers
+```
+
+---
+
+## 💾 Managed vs External Tables
+
+### 🔹 Managed Tables
+
+* Databricks manages:
+
+  * Metadata ✅
+  * Data ✅
+* Only **Delta format supported**
+* Stored in metastore default storage
+* Data retention: **30 days after drop**
+
+✅ Recommended for most use cases
+
+---
+
+### 🔹 External Tables
+
+* Databricks manages:
+
+  * Metadata only ❌
+* Data stored externally (ADLS, etc.)
+* Dropping table does **not delete data**
+
+✅ Useful when:
+
+* Data is produced by external systems (e.g., pipelines)
+
+---
+
+## ⚠️ Key Differences (Hive vs Unity Catalog)
+
+| Feature               | Hive Metastore | Unity Catalog    |
+| --------------------- | -------------- | ---------------- |
+| Namespace             | 2-level        | 3-level          |
+| Managed Table Formats | Multiple       | Delta only       |
+| Data Deletion         | Immediate      | 30-day retention |
+| Governance            | Limited        | Centralized      |
+
+---
+
+## 🔐 Additional Unity Catalog Objects
+
+### 1. Storage Credential
+
+* Secure authentication to cloud storage
+
+### 2. External Location
+
+* Defines external storage paths
+
+👉 Used together for secure external data access
+
+---
+
+### 3. Delta Sharing Objects
+
+* Share
+* Recipient
+* Provider
+
+👉 Used for cross-organization data sharing
+
+---
+
+## 🧩 Data Organization Best Practices
+
+### ✅ Approach 1: Environment-Based
+
+```
+Metastore: company
+
+Catalogs:
+  dev
+  test
+  prod
+
+Schemas:
+  bronze
+  silver
+  gold
+```
+
+---
+
+### ✅ Approach 2: Business + Environment
+
+```
+Metastore: sports_analytics
+
+Catalogs:
+  f1_dev
+  f1_test
+  f1_prod
+  football_dev
+  cricket_dev
+```
+
+---
+
+### ✅ Approach 3: Team Sandboxes
+
+```
+Catalogs:
+  dev
+  prod
+  team_a_sandbox
+  team_b_sandbox
+```
+
+
+## 🎯 Key Takeaways
+
+* Unity Catalog uses a **3-level namespace**
+* Metastore is **region-specific and account-level**
+* Catalog organizes data by **business or environment**
+* Schema = Database (new terminology)
+* Managed tables:
+
+  * Only Delta format
+  * 30-day recovery
+* External tables:
+
+  * Data not deleted on drop
+* Secure access via:
+
+  * Storage Credentials
+  * External Locations
+
+
+
+![alt text](schema.png)
+
+# Create Catalog
+
+## Step 1 - Go to Databrick workspace > catalog > Crete.
+ 
+  - Enter external locations or keep it blank for default location for tables
+
+  - If keep it blank - default locations stores your all managed tables.
+
+  ![alt text](cclg.png)
+
+## Step 2 - Give Permissions to catalogs
+
+![alt text](gpcg.png)
+
+
+### Key Sections of the Menu
+
+* **Principals:** Where you select the specific users or groups who will receive these permissions.
+
+* **Privilege Presets:** Offers quick templates (like "Owner" or "Read-Only"). Choosing **Custom** (as shown) allows you to pick specific rights manually.
+
+* **Permissions Categories:**
+
+  * **Prerequisite:** `USE CATALOG` and `USE SCHEMA` are the "door openers." A user must have these to even see the objects inside the catalog or schema.
+
+  * **Read:** Permissions to query data (`SELECT`), run code (`EXECUTE`), or view files (`READ VOLUME`).
+
+  * **Create:** Crucial for developers. This controls who can build new `TABLES`, `SCHEMAS`, or `MODELS`.
+
+  * **Metadata/Edit:** Controls the ability to organize data (like `APPLY TAG`) or change existing data (`MODIFY`).
+
+## Step 3 - Create Schemas
+
+![alt text](cs.png)
+
+## Step 4 - Add Data into this Schemas
+
+- To add data files click on create Tables > Upload files
+
+![alt text](adddata.png)
+
+- This schema/tables stores under this locations **abfss://unity-catalog-storage@dbstoragetijmqlf45itye.dfs.core.windows.net/7405607740118367/__unitystorage/catalogs/1cfba3bd-45ed-4a11-b907-b27a856b0d91/tables/e24cc5b7-0dfb-4741-9f3f-6b1b7c4dea1c**
+
+`abfss://<Container_of_Your_default_storage_account's>.dfs.core.windoes.net/<Metastore_Id>/_unitystorage/catalogs/<GUID_Of_Catalog>/tables/<GUID_Of_Tables>`
+
+
+# Unity Catalog – Access External Data Lake
+
+## Overview
+
+By default, Databricks accesses data from the **default storage** configured during metastore creation. However, in real-world scenarios, organizations often use **multiple Data Lakes**.
+
+To securely access external Data Lakes, Unity Catalog provides a structured and governed approach.
+
+## 🎯 Objective
+
+Access external Azure Data Lake Storage (ADLS Gen2) using Unity Catalog with proper security and access control.
+
+## 🧱 Key Concepts
+
+### 1. Storage Credential
+
+Storage Credential is used for authentication.
+
+* Defines how Databricks connects to storage
+* Uses:
+
+  * Managed Identity (Recommended)
+  * Service Principal
+
+**Definition:**
+
+> Storage Credential = Identity used to access storage
+
+### 2. External Location
+
+External Location defines the storage path along with access method.
+
+* Combines:
+
+  * Storage Credential
+  * Data Lake path
+
+**Definition:**
+
+> External Location = (Storage Path + Credential)
+
+## 🔁 Access Flow
+
+User → Unity Catalog → External Location → Storage Credential → Data Lake
+
+## 🔐 Why Use Unity Catalog?
+
+Compared to legacy methods (Access Keys, SAS, Service Principals directly):
+
+* Centralized security
+* Fine-grained access control
+* Data lineage tracking
+* Auditing capabilities
+
+## ⚙️ Implementation Steps
+
+### Step 1: Create Access Connector
+
+* Azure service that connects Databricks with Managed Identity
+
+### Step 2: Create External Data Lake
+
+* Create a new Azure Data Lake Storage (ADLS Gen2)
+
+### Step 3: Assign Role
+
+* Role: Storage Blob Data Contributor
+* Assign to: Access Connector
+
+### Step 4: Create Storage Credential
+
+* Use Access Connector details
+* Enables authentication to storage
+
+### Step 5: Create External Location
+
+* Combine:
+
+  * Storage Credential
+  * Data Lake container/path
+
+### Step 6: Grant Permissions
+
+* Control access at:
+
+  * Storage Credential level
+  * External Location level
+
+## ⚠️ Important Notes
+
+* External storage is not accessible by default
+* Managed Identity is recommended over Service Principal
+* Access is governed by Unity Catalog permissions
+* If user lacks permission, access is denied immediately
+
+## 🧠 Quick Summary
+
+* Default storage → Already accessible
+* External storage → Requires setup
+* Key components:
+
+  * Access Connector
+  * Storage Credential
+  * External Location
+
+Unity Catalog ensures secure, governed, and scalable data access.
+
