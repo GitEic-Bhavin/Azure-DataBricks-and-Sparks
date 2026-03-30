@@ -367,15 +367,10 @@ When you run a notebook:
 | Serverless Compute | Databricks                 |
 
 
----
+# 🚀 Azure Databricks Clusters
 
-# 🚀 Azure Databricks Clusters – Learning Guide
 
-This README is a **pre-learning guide** to help you clearly understand what you will learn in the upcoming section about **Databricks Clusters**.
-
----
-
-# 🎯 What You Will Learn
+# What You Will Learn
 
 In this section, you will build a **strong foundation around Databricks Clusters**, which are the core compute resources used to run your data workloads.
 
@@ -682,9 +677,8 @@ Cluster Pool
 
 # 🚀 Azure Databricks Cluster Pools – Complete Guide
 
-This README is your **master reference** for understanding Azure Databricks **Cluster Pools** and how to balance **performance ⚡ and cost 💸**.
 
-# ☕ The Coffee Shop Analogy
+# The Coffee Shop Analogy
 
 To understand Cluster Pools, imagine a coffee shop:
 
@@ -1690,7 +1684,6 @@ Example:
 
 
 
-############################################
 
 # ⚡ Spark Architecture in Databricks 
 
@@ -2035,7 +2028,6 @@ Example:
 * Joining related datasets
 * Preparing analytics-ready data
 
-#####################################3
 
 # 🏎️ Formula 1 Databricks Project – Requirements Explained
 
@@ -2527,7 +2519,6 @@ display(races_df)
 
 ![alt text](readrc.png)
 
-##################################
 
 
 
@@ -2944,7 +2935,6 @@ ls /mnt/formula1/processed/constructors
 
 ![alt text](writoj.png)
 
-#################################################3
 
 # Azure Databricks – Drivers Data Ingestion (Nested JSON)
 
@@ -3493,7 +3483,6 @@ PROCESSED
 * Use `.option("multiLine", True)`
 * Schema still required for consistency
 
-#########################################################
 
 # Azure Databricks – Lap Times Data Ingestion (Multiple CSV Files)
 
@@ -4391,7 +4380,6 @@ Continue...
 
 - Create required cluster.
 
-################################
 
 
 # Spark Filter Transformation – README
@@ -4875,7 +4863,6 @@ result_df.show()
 ```
 
 
-#############################################
 
 
 
@@ -6089,13 +6076,7 @@ ORDER BY nationality ASC, dob DESC;
 * ORDER BY → Sort data
 * LIMIT → Control output
 
-#####################
 
-Good — this is a very important lesson because **SQL functions = how you actually transform data in SQL** (just like transformations in PySpark).
-
-Let me break this in a **clear + practical + real understanding way** 👇
-
----
 
 # 🧠 1. What are SQL Functions (in Databricks / Spark)?
 
