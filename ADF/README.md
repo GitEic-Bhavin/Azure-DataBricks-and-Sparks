@@ -201,3 +201,22 @@ Go to Activity - Add Dynamic Activity.
 
 ![alt text](image.png)
 
+
+Create Transformation Pipelines
+---
+
+- Clone of previous pipelines > Go to If conditions activity > Delete all Ingest Activity.
+
+- Add 4 Pipelines for race_results, calculated_race_results, constructor_stainding, driver_standing from trans/ dir.
+
+**Conditions** 
+
+- 1. race_result shoult run first.
+
+- 2. constructor and driver standing should run after if race_result success.
+
+- 3. calculated_race_result can run independently.
+
+
+
+
